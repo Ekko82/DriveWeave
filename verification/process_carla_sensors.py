@@ -47,6 +47,12 @@ def project(points_xyz, world_from_lidar, world_from_camera, K, width, height):
 
 
 def fit_ground(xyz, seed=0, threshold=.18, iterations=160):
+    # Preserve the native raw coordinates but perform the derived fit/mask in
+    # float64. A float32 residual can round across the unchanged .18m boundary
+    # while an independent reconstruction from the same stored plane does not.
+    # The persisted coefficients and mask therefore share one exact arithmetic
+    # definition with the independent auditor; no threshold epsilon is added.
+    xyz = np.asarray(xyz, dtype=np.float64)
     # Local ground search excludes roofs and distant building facades.
     roi = (abs(xyz[:,1])<8) & (xyz[:,0]>-15) & (xyz[:,0]<35) & (xyz[:,2]<-.5)
     candidates = xyz[roi]

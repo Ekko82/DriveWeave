@@ -36,7 +36,7 @@ class LongitudinalGovernor:
         self.previous_speed = None
         self.measured_acceleration = 0.0
 
-    def step(self, desired, speed, emergency=False):
+    def step(self, desired, speed, emergency=False, coast_stop=False):
         if self.previous_speed is not None:
             measured = (speed-self.previous_speed)/self.dt
             self.measured_acceleration = .7*self.measured_acceleration+.3*measured
@@ -44,6 +44,12 @@ class LongitudinalGovernor:
         if emergency:
             self.requested_acceleration = -self.deceleration
             self.throttle, self.brake = 0.0, 1.0
+        elif coast_stop:
+            # Opt-in junction physics policy: any positive brake at low speed
+            # can cause a native wheel-lock spike. The zero is exact. This is a
+            # control request, never a replacement velocity or acceleration.
+            self.requested_acceleration = 0.0
+            self.throttle, self.brake = 0.0, .35 if speed <= .1 else 0.0
         else:
             target = max(-self.deceleration, min(self.acceleration, .7*(desired-speed)))
             step = self.jerk*self.dt
@@ -64,6 +70,97 @@ class LongitudinalGovernor:
             elif self.brake > .01:
                 self.throttle = 0.0
         return self.throttle, self.brake
+
+
+def junction_coast_stop_policy():
+    """Actual 0512 Tesla coast samples plus explicit planning margins.
+
+    Distances below are remaining *actual pose arc* while already coasting,
+    not distances asserted for every scene. The measured 0.911497m release
+    transient and one upcoming physics tick are added before initiating coast.
+    Full scene motion, stop pose, conflict and clearance audits remain required.
+    """
+    return {'enabled': True, 'mode': 'coast_only',
+        'blueprint': 'vehicle.tesla.model3', 'maximum_approach_speed_mps': 6.0,
+        'actual_stop_speed_mps': .1, 'actual_stopped_confirmation_seconds': .5,
+        'release_transient_margin_m': .9114971194266213,
+        'calibration_source': 'verification/brake-probe-20261012-0512/coast_only/frames.jsonl',
+        'calibration_frames_sha256': '69366135ca704b54c0e966603e451680b8018485b95457a5f13861cd9b5c7e0a',
+        'coasting_speed_remaining_distance_m': [
+            [.09710806933138047, 0.], [.2468581986538692, .34626388836353683],
+            [.5021088060265628, .9729244031957239], [.7521614963146751, 1.5598391979844626],
+            [1.0045546866142412, 2.167351162106249], [1.4857801443600218, 3.332336413331056],
+            [1.9905121461985658, 4.539784884858598], [2.509745609133081, 5.769381454691748],
+            [3.0216964324018925, 7.007837631099087], [3.4978004945483465, 8.144597722353737],
+            [3.9641022479343038, 9.259330824773468], [4.4948371783367636, 10.524014085815809],
+            [4.976704168978188, 11.95022905335819], [5.567550272468093, 13.261016763499251],
+            [5.9787192689150945, 14.413224537760419], [6.02685458885608, 14.713156380546377]],
+        'scene_runtime_acceptance': False}
+
+
+def remaining_path_arc(position, path, nearest):
+    """Project onto actual reference segments; return remaining native arc."""
+    candidates = []
+    for i in range(max(0, nearest-1), min(len(path)-1, nearest+1)):
+        a, b = path[i], path[i+1]
+        dx, dy = b[0]-a[0], b[1]-a[1]
+        squared = dx*dx+dy*dy
+        if squared <= 1e-12:
+            continue
+        u = max(0., min(1., ((position[0]-a[0])*dx+(position[1]-a[1])*dy)/squared))
+        point = [a[0]+u*dx, a[1]+u*dy]
+        remaining = (1.-u)*math.sqrt(squared)+sum(distance(x,y) for x,y in zip(path[i+1:],path[i+2:]))
+        candidates.append((distance(position, point), remaining))
+    if not candidates:
+        return distance(position, path[-1])
+    return min(candidates)[1]
+
+
+class JunctionCoastStop:
+    def __init__(self, specification, dt):
+        self.enabled = specification.get('enabled') is True
+        self.specification, self.dt = specification, float(dt)
+        self.latched_stage = None
+        self.stopped_since = None
+        if self.enabled:
+            if specification.get('mode') != 'coast_only':
+                raise ValueError('Only the actually calibrated coast_only junction policy is supported')
+            self.table = specification['coasting_speed_remaining_distance_m']
+            if len(self.table)<2 or any(a[0]>=b[0] or a[1]>b[1] for a,b in zip(self.table,self.table[1:])):
+                raise ValueError('Coast calibration must be ordered actual speed/distance samples')
+            if specification['actual_stop_speed_mps'] != .1 or specification['actual_stopped_confirmation_seconds'] < .5:
+                raise ValueError('Junction stop requires actual <=0.1m/s and >=0.5s confirmation')
+
+    def observe_actual_stop(self, speed, timestamp):
+        if speed <= .1:
+            if self.stopped_since is None:
+                self.stopped_since = timestamp
+        else:
+            self.stopped_since = None
+
+    def stopped_seconds(self, timestamp):
+        return 0. if self.stopped_since is None else max(0.,timestamp-self.stopped_since)
+
+    def trigger_distance(self, speed):
+        if speed <= self.table[0][0]:
+            base = 0.
+        elif speed >= self.table[-1][0]:
+            # Explicit planning extrapolation only; final actual trajectory is
+            # audited. The approach target is capped at measured nominal6m/s.
+            a,b = self.table[-2:]
+            base = b[1]+(speed-b[0])*(b[1]-a[1])/(b[0]-a[0])
+        else:
+            for a,b in zip(self.table,self.table[1:]):
+                if a[0] <= speed <= b[0]:
+                    base = a[1]+(speed-a[0])*(b[1]-a[1])/(b[0]-a[0])
+                    break
+        return base+float(self.specification['release_transient_margin_m'])+speed*self.dt
+
+    def approach(self, stage_index, remaining_arc_m, speed):
+        trigger = self.trigger_distance(speed)
+        if remaining_arc_m <= trigger:
+            self.latched_stage = stage_index
+        return self.latched_stage == stage_index, trigger
 
 
 def spawn_from_xodr(road_map, specification, carla):
@@ -91,6 +188,9 @@ class NativeRuleController:
         self.previous_steer = 0
         self.dt = world.get_settings().fixed_delta_seconds
         self.longitudinal = LongitudinalGovernor(self.dt)
+        self.coast_stop = JunctionCoastStop(plan.get('longitudinal_stop_policy', {}), self.dt)
+        if self.coast_stop.enabled and ego.type_id != self.coast_stop.specification['blueprint']:
+            raise ValueError('Junction coast policy is calibrated only for the native Tesla model3')
         front_angles = [wheel.max_steer_angle for wheel in ego.get_physics_control().wheels if wheel.max_steer_angle > 1]
         self.max_steer_rad = math.radians(max(front_angles) if front_angles else 70)
         self.wheelbase_m = float(plan.get('wheelbase_m', ego.bounding_box.extent.x * 1.24))
@@ -110,7 +210,8 @@ class NativeRuleController:
             self.event('controller_wait', snapshot, reason=reason, **detail)
         self.wait_reason = reason
         self.diagnostics = {'stage_index': self.index, 'waiting': reason, **detail}
-        throttle, brake = self.longitudinal.step(0.0, norm(self.ego.get_velocity()))
+        throttle, brake = self.longitudinal.step(0.0, norm(self.ego.get_velocity()),
+            coast_stop=self.coast_stop.enabled)
         self.diagnostics.update({'actual_speed_mps':norm(self.ego.get_velocity()),
             'desired_speed_mps':0.0,'requested_acceleration_mps2':self.longitudinal.requested_acceleration,
             'throttle':throttle,'brake':brake,'steer':self.previous_steer})
@@ -271,6 +372,7 @@ class NativeRuleController:
         vehicles = self.followers()
         self.observe_future_gates(vehicles)
         speed = norm(self.ego.get_velocity())
+        self.coast_stop.observe_actual_stop(speed, snapshot.timestamp.elapsed_seconds)
         transform = self.ego.get_transform()
         position = [transform.location.x, transform.location.y, transform.location.z]
         if self.ego.is_at_traffic_light() and self.ego.get_traffic_light_state() in [self.carla.TrafficLightState.Red, self.carla.TrafficLightState.Yellow]:
@@ -279,7 +381,9 @@ class NativeRuleController:
             conflicts = self.gate_conflicts(stage['yield_gate'], vehicles)
             if conflicts:
                 return self.wait('native_conflict_traffic', snapshot, conflicts=conflicts)
-            if speed > .5:
+            stop_limit = .1 if self.coast_stop.enabled else .5
+            stopped_duration = self.coast_stop.stopped_seconds(snapshot.timestamp.elapsed_seconds)
+            if speed > stop_limit or self.coast_stop.enabled and stopped_duration < .5:
                 return self.wait('settle_before_yield_release', snapshot)
             self.gate_released = True
             self.event('yield_gate_released', snapshot, conflict_actor_count=0)
@@ -354,8 +458,16 @@ class NativeRuleController:
                     if any(item['gap_m'] < 3 for item in risks):
                         desired = 0
         remaining = distance(position, self.path[-1])
+        coast_requested, coast_trigger, remaining_arc = False, None, None
         if stage.get('stop_at_end'):
-            desired = min(desired, math.sqrt(max(0, 2 * 1.8 * (remaining-.7))))
+            if self.coast_stop.enabled:
+                desired = min(desired, self.coast_stop.specification['maximum_approach_speed_mps'])
+                remaining_arc = remaining_path_arc(position,self.path,nearest)
+                coast_requested,coast_trigger = self.coast_stop.approach(self.index,remaining_arc,speed)
+                if coast_requested:
+                    desired = 0.
+            else:
+                desired = min(desired, math.sqrt(max(0, 2 * 1.8 * (remaining-.7))))
         blocking = []
         emergency = False
         forward = transform.get_forward_vector()
@@ -373,10 +485,12 @@ class NativeRuleController:
                     blocking.append({'actor_id': vehicle.id, 'gap_m': gap})
                     closing = max(0.,speed-other_speed)
                     emergency |= gap < 1.5 or closing > .1 and gap/closing < .8
-        throttle, brake = self.longitudinal.step(desired, speed, emergency=emergency)
+        throttle, brake = self.longitudinal.step(desired, speed, emergency=emergency,
+            coast_stop=coast_requested)
         current_wp = self.road_map.get_waypoint(transform.location)
         if gap_waiting is None and remaining < float(stage.get('complete_radius_m', 2.2)) and self.progress >= len(self.path)-4:
-            completed = not stage.get('stop_at_end') or speed < .5
+            stop_limit = .1 if self.coast_stop.enabled else .5
+            completed = not stage.get('stop_at_end') or speed <= stop_limit
             if stage['kind'] == 'lane_change':
                 lateral_error = current_wp.transform.location.distance(transform.location)
                 completed = completed and current_wp.road_id == self.target_road and current_wp.lane_id == self.target_lane and lateral_error < .75
@@ -391,6 +505,11 @@ class NativeRuleController:
             'active_target_lane_gap': active_lane_gap,
             'gap_waiting':gap_waiting,'emergency_braking':emergency,
             'requested_acceleration_mps2':self.longitudinal.requested_acceleration,
+            'junction_coast_stop': {'enabled':self.coast_stop.enabled,'requested':coast_requested,
+                'remaining_native_arc_m':remaining_arc,'trigger_distance_m':coast_trigger,
+                'actual_stopped_seconds':self.coast_stop.stopped_seconds(snapshot.timestamp.elapsed_seconds),
+                'actual_stop_speed_limit_mps':.1 if self.coast_stop.enabled else .5,
+                'emergency_override':bool(emergency)},
             'steer': steer, 'throttle': throttle, 'brake': brake}
         if gap_waiting is not None:
             self.path, self.progress = None, 0

@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "kind": "sanitized_native_coast_diagnostic_summary",
+  "diagnostic_only": true,
+  "scene_runtime_acceptance": false,
+  "carla_version": "0.9.16",
+  "blueprint": "vehicle.tesla.model3",
+  "native_reference": {
+    "map": "Town05",
+    "road_id": 6,
+    "lane_id": -1,
+    "fps": 20
+  },
+  "input_evidence_sha256": {
+    "actual_pose_samples": "69366135ca704b54c0e966603e451680b8018485b95457a5f13861cd9b5c7e0a",
+    "trial_summary": "8550cb336c33617154825884b41e40feee812d108c711a37c7ec4bd2eaf39080"
+  },
+  "controls": {
+    "mode": "coast_only",
+    "no_pose_velocity_or_physics_override": true,
+    "hold_brake_only_after_actual_speed_mps_at_most": 0.1
+  },
+  "measured_request_to_actual_stop": {
+    "initial_speed_mps": 6.066016283185892,
+    "actual_stop_speed_mps": 0.09710806933138047,
+    "elapsed_s": 10.100000150501728,
+    "actual_pose_arc_m": 15.624653499972998,
+    "release_transient_pose_arc_m": 0.9114971194266213
+  },
+  "coasting_speed_remaining_actual_pose_distance_m": [
+    [
+      0.09710806933138047,
+      0.0
+    ],
+    [
+      0.2468581986538692,
+      0.34626388836353683
+    ],
+    [
+      0.5021088060265628,
+      0.9729244031957239
+    ],
+    [
+      0.7521614963146751,
+      1.5598391979844626
+    ],
+    [
+      1.0045546866142412,
+      2.167351162106249
+    ],
+    [
+      1.4857801443600218,
+      3.332336413331056
+    ],
+    [
+      1.9905121461985658,
+      4.539784884858598
+    ],
+    [
+      2.509745609133081,
+      5.769381454691748
+    ],
+    [
+      3.0216964324018925,
+      7.007837631099087
+    ],
+    [
+      3.4978004945483465,
+      8.144597722353737
+    ],
+    [
+      3.9641022479343038,
+      9.259330824773468
+    ],
+    [
+      4.4948371783367636,
+      10.524014085815809
+    ],
+    [
+      4.976704168978188,
+      11.95022905335819
+    ],
+    [
+      5.567550272468093,
+      13.261016763499251
+    ],
+    [
+      5.9787192689150945,
+      14.413224537760419
+    ],
+    [
+      6.02685458885608,
+      14.713156380546376
+    ]
+  ],
+  "actual_derivative_metrics": {
+    "whole_trial": {
+      "samples": 328,
+      "actual_windowed_acceleration_mps2": {
+        "minimum": -3.989469292473581,
+        "maximum": 10.921053950017964,
+        "p95_absolute": 2.7348433075211185,
+        "maximum_absolute": 10.921053950017964,
+        "maximum_absolute_time_s": 0.0
+      },
+      "actual_windowed_jerk_mps3": {
+        "minimum": -125.73078591975806,
+        "maximum": 31.411031131483654,
+        "p95_absolute": 9.490713588496284,
+        "maximum_absolute": 125.73078591975806,
+        "maximum_absolute_time_s": 0.0
+      },
+      "raw_acceleration_mps2": {
+        "minimum": -15.331409047048771,
+        "maximum": 12.104200761813035,
+        "p95_absolute": 2.4699969431535034,
+        "maximum_absolute": 15.331409047048771,
+        "maximum_absolute_time_s": 0.15000000223517418
+      },
+      "raw_jerk_mps3": {
+        "minimum": -251.3141050540437,
+        "maximum": 133.76101452623533,
+        "p95_absolute": 15.033766954728033,
+        "maximum_absolute": 251.3141050540437,
+        "maximum_absolute_time_s": 0.10000000149011612
+      },
+      "native_snapshot_acceleration_forward_mps2": {
+        "minimum": -3.0041341756128306,
+        "maximum": 15.357165591231418,
+        "p95_absolute": 2.3321921206742546,
+        "maximum_absolute": 15.357165591231418,
+        "maximum_absolute_time_s": 1.3500000201165676
+      },
+      "acceleration_target_met": false,
+      "jerk_target_met": false
+    },
+    "braking_with_actual_transition": {
+      "samples": 253,
+      "actual_windowed_acceleration_mps2": {
+        "minimum": -2.1991311730573377,
+        "maximum": 1.0470029559387544,
+        "p95_absolute": 1.7567530921276697,
+        "maximum_absolute": 2.1991311730573377,
+        "maximum_absolute_time_s": 4.700000070035458
+      },
+      "actual_windowed_jerk_mps3": {
+        "minimum": -9.63784437540232,
+        "maximum": 2.865696486204962,
+        "p95_absolute": 2.211036167052929,
+        "maximum_absolute": 9.63784437540232,
+        "maximum_absolute_time_s": 4.350000064820051
+      },
+      "raw_acceleration_mps2": {
+        "minimum": -2.4247480751597354,
+        "maximum": 1.0536444381332453,
+        "p95_absolute": 1.7857039407277535,
+        "maximum_absolute": 2.4247480751597354,
+        "maximum_absolute_time_s": 4.800000071525574
+      },
+      "raw_jerk_mps3": {
+        "minimum": -14.677301083374056,
+        "maximum": 10.477457062610242,
+        "p95_absolute": 4.3788268021052,
+        "maximum_absolute": 14.677301083374056,
+        "maximum_absolute_time_s": 4.300000064074993
+      },
+      "native_snapshot_acceleration_forward_mps2": {
+        "minimum": -3.0041341756128306,
+        "maximum": 1.4901656474322234,
+        "p95_absolute": 1.8011385322239306,
+        "maximum_absolute": 3.0041341756128306,
+        "maximum_absolute_time_s": 4.800000071525574
+      },
+      "acceleration_target_met": true,
+      "jerk_target_met": true
+    },
+    "low_speed_braking_and_hold": {
+      "samples": 185,
+      "actual_windowed_acceleration_mps2": {
+        "minimum": -0.8325105476042561,
+        "maximum": 0.0,
+        "p95_absolute": 0.6872140383946074,
+        "maximum_absolute": 0.8325105476042561,
+        "maximum_absolute_time_s": 7.1500001065433025
+      },
+      "actual_windowed_jerk_mps3": {
+        "minimum": -1.8984596899865278,
+        "maximum": 2.009063443280922,
+        "p95_absolute": 0.39295883219997224,
+        "maximum_absolute": 2.009063443280922,
+        "maximum_absolute_time_s": 14.550000216811895
+      },
+      "raw_acceleration_mps2": {
+        "minimum": -1.0479712169234752,
+        "maximum": 0.00010107471516249147,
+        "p95_absolute": 0.7155880861191836,
+        "maximum_absolute": 1.0479712169234752,
+        "maximum_absolute_time_s": 14.350000213831663
+      },
+      "raw_jerk_mps3": {
+        "minimum": -10.047179194659478,
+        "maximum": 10.477457062610242,
+        "p95_absolute": 0.31117946480022335,
+        "maximum_absolute": 10.477457062610242,
+        "maximum_absolute_time_s": 14.400000214576721
+      },
+      "native_snapshot_acceleration_forward_mps2": {
+        "minimum": -1.9414766158362198,
+        "maximum": 0.06974442145974354,
+        "p95_absolute": 0.7157413802703311,
+        "maximum_absolute": 1.9414766158362198,
+        "maximum_absolute_time_s": 14.400000214576721
+      },
+      "acceleration_target_met": true,
+      "jerk_target_met": true
+    }
+  },
+  "limitations": [
+    "This is one native Tesla coast trial, not universal braking-distance or complete-scene acceptance.",
+    "The full trial startup motion fails acceleration/jerk targets; only the explicitly reported braking and low-speed intervals pass.",
+    "The policy includes measured release-transient and upcoming-step margins; fresh native approach probes and complete-scene audits remain mandatory.",
+    "Raw native frame records are intentionally excluded. Their SHA values preserve provenance; optional raw-binding test skips when records are absent.",
+    "Runtime policy embeds the measured table and does not read local diagnostic records."
+  ]
+}

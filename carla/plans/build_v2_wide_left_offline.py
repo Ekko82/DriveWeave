@@ -6,6 +6,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from runtime_config import RuntimeConfig
 from signal_policy import town05_wide_left_signal_config
+from native_controller import junction_coast_stop_policy
+from native_background_routes import build_isolated_traffic
 _RUNTIME = RuntimeConfig.resolve(require_carla=True)
 import sys,json,math,hashlib
 import numpy as np
@@ -117,11 +119,12 @@ def main():
     plan['signal_policy']=town05_wide_left_signal_config()
     plan['native_junction_signalized']=True
     plan['signal_description']='Native three-light signalized junction. Opposite-axis permissive green, transverse red; ego must physically yield to actual straight opposing traffic.'
-    plan['dynamic_traffic']['exclude_xodr'].extend([
-        {'road_id':6,'lane_ids':[1],'s_start':0,'s_end':54.36},
-        {'road_id':47,'lane_ids':[1],'s_start':0,'s_end':55},
-    ])
-    plan['dynamic_traffic']['reservation_note']='Inner opposing lanes 6/+1 and 47/+1 are reserved from dynamic spawns. Outer +2 remains available. Dedicated native-rule straight NPCs are unchanged by dynamic spawn reservations. Reservations do not guarantee later TM routes; actual full-run body-clearance audit remains mandatory.'
+    plan['longitudinal_stop_policy']=junction_coast_stop_policy()
+    plan['desired_speed_kmh']=21.6
+    plan['stages'][0].update(speed_kmh=21.6,complete_radius_m=1.2)
+    plan['dynamic_traffic'], background_route_evidence = build_isolated_traffic(
+        m, plan, count=24, seed=121126, coverage_seconds=75.)
+    plan['background_route_isolation'] = background_route_evidence
     plan['expected_evidence'].update(
         must_observe_stopped_yield_duration_s=.5,
         must_observe_final_plan_complete_while_moving=True,
@@ -162,9 +165,11 @@ def main():
         opposing_initial_waypoints=[spawn(p[0]) for p in npcs],
         opposing_true_straight_core_geometry=opposing_core_geometry,
         opposing_intersection_target_speed_kmh=[p['desired_speed_kmh'] for p in npc_plans],
-        dynamic_spawn_reserved_inner_opposing_lanes=[{'road_id':6,'lane_id':1},{'road_id':47,'lane_id':1}],
-        dynamic_outer_opposing_lanes_remain_available=True,
+        background_route_isolation=background_route_evidence,
+        native_background_route_count=len(plan['dynamic_traffic']['native_routes']),
         runtime_body_clearance_and_stopped_yield_still_required=True,
+        longitudinal_stop_policy=plan['longitudinal_stop_policy'],
+        actual_native_controller_scene_motion_acceptance=False,
     )
     evidence_path=BASE/'verification/v2-wide-left-turn-geometry.json';evidence_path.write_text(json.dumps(evidence,indent=2),encoding='utf-8')
     im=Image.new('RGB',(1800,1200),(20,26,33));draw=ImageDraw.Draw(im)

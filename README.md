@@ -95,8 +95,8 @@ CAPTURE_RUN 输出真实 run 路径。下面 RUN、PROCESSED、EXECUTION 均替�
 python carla/process_native_batch_cpu.py --run RUN --out PROCESSED --workers 4
 python verification/audit_carla_sensors.py --run RUN --processed PROCESSED --execution EXECUTION --require-raw-bgra --out sensor-audit.json
 python carla/audit_native_actions.py --run RUN --plan carla/plans/v2-town04-highway.json --out action-audit.json
-python carla/verification/audit_motion_quality.py --run RUN --execution EXECUTION --route-json carla/plans/v2-town04-highway.json --out motion-audit.json
-python carla/encode_native.py --run RUN --processed PROCESSED --out VIDEO_OUTPUT --individual
+python carla/verification/audit_motion_quality.py --run RUN --execution EXECUTION --route-json carla/plans/v2-town04-highway.json --thresholds carla/verification/motion-quality-thresholds-v2.json --verify-instance-pixels --out motion-audit.json
+python carla/encode_native.py --run RUN --processed PROCESSED --out VIDEO_OUTPUT --native-individual
 ```
 
 实时协同还需要官方 netconvert_carla.py 转换的路网、匹配 vTypes 和 SUMO 路线配置。参考 [CARLA/SUMO 文档](https://carla.readthedocs.io/en/0.9.16/adv_sumo/)；net-file/route-files 应相对于 sumocfg，地图需匹配 native 路线。
@@ -112,11 +112,15 @@ python carla/sumo_sync_replay.py --run RUN --network SUMO_NETWORK --out REPLAY_O
 
 外层 runner 保存真实进程退出码和 manifest/frames/log SHA。complete 不能代替退出码、正常 cleanup、动作完成或视频验收。新片还须完整解码并抽样核对源图。各脚本 --help 提供完整参数。
 
+宽路口和环岛使用对应的 `carla/audit_junction_interaction.py --run RUN --plan PLAN --execution EXECUTION --out interaction-audit.json`，核对真实冲突车辆通过、主车停车让行、车身净距和完整驶出。原生 TrafficManager 的 `set_path` 是路线请求，背景车可能选择替代分支；路线配置不能代替对实际运动和间距的检查。
+
 ## 证据范围
 
 零碰撞事件不等于充分安全裕度，20 Hz OBB 检查也不是连续时间保证。保留失败、未完成和通过的不同报告，不根据文案重写 raw 数据。
 
-v1 左转完成实际等待、让两辆来自对向的 NPC **右转**通过、再左转驶出；它未展示对向直行，也未到达额外内部计划尾点（full_internal_plan_completed=false）。v1 环岛完成驶入/绕行/驶出，但未展示强制让行等待；独立 3D OBB 最小主车净距约 **0.127377 m**，不能称充分安全。v2 对应问题需新录制和独立核验。
+v1 左转让两辆对向 NPC 右转通过，未展示对向直行或完成额外内部计划尾点；v1 环岛未展示停车让行，20 Hz 3D OBB 最小主车净距约 0.127377 m。失败与历史元数据保留。
+
+v2 已重新录制：宽路口左转保留 580 帧、29 秒，两辆对向车真实直行通过，主车停车让行后左转并驶出，实测最小主车净距约 1.521 m；环岛保留 1001 帧、50.05 秒，主车停车让两辆环行车辆通过后绕行驶出，实测最小主车净距约 5.014 m。两条录像开场速度均约 4.94 m/s，背景交通实际运动；它们的动作与运动审计均通过。源码中的计划目标与这些实际录制结果分别记录。
 
 v2 宽路口使用 Town05 原生信号灯，计划设置同向/对向绿、横向红，左转仍须让真实对向直行车通过；不能称无信号路口。signal_policy 保存显式信号设置范围与逐帧原生状态，实际相位和让行动作必须随新录制核验。
 

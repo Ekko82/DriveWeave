@@ -124,6 +124,44 @@ class Gates(TestCase):
             self.put_json(self.summary_path.relative_to(self.root),value)
             with self.assertRaises(ValueError):self.finalize()
 
+    def pin_left_qualification(self):
+        qualifier={'qualification':'qualified_single_background_endpoint_native_SUMO_replay_mapping',
+            'all_actor_lane_membership':False,'offnetwork_actor_samples':1,'source_sample':501,
+            'native_frame':1200430,'ego_all_lane_membership':True,
+            'entire_offnetwork_actor_outside_actual_viewport':True,'exact_pose_preserved':True,
+            'lane_field_filled':False,'source_modified':False}
+        pinned=next(s for s in self.delivery['scenes'] if s['id']=='left-turn')
+        public=next(s for s in self.summary['scenes'] if s['id']=='left-turn')
+        pinned.update(native_frames=580,native_frame_ids=list(range(1199929,1200509)),duration_s=29,
+                      sumo_replay_qualification=qualifier)
+        public.update(native_frames=580,first_native_frame=1199929,last_native_frame=1200508,duration_s=29,
+                      sumo_replay_qualification=copy.deepcopy(qualifier))
+        self.put_json(self.accepted.relative_to(self.root),self.delivery)
+        self.put_json(self.summary_path.relative_to(self.root),self.summary)
+        self.manifest['accepted_manifests'][0]['sha256']=m.sha(self.accepted);self.pin()
+        return public
+
+    def test_qualified_public_summary_cannot_hide_pinned_limitation(self):
+        public=self.pin_left_qualification();public.pop('sumo_replay_qualification')
+        self.put_json(self.summary_path.relative_to(self.root),self.summary)
+        with self.assertRaises(ValueError):self.finalize()
+
+    def test_qualified_disclosure_is_automatically_rendered(self):
+        self.pin_left_qualification();self.finalize(True)
+        text=self.readme.read_text(encoding='utf-8')
+        self.assertIn('原严格全车道审计 FAIL 仍保留',text)
+        self.assertIn('未补写车道或改动姿态',text)
+
+    def test_qualification_cannot_invent_a_frame_outside_accepted_source(self):
+        public=self.pin_left_qualification();public['first_native_frame']=1199928
+        public['last_native_frame']=1200507
+        pinned=next(s for s in self.delivery['scenes'] if s['id']=='left-turn')
+        pinned['native_frame_ids']=list(range(1199928,1200508))
+        self.put_json(self.accepted.relative_to(self.root),self.delivery)
+        self.put_json(self.summary_path.relative_to(self.root),self.summary)
+        self.manifest['accepted_manifests'][0]['sha256']=m.sha(self.accepted);self.pin()
+        with self.assertRaises(ValueError):self.finalize()
+
     def test_execute_synthetic_fixture_updates_verified_links_without_current_change(self):
         accepted=self.accepted.read_bytes();self.finalize(True)
         summary=m.read(self.summary_path);index=m.read(self.root/'docs/media/preview-index.json')

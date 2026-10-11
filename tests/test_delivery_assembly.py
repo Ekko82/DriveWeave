@@ -102,6 +102,15 @@ class DeliveryGateTests(unittest.TestCase):
         self.assertEqual(result['native_frame_ids'],self.ids)
         self.assertFalse(result['live_joint_simulation_verified'])
 
+    def test_qualified_single_boundary_cannot_be_applied_to_highway(self):
+        self.change('sumo_audit',audit_type='qualified_single_background_endpoint_native_SUMO_replay_mapping',
+                    all_actor_lane_membership=False)
+        with self.assertRaises(ValueError):assembly.scene_gate(self.spec,self.root)
+
+    def test_unspecified_lane_failure_scope_is_rejected(self):
+        self.change('sumo_audit',all_actor_lane_membership=False)
+        with self.assertRaises(ValueError):assembly.scene_gate(self.spec,self.root)
+
     def test_nonzero_actual_exit_rejected_before_promoting_anything(self):
         self.change('execution',returncode=1)
         with self.assertRaises(ValueError):assembly.scene_gate(self.spec,self.root)

@@ -1,15 +1,57 @@
 {
   "schema_version": 1,
   "version": "v2",
-  "status": "pending_actual_capture_and_quality_audit",
+  "status": "accepted_local_media_publication_pending",
   "no_placeholder_media": true,
   "items": [
-    {"id": "highway", "label": "高速换道", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
-    {"id": "ramp-entry", "label": "入口匝道", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
-    {"id": "ramp-exit", "label": "出口匝道", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
-    {"id": "left-turn", "label": "宽路口左转", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
-    {"id": "roundabout", "label": "环岛", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
-    {"id": "live-highway", "label": "官方双向实时协同", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null}
+    {
+      "id": "highway",
+      "video_url": null,
+      "poster_path": "docs/media/highway.gif",
+      "sha256": "8982791a72cacfa926e2cabf098a35b0021992b08396e3e2dcf03377ee142d89",
+      "release_asset_name": "highway-carla-sumo-four-pane.mp4",
+      "preview_sha256": "ef4d5748e7beceb152e76085527682c411a2083dd2e1eb47bc3ec86bb679dafa"
+    },
+    {
+      "id": "ramp-entry",
+      "video_url": null,
+      "poster_path": "docs/media/ramp-entry.gif",
+      "sha256": "87e8e815d5b471b2aff9c5c26e1aa3558792d676986aed02620c6405d1f70e66",
+      "release_asset_name": "ramp-entry-carla-sumo-four-pane.mp4",
+      "preview_sha256": "cc7cb68e073b09d51b74370264dfce8ad546b1342e1f31d22689338b636e067b"
+    },
+    {
+      "id": "ramp-exit",
+      "video_url": null,
+      "poster_path": "docs/media/ramp-exit.gif",
+      "sha256": "fc6116ef1ab0311a301ca6e0021b3633fcaa2aa1c6fb9ffe359ed019f0766e49",
+      "release_asset_name": "ramp-exit-carla-sumo-four-pane.mp4",
+      "preview_sha256": "14d198ab201e9216878c0035e6dfee9edb53e09b92ac99f7f76e529f3f15ecf6"
+    },
+    {
+      "id": "left-turn",
+      "video_url": null,
+      "poster_path": "docs/media/left-turn.gif",
+      "sha256": "807306ddb8393940b85ab8096a41fac23e95226648f99f42251f1bedb16ae253",
+      "release_asset_name": "left-turn-carla-sumo-four-pane.mp4",
+      "preview_sha256": "058d6afdb838e6074d7056219cda610ef08376033100e7e33afd08769cac52c9"
+    },
+    {
+      "id": "roundabout",
+      "video_url": null,
+      "poster_path": "docs/media/roundabout.gif",
+      "sha256": "641bfd840116e1ca961513fe863a3937eb0438879704f617d48de1027ad45d1b",
+      "release_asset_name": "roundabout-carla-sumo-four-pane.mp4",
+      "preview_sha256": "966450b21c456ca6a6ac99d4a06df0dff24c5386c18e0f797a78196292ee07b9"
+    },
+    {
+      "id": "live-highway",
+      "video_url": null,
+      "poster_path": "docs/media/live-highway.gif",
+      "sha256": "651d0c6eb59d2ec182648daacc6567d83956656960b955eac6c7a7700c853566",
+      "release_asset_name": "live-highway-carla-sumo-four-pane.mp4",
+      "preview_sha256": "838fe353fa0504cf734f13aa710db023d33a6fd20b50b012802e80d8ca113d71"
+    }
   ],
-  "update_rule": "Only real uploaded release URLs and actual SHA256 after source, action, sensor and video acceptance. Keep live acquisition and post-capture GUI visualization separate."
+  "update_rule": "Add only actual verified release URLs after upload; GUI replay is not live acquisition."
 }

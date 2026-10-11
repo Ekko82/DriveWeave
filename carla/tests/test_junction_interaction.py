@@ -9,7 +9,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from runtime_config import RuntimeConfig
-from audit_junction_interaction import reference, project, straight_motion_proof, first_body_pass, overlap, signal_observations_proof
+from audit_junction_interaction import reference, project, straight_motion_proof, recorded_straight_core, first_body_pass, overlap, signal_observations_proof
 from signal_policy import town05_wide_left_signal_config
 import carla
 import json
@@ -61,6 +61,26 @@ class TestJunctionInteraction(unittest.TestCase):
         for q in trace:q['position_m'][1]+=3.5
         good,_=straight_motion_proof(trace,reference(self.map,stages,{1140}))
         self.assertFalse(good)
+
+    def test_preroll_connector_suffix_still_requires_actual_straight_geometry(self):
+        stages=self.plan['traffic'][0]['stages']
+        points=[p for p in stages[0]['xodr_path'] if p[0] in (1140,6)]
+        core,evidence=recorded_straight_core(self.native_trace(points))
+        good,geometry=straight_motion_proof(core,reference(self.map,stages,{1140}))
+        self.assertTrue(good,geometry)
+        self.assertFalse(evidence['incoming_prefix_recorded'])
+        self.assertEqual(core[0]['native_road'],1140)
+        self.assertEqual(core[-1]['native_road'],6)
+
+    def test_connector_without_actual_outgoing_road_rejected(self):
+        stages=self.plan['traffic'][0]['stages']
+        trace=self.native_trace([p for p in stages[0]['xodr_path'] if p[0]==1140])
+        self.assertFalse(recorded_straight_core(trace)[0])
+
+    def test_turn_connector_or_already_exited_clip_cannot_use_preroll_suffix(self):
+        for roads in ([1182,1182,6],[6,6,6],[7,1182,6]):
+            trace=[{'native_road':r} for r in roads]
+            self.assertFalse(recorded_straight_core(trace)[0])
 
     def test_left_arc_exact_native_geometry_projectable(self):
         turn=[p for p in self.plan['stages'][1]['xodr_path'] if p[0]==1182]

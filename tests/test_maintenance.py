@@ -156,6 +156,59 @@ class Safety(TestCase):
         self.assertIsNone(m.category(current,protected));self.assertIsNotNone(m.category(old,protected))
         self.assertIsNone(m.category(evidence,protected))
 
+    def test_exact_v1_media_plan_only_and_metadata_preserved(self):
+        old=[]
+        for prefix in ['carla/output','carla/output-sumo']:
+            for extension in ['mp4','zip','gif']:
+                old.append(self.put(f'{prefix}/prior/old.{extension}',b'prior v1 media'))
+            for filename in ['index.json','audit.json','source.py','still.png']:
+                self.put(f'{prefix}/prior/{filename}',b'permanent or excluded evidence')
+        value=self.manifest()
+        value['obsolete_versions']=[{'version':'v1','reason':'explicitly superseded native v1 media',
+                                    'paths':[m.relative(p) for p in old]}]
+        path=self.put('publication-v1-media.json',json.dumps(value).encode())
+        with patch('sys.stdout',io.StringIO()):
+            plan=m.build_plan(path,self.root/'maintenance/reports/v1-media-plan.json')
+        self.assertEqual(sorted(f['path'] for f in plan['files']),sorted(m.relative(p) for p in old))
+        self.assertEqual(len(m.preflight(value,plan)),6)
+        protected,_,_=m.accepted_protection(value)
+        for prefix in ['carla/output','carla/output-sumo']:
+            for filename in ['index.json','audit.json','source.py','still.png']:
+                self.assertIsNone(m.category(self.root/f'{prefix}/prior/{filename}',protected))
+        self.assertTrue(all(p.is_file() for p in old))
+
+    def test_v1_media_wrong_version_containers_and_nonmedia_refused(self):
+        self.put('carla/output/prior/old.mp4',b'prior')
+        self.put('carla/output-sumo/prior/old.mp4',b'prior')
+        for prefix in ['carla/output','carla/output-sumo']:
+            for filename in ['source.py','audit.json','still.png']:
+                self.put(f'{prefix}/prior/{filename}',b'keep')
+            for selected in [prefix,f'{prefix}/prior',*[f'{prefix}/prior/{q}' for q in ['source.py','audit.json','still.png']]]:
+                value=self.manifest();value['obsolete_versions'][0]['paths']=[selected]
+                with self.assertRaises(m.Refusal):m.validate_obsolete_versions(value)
+            for current,old in [('v2','v2'),('v2','old'),('v2','v1.0'),('v1.2','v1'),('new-release','v1')]:
+                value=self.manifest();value['version']=current
+                value['obsolete_versions']=[{'version':old,'reason':'fixture','paths':[f'{prefix}/prior/old.mp4']}]
+                with self.assertRaises(m.Refusal):m.validate_obsolete_versions(value)
+
+    def test_v1_media_current_closure_and_release_assets_protected(self):
+        current=self.put('carla/output-sumo/current.mp4',b'current accepted')
+        old=self.put('carla/output-sumo/prior.mp4',b'old')
+        self.accepted.write_text(json.dumps({'final_delivery_accepted':True,'current_video':str(current)}))
+        value=self.manifest()
+        value['obsolete_versions']=[{'version':'v1','reason':'reviewed prior version',
+            'paths':[m.relative(old),m.relative(current),m.relative(self.asset)]}]
+        path=self.put('publication-v1-current.json',json.dumps(value).encode())
+        with patch('sys.stdout',io.StringIO()):
+            plan=m.build_plan(path,self.root/'maintenance/reports/v1-current-plan.json')
+        self.assertEqual([f['path'] for f in plan['files']],[m.relative(old)])
+        tampered=json.loads(json.dumps(plan));s=current.stat()
+        tampered['files']=[{'path':m.relative(current),'bytes':s.st_size,'mtime_ns':s.st_mtime_ns,
+                           'sha256':m.digest(current),'obsolete_version':'v1','category':'superseded_v1_delivery_media'}]
+        tampered.update(candidate_files=1,candidate_bytes=s.st_size)
+        with self.assertRaises(m.Refusal):m.preflight(value,tampered)
+        self.assertTrue(current.is_file());self.assertTrue(self.asset.is_file())
+
     def test_report_output_cannot_replace_delivery_or_source(self):
         for path in [self.accepted, self.root/'README.md', self.root.parent/'outside.json']:
             with self.assertRaises(m.Refusal):

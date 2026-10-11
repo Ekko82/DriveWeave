@@ -42,6 +42,9 @@ class TrafficConfig:
     # are valid. Example {road_id:40,lane_ids:[-4,-3,-2,-1,4,5],s_start:8,
     # s_end:250,spacing_m:14}; actual lane width/type/junctions are checked.
     corridors: tuple[dict, ...] = ()
+    # Optional native paths spanning the full scenario + physical preroll.
+    # These replace random-junction spawn selection and disable lane changes.
+    native_routes: tuple[dict, ...] = ()
     spawn_indices: tuple[int, ...] = ()
     focus_points: tuple[tuple[float, float, float], ...] = ()
     focus_radius_m: float = 100.0
@@ -76,7 +79,7 @@ class TrafficConfig:
         if isinstance(config, cls):
             return config
         raw = dict(config or {})
-        sequence_keys = ('corridors', 'spawn_indices', 'focus_points',
+        sequence_keys = ('corridors', 'native_routes', 'spawn_indices', 'focus_points',
                          'exclude_xodr', 'exclude_circles', 'lane_change_exclude_xodr', 'blueprints',
                          'speed_range_kmh', 'speed_limit_ratio_range',
                          'time_headway_range_s', 'standstill_gap_range_m',
@@ -104,6 +107,14 @@ class TrafficConfig:
             raise ValueError('Vehicle envelope must be positive')
         if obj.lane_change_probability_range_pct[1] > 100:
             raise ValueError('Lane change probability must be <=100')
+        if obj.native_routes:
+            if obj.corridors or obj.spawn_indices:
+                raise ValueError('Native routes replace corridor/spawn-index selection')
+            if obj.count > len(obj.native_routes):
+                raise ValueError('Native route traffic may not fall back to unplanned actors')
+            ids = [route['route_id'] for route in obj.native_routes]
+            if len(set(ids)) != len(ids):
+                raise ValueError('Native route IDs must be unique')
         return obj
 
 
@@ -214,6 +225,10 @@ def build_spawn_candidates(road_map, config: TrafficConfig, carla_api, ego_locat
     """Resolve only existing native waypoints, then deduplicate independently of input order."""
     candidates = {}
     sources = []
+    for route in config.native_routes:
+        start = route['spawn_xodr']
+        sources.append(road_map.get_waypoint_xodr(int(start['road_id']),
+            int(start['lane_id']), float(start['s_m'])))
     for corridor in config.corridors:
         start, end = float(corridor['s_start']), float(corridor['s_end'])
         spacing = float(corridor.get('spacing_m', 12))
@@ -223,7 +238,7 @@ def build_spawn_candidates(road_map, config: TrafficConfig, carla_api, ego_locat
             for index in range(int(math.floor((end-start)/spacing))+1):
                 wp = road_map.get_waypoint_xodr(int(corridor['road_id']), int(lane), start+index*spacing)
                 sources.append(wp)
-    if not config.corridors or config.spawn_indices:
+    if not config.native_routes and (not config.corridors or config.spawn_indices):
         spawns = road_map.get_spawn_points()
         indexes = config.spawn_indices if config.spawn_indices else range(len(spawns))
         for index in indexes:
@@ -231,7 +246,7 @@ def build_spawn_candidates(road_map, config: TrafficConfig, carla_api, ego_locat
                 raise ValueError(f'Invalid native spawn index {index}')
             sources.append(road_map.get_waypoint(spawns[int(index)].location))
     focus = list(config.focus_points)
-    if not focus and not config.corridors and ego_location is not None:
+    if not focus and not config.corridors and not config.native_routes and ego_location is not None:
         focus = [(ego_location.x, ego_location.y, ego_location.z)]
     for wp in sources:
         if not _driving(wp) or wp.is_junction or wp.lane_width < 2*config.max_half_width_m+.10:
@@ -308,6 +323,7 @@ class TrafficSession:
     evidence: dict = field(default_factory=dict)
     _last_update: float | None = None
     _states: dict[int, dict] = field(default_factory=dict)
+    native_paths: dict[int, dict] = field(default_factory=dict)
 
     def update(self, snapshot, observed_actors=None) -> dict:
         """Adjust TM goals from measured states before the caller's single tick.
@@ -367,7 +383,7 @@ class TrafficSession:
             permission = str(wp.lane_change).split('.')[-1] if wp else 'None'
             protected = ego_body is not None and abs(ego_body.z-body.z) < self.config.elevation_separation_m and math.hypot(
                 body.x-ego_body.x, body.y-ego_body.y) < self.config.ego_lane_change_protection_m
-            available = (not protected and
+            available = (actor.id not in self.native_paths and not protected and
                 now-state['last_lane_change_time_s'] >= self.config.lane_change_cooldown_s and
                 _continuous_lane_change_corridor(wp, max(35., body.speed_mps*3+8)))
             sides = {}
@@ -411,7 +427,9 @@ class TrafficSession:
             rows.append({'actor_id': actor.id, 'actual_speed_mps': body.speed_mps,
                 'desired_speed_kmh': desired, 'front_to_back_gap_target_m': gap_target,
                 'front_vehicle': nearest, 'lane_change_allowed': sides,
-                'near_ego_protection': protected, 'actual_native_lane': list(lane)})
+                'near_ego_protection': protected, 'actual_native_lane': list(lane),
+                'native_route_id':self.native_paths.get(actor.id,{}).get('route_id'),
+                'path_tracking_validated':False})
         return {'frame': int(snapshot.frame), 'timestamp_s': now, 'updated': True,
                 'actors': rows, 'kind': 'TM_goal_diagnostics_not_action_acceptance'}
 
@@ -442,6 +460,15 @@ def setup_dynamic_traffic(world, tm, ego, config=None, *, carla_api=None,
     carla_api = carla_api or importlib.import_module('carla')
     road_map = world.get_map()
     session = TrafficSession(world, tm, ego, road_map, cfg)
+    route_lookup = {}
+    if cfg.native_routes:
+        from native_background_routes import resolve_route
+        for specification in cfg.native_routes:
+            native, proof = resolve_route(road_map, specification)
+            key = _native_key(native[0])
+            if key in route_lookup:
+                raise ValueError('Two native traffic routes share the same spawn')
+            route_lookup[key] = (specification, native, proof)
     tm.set_synchronous_mode(True)
     tm.set_random_device_seed(cfg.seed)
     tm.set_hybrid_physics_mode(False)
@@ -465,6 +492,12 @@ def setup_dynamic_traffic(world, tm, ego, config=None, *, carla_api=None,
             if len(session.actors) >= cfg.count:
                 break
             profile = sample_driver_profile(rng, cfg)
+            route = route_lookup.get(_native_key(wp))
+            if cfg.native_routes and route is None:
+                raise RuntimeError('Native route spawn lost its path; random fallback prohibited')
+            if route is not None:
+                profile['cruise_cap_kmh'] = min(profile['cruise_cap_kmh'],float(route[0]['speed_cap_kmh']))
+                profile['lane_change_probability_pct'] = 0.
             probe = Footprint(pose.location.x, pose.location.y, pose.location.z,
                 pose.rotation.yaw, cfg.max_half_length_m, cfg.max_half_width_m,
                 wp.road_id, wp.lane_id, wp.s, profile['cruise_cap_kmh']/3.6)
@@ -501,12 +534,19 @@ def setup_dynamic_traffic(world, tm, ego, config=None, *, carla_api=None,
                 register_actor(actor)
             session.profiles[actor.id] = profile
             configure_actor(tm, actor, profile, tm_port)
+            if route is not None:
+                specification, native, proof = route
+                tm.set_path(actor, [carla_api.Location(x=w.transform.location.x,
+                    y=w.transform.location.y,z=w.transform.location.z) for w in native])
+                session.native_paths[actor.id] = {'route_id':specification['route_id'],
+                    'offline_native_successor_proof':proof}
             occupied.append(replace(actual, speed_mps=profile['cruise_cap_kmh']/3.6))
             records.append({'id': actor.id, 'blueprint': actor.type_id,
                 'role': actor.attributes.get('role_name'), 'native_spawn_key': list(_native_key(wp)),
                 'spawn_location_m': [pose.location.x, pose.location.y, pose.location.z],
                 'spawn_bbox_from_native_asset': asdict(actual),
                 'spawn_pose_basis':'requested native spawn transform before first physics tick',
+                'native_route_intention':session.native_paths.get(actor.id),
                 'driver_profile': profile})
         session.evidence = {'schema': 'native_dynamic_traffic_v1', 'seed': cfg.seed,
             'requested_count': cfg.count, 'spawned_count': len(session.actors),
@@ -514,7 +554,7 @@ def setup_dynamic_traffic(world, tm, ego, config=None, *, carla_api=None,
             'config': asdict(cfg), 'actors': records, 'tm_port': tm_port,
             'physics': 'native_full_physics', 'single_tick_owner': 'caller',
             'maneuvers_validated': False,
-            'limitations': 'TM background has random junction choices and native TM junction priority; exact conflict opponents require a separate native route controller.'}
+            'limitations': ('Explicit native TM path intentions disable random lane changes and span their declared horizon; actual route/clearance still require a recorded native audit.' if cfg.native_routes else 'TM background has random junction choices and native TM junction priority; exact conflict opponents require a separate native route controller.')}
         if cfg.require_count and len(session.actors) < cfg.count:
             raise RuntimeError(f'Only {len(session.actors)}/{cfg.count} native traffic spawns fit; inspect spacing/reservations')
         # Apply actual marking + ego protections even before the first tick.

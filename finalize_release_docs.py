@@ -130,10 +130,42 @@ def verify_inputs(publication_path,receipt_path,root=ROOT):
                 scene.get('first_native_frame')==pinned['native_frame_ids'][0] and
                 scene.get('last_native_frame')==pinned['native_frame_ids'][-1] and
                 scene.get('source_sha256')==pinned['source_sha256'] and
+                scene.get('sumo_replay_qualification')==pinned.get('sumo_replay_qualification') and
                 scene.get('manual_review')==pinned['manual_review'] and
                 pinned.get('requested_action_verified') is True and pinned.get('full_internal_plan_completed') is True and
                 pinned.get('live_joint_simulation_verified') is (scene['id']=='live-highway'),
                 'Public scene summary differs from immutable accepted delivery evidence')
+        qualification=scene.get('sumo_replay_qualification')
+        if qualification is not None:
+            left=scene['id']=='left-turn' and (
+                    qualification.get('qualification')=='qualified_single_background_endpoint_native_SUMO_replay_mapping'
+                    and qualification.get('all_actor_lane_membership') is False
+                    and qualification.get('offnetwork_actor_samples')==1
+                    and qualification.get('source_sample')==501 and qualification.get('native_frame')==1200430
+                    and scene['native_frames']>501 and scene['first_native_frame']+501==1200430
+                    and qualification.get('ego_all_lane_membership') is True
+                    and qualification.get('entire_offnetwork_actor_outside_actual_viewport') is True
+                    and qualification.get('exact_pose_preserved') is True
+                    and qualification.get('lane_field_filled') is False
+                    and qualification.get('source_modified') is False)
+            roundabout=scene['id']=='roundabout' and (
+                    qualification.get('qualification')=='qualified_source_pose_native_GUI_roundabout_lane_metadata_limitations'
+                    and qualification.get('all_actor_lane_membership') is False
+                    and qualification.get('ego_lane_membership_all_frames') is False
+                    and qualification.get('offnetwork_actor_samples')==16
+                    and qualification.get('ego_offnetwork_samples')==2 and qualification.get('background_offnetwork_samples')==14
+                    and qualification.get('background_sample_start')==41 and qualification.get('background_sample_end_inclusive')==54
+                    and [s['source_sample'] for s in qualification.get('ego_endpoint_samples',[])]==[157,473]
+                    and scene['native_frames']>473
+                    and all(s['native_frame']==scene['first_native_frame']+s['source_sample']
+                            for s in qualification.get('ego_endpoint_samples',[]))
+                    and all(s['connected_endpoint_distance_m']<=.1 and s['native_GUI_ego_visible'] is True
+                            for s in qualification.get('ego_endpoint_samples',[]))
+                    and qualification.get('all_gap_background_bodies_outside_actual_viewport') is True
+                    and qualification.get('exact_source_pose_time_and_original_PNGs_verified') is True
+                    and qualification.get('native_GUI_repeat_render_max_changed_pixels',999)<=4
+                    and qualification.get('lane_field_filled') is False and qualification.get('source_modified') is False)
+            require(left or roundabout,'Public qualification must preserve the exact accepted limitation and unmodified source')
         media=next((a for a in scene['media'] if a.get('role')=='carla-sumo-four-pane'),{})
         verified_media=assets.get(media.get('name'),{})
         require(verified_media and media['sha256']==verified_media['sha256'] and
@@ -206,6 +238,10 @@ def render_readme(readme,scenes,assets,proof):
         media=next(m for m in s['media'] if m.get('role')=='carla-sumo-four-pane')
         part+='| '+LABELS[s['id']]+' | '+str(s['native_frames'])+' | '+f"{s['duration_s']:g}"+' 秒 | [MP4]('+assets[media['name']]['url']+') |\n'
     part+='\n五条普通场景源于 CARLA 原生物理录制；live-highway 源录制另有实际官方双向协同与 SUMO 自主车辆运动证据。**六片右上角均为录制后的原生 SUMO GUI 同步回放**，不能把展示回放称为重新运行的实时控制。图像框来自仿真真值，点云来自原生 LiDAR 处理；没有训练检测或驾驶模型。\n\n'
+    if any(s['id']=='left-turn' and s.get('sumo_replay_qualification') is not None for s in ordered):
+        part+='左转 SUMO 回放有一处明确的表示限制：后台车辆在相连道路端点附近的一个样本（501，原生帧 1200430）返回空车道字段，距端点约 5.8 厘米；整辆车位于实际原生 GUI 视口外。原严格全车道审计 FAIL 仍保留，未补写车道或改动姿态。主车全部车道字段及全部源姿态、时间、截图已核验；不能声称所有车辆所有样本车道归属均通过。\n\n'
+    if any(s['id']=='roundabout' and s.get('sumo_replay_qualification') is not None for s in ordered):
+        part+='环岛 SUMO 回放保留 16 个原始空车道字段：主车在相连道路端点处的两个单帧（157、473，距端点均小于 0.1 米，原生截图主车仍可见），以及一个后台车辆在转换路网 road44/-5 上连续 14 帧（41–54，整车位于实际视口外）。全部源位置、朝向、时间及原始截图 SHA 已核验，但全车辆/全主车样本的车道归属均不能声称通过；原 strict FAIL 保留，未补字段或移动车辆。独立 GUI 重现的少量栅格差异单独实测，原截图始终不变；此片展示的是录制后同步回放。\n\n'
     for s in ordered:
         media=next(m for m in s['media'] if m.get('role')=='carla-sumo-four-pane')
         part+='### '+LABELS[s['id']]+'\n\n!['+LABELS[s['id']]+']('+s['preview']['path']+')\n\n[完整原速视频]('+assets[media['name']]['url']+')\n\n'
@@ -277,6 +313,10 @@ def finalize(publication_path,receipt_path,root=ROOT,execute=False,beta_spec=Non
         s=next(s for s in summary['scenes'] if s['id']==scene_id)
         gallery+='## '+LABELS[scene_id]+'\n\n!['+LABELS[scene_id]+']('+scene_id+'.gif)\n\n[Full video]('+s['verified_video_url']+')\n\n'
     gallery+='All displayed SUMO GUI panes remain post-capture replay. Live acquisition is independently verified for live-highway only.\n'
+    if any(s['id']=='left-turn' and s.get('sumo_replay_qualification') is not None for s in summary['scenes']):
+        gallery+='Left-turn retains one unchanged empty background lane field at an invisible connected-endpoint sample. The original strict all-lane FAIL is preserved; all-actor lane membership is false. Ego lane membership, exact source poses/times and native images remain verified.\n'
+    if any(s['id']=='roundabout' and s.get('sumo_replay_qualification') is not None for s in summary['scenes']):
+        gallery+='Roundabout retains two visible ego endpoint empty lane fields and fourteen invisible background empty lane fields. All-actor and all-ego lane membership are false; the original strict FAIL remains. Exact full source poses/times and original native PNG hashes are verified; independent GUI repeat raster variation is disclosed.\n'
     content={root/'README.md':readme,root/'docs/media/preview-gallery.md':gallery,
              root/'docs/media/preview-index.json':json.dumps(index,ensure_ascii=False,indent=2)+'\n',
              root/'docs/media/accepted-v2-summary.json':json.dumps(summary,ensure_ascii=False,indent=2)+'\n'}

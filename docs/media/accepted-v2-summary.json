@@ -1,0 +1,1178 @@
+{
+  "schema_version": 1,
+  "version": "v2",
+  "status": "accepted_local_media_publication_pending",
+  "scenes": [
+    {
+      "id": "highway",
+      "native_frames": 334,
+      "fps": 20,
+      "duration_s": 16.7,
+      "first_native_frame": 160296,
+      "last_native_frame": 160629,
+      "source_sha256": {
+        "manifest.json": "65e4661ed7f18671ddd4ab552ff46910a74310419b9a37d186a01940fd129213",
+        "frames.jsonl": "fdb8e168f7cf0f5583085294577fcba11c173e70c1e84910e53da3b470145096",
+        "map.xodr": "3d6f7d21ca6cf07377cda62c2b651acb8d6d533daf62705aea59f7bb40f11470"
+      },
+      "source_acquisition": "native_CARLA_physics",
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "source_frame_cut": false,
+      "added_text_or_HUD": false,
+      "trained_model": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          167,
+          333
+        ],
+        "reviewed_native_frames": [
+          160296,
+          160463,
+          160629
+        ],
+        "full_video_manually_watched": false
+      },
+      "audit_sha256": {
+        "execution": "a5f4f9e710a9fbe833099c9e181530a547090ebcef0ec39d86f9086627a557b1",
+        "motion_audit": "15de04b233ba6c5c1db199dea1cbb9d72428c54dd3a7bee0d8357a5f4c4b724c",
+        "action_audit": "d81fddbd304c564a05f03c2a018a2c592018be712f18dcaef93bde4baa4f1312",
+        "sensor_audit": "7aa134bb440e677cab2fe391ca7de88ad1066ffc2f2295fe6f6e59047ddeffdc",
+        "native_video_manifest": "377c43c7c2d62ec8cfe853407b1809d11173d9aa68a595b0e66dae6b22b33020",
+        "native_video_audit": "22fe3e48a6fd57b76f3a01d4e4c4be5eb26d756913891f3904d6b41d5944cf9d",
+        "sumo_manifest": "da301ece5367edbd249337d8fe4d73c3df6e38bc9da9503bb445366234b743b2",
+        "sumo_audit": "9a6e49ef99cf87f85073e6fcfaabd1b4f7fe6c40eede4ac6a74faceece098077",
+        "pane_manifest": "97f480bff0aecbedee5e19fd358bb6853fa3dedbfec7527eae51d25f6a09fc19",
+        "pane_audit": "c11f71b78cab3d539f3df85616b4c85737cb48af7f1899d80bddb14e56bcb1f5",
+        "manual_review": "71ff585fe268719786629c69bf1143f59c60814c860de5be266109b549345570"
+      },
+      "media": [
+        {
+          "bytes": 31068935,
+          "sha256": "6c90ea4e99b34bd612462fa48cd8768cd239bb7436e63d6dd71a6004e20fc507",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "highway-native-1.mp4",
+          "path": "carla/release-v2/highway-native-1.mp4",
+          "role": "native-1"
+        },
+        {
+          "bytes": 10283630,
+          "sha256": "b56cf3b88d59839527efc1a6b5381dbc0f26622d30e237728a133ec89e19905f",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "highway-native-2.mp4",
+          "path": "carla/release-v2/highway-native-2.mp4",
+          "role": "native-2"
+        },
+        {
+          "bytes": 9106905,
+          "sha256": "2e6db120f95475e86c0c4c979c8e0a0292651af49e365303a8e5a5103d79d0f9",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "highway-native-3.mp4",
+          "path": "carla/release-v2/highway-native-3.mp4",
+          "role": "native-3"
+        },
+        {
+          "bytes": 26890353,
+          "sha256": "8982791a72cacfa926e2cabf098a35b0021992b08396e3e2dcf03377ee142d89",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "highway-carla-sumo-four-pane.mp4",
+          "path": "carla/release-v2/highway-carla-sumo-four-pane.mp4",
+          "role": "carla-sumo-four-pane"
+        }
+      ],
+      "preview": {
+        "bytes": 3124428,
+        "sha256": "ef4d5748e7beceb152e76085527682c411a2083dd2e1eb47bc3ec86bb679dafa",
+        "duration_s": 6,
+        "fps": 10,
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false,
+        "source_sample_start": 0,
+        "source_sample_end_exclusive": 120,
+        "selected_native_frame_ids": [
+          160296,
+          160298,
+          160300,
+          160302,
+          160304,
+          160306,
+          160308,
+          160310,
+          160312,
+          160314,
+          160316,
+          160318,
+          160320,
+          160322,
+          160324,
+          160326,
+          160328,
+          160330,
+          160332,
+          160334,
+          160336,
+          160338,
+          160340,
+          160342,
+          160344,
+          160346,
+          160348,
+          160350,
+          160352,
+          160354,
+          160356,
+          160358,
+          160360,
+          160362,
+          160364,
+          160366,
+          160368,
+          160370,
+          160372,
+          160374,
+          160376,
+          160378,
+          160380,
+          160382,
+          160384,
+          160386,
+          160388,
+          160390,
+          160392,
+          160394,
+          160396,
+          160398,
+          160400,
+          160402,
+          160404,
+          160406,
+          160408,
+          160410,
+          160412,
+          160414
+        ],
+        "source_video_sha256": "8982791a72cacfa926e2cabf098a35b0021992b08396e3e2dcf03377ee142d89",
+        "path": "docs/media/highway.gif"
+      },
+      "sumo_replay_qualification": null
+    },
+    {
+      "id": "ramp-entry",
+      "native_frames": 487,
+      "fps": 20,
+      "duration_s": 24.35,
+      "first_native_frame": 178539,
+      "last_native_frame": 179025,
+      "source_sha256": {
+        "manifest.json": "ee2bcaac2180498862d20e6340457eb09d35de88a37788775bae8bcc56cec1fb",
+        "frames.jsonl": "e71dedb0857b9c1aa6978476c263b90fd53783a5d2163af5b91cf7f47477cd3e",
+        "map.xodr": "af906b0e198fb381ceff428a52e68dfbfbc0fffc97b405ce1c5bde9e03803849"
+      },
+      "source_acquisition": "native_CARLA_physics",
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "source_frame_cut": false,
+      "added_text_or_HUD": false,
+      "trained_model": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          243,
+          486
+        ],
+        "reviewed_native_frames": [
+          178539,
+          178782,
+          179025
+        ],
+        "full_video_manually_watched": false
+      },
+      "audit_sha256": {
+        "execution": "b19385a962a24618b808c9bafe0454a875abdb955d32d0d29c96d43c9a43f342",
+        "motion_audit": "e57c489f97a69567d88162a473a660845e028397757c1271fc81b36f09213918",
+        "action_audit": "1db94866d7e3d7b9030c1a26917c456aad7a6d5cf283bcf7d440d9aa4914111b",
+        "sensor_audit": "ab5cd94f3b2363ae9a638dcf08471af4680584653b7c1da4b4d7e5f028be818a",
+        "native_video_manifest": "3a22d15eff9c5ff80d5877ec95e01f0a62571e5c9d27983033c0b1103ccf8675",
+        "native_video_audit": "46fc16279f05ac2313fa15cb47b972437f40aefec5ad6270db1f76a64f3b9bb2",
+        "sumo_manifest": "cb44f68718643e5a161c6ec2c2e2f049fda615c1960b2ff15d08b6696153e87a",
+        "sumo_audit": "21a07ef0c1616df3ff1784a231d57c22aaa640e8d02ba3a5f007daec8d82af56",
+        "pane_manifest": "292ee6cd2be11549107ea42d51b5272880b6515475f991404b63b74e8bc31e60",
+        "pane_audit": "c9e89901ba2730c8e4a7a7246bb4ea454ee82d28f1760864b31b89da7abc49ff",
+        "manual_review": "2201a24c83ea331e673150363d3d0f3088f66ce08ed12d15670cba28fb3734b1"
+      },
+      "media": [
+        {
+          "bytes": 48925612,
+          "sha256": "c550abd02659ae7258e76ed1170ba64aa7a1b68b2a1bfeafc52f9c8b70a5b7f1",
+          "frames": 487,
+          "fps": 20,
+          "duration_s": 24.35,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "ramp-entry-native-1.mp4",
+          "path": "carla/release-v2/ramp-entry-native-1.mp4",
+          "role": "native-1"
+        },
+        {
+          "bytes": 17792614,
+          "sha256": "fe9485e03f0e836e9b9819672517d4320bcfa5510a0ef652591175c55120390e",
+          "frames": 487,
+          "fps": 20,
+          "duration_s": 24.35,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "ramp-entry-native-2.mp4",
+          "path": "carla/release-v2/ramp-entry-native-2.mp4",
+          "role": "native-2"
+        },
+        {
+          "bytes": 15250832,
+          "sha256": "89bc42c99e4b5946277d7e0087b1f51f4c5ef69a4c3903d583f9d31c9195eaf3",
+          "frames": 487,
+          "fps": 20,
+          "duration_s": 24.35,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "ramp-entry-native-3.mp4",
+          "path": "carla/release-v2/ramp-entry-native-3.mp4",
+          "role": "native-3"
+        },
+        {
+          "bytes": 41516809,
+          "sha256": "87e8e815d5b471b2aff9c5c26e1aa3558792d676986aed02620c6405d1f70e66",
+          "frames": 487,
+          "fps": 20,
+          "duration_s": 24.35,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "ramp-entry-carla-sumo-four-pane.mp4",
+          "path": "carla/release-v2/ramp-entry-carla-sumo-four-pane.mp4",
+          "role": "carla-sumo-four-pane"
+        }
+      ],
+      "preview": {
+        "bytes": 2889004,
+        "sha256": "cc7cb68e073b09d51b74370264dfce8ad546b1342e1f31d22689338b636e067b",
+        "duration_s": 6,
+        "fps": 10,
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false,
+        "source_sample_start": 0,
+        "source_sample_end_exclusive": 120,
+        "selected_native_frame_ids": [
+          178539,
+          178541,
+          178543,
+          178545,
+          178547,
+          178549,
+          178551,
+          178553,
+          178555,
+          178557,
+          178559,
+          178561,
+          178563,
+          178565,
+          178567,
+          178569,
+          178571,
+          178573,
+          178575,
+          178577,
+          178579,
+          178581,
+          178583,
+          178585,
+          178587,
+          178589,
+          178591,
+          178593,
+          178595,
+          178597,
+          178599,
+          178601,
+          178603,
+          178605,
+          178607,
+          178609,
+          178611,
+          178613,
+          178615,
+          178617,
+          178619,
+          178621,
+          178623,
+          178625,
+          178627,
+          178629,
+          178631,
+          178633,
+          178635,
+          178637,
+          178639,
+          178641,
+          178643,
+          178645,
+          178647,
+          178649,
+          178651,
+          178653,
+          178655,
+          178657
+        ],
+        "source_video_sha256": "87e8e815d5b471b2aff9c5c26e1aa3558792d676986aed02620c6405d1f70e66",
+        "path": "docs/media/ramp-entry.gif"
+      },
+      "sumo_replay_qualification": null
+    },
+    {
+      "id": "ramp-exit",
+      "native_frames": 476,
+      "fps": 20,
+      "duration_s": 23.8,
+      "first_native_frame": 160872,
+      "last_native_frame": 161347,
+      "source_sha256": {
+        "manifest.json": "945f4c66e7f86244090395e091549303e3a62ab19d3404677e70840e6643c55d",
+        "frames.jsonl": "ee11d7a46b9b420041d86dd6e42b3541c31b3b11221310a48f1e2b6ca2a4ca40",
+        "map.xodr": "af906b0e198fb381ceff428a52e68dfbfbc0fffc97b405ce1c5bde9e03803849"
+      },
+      "source_acquisition": "native_CARLA_physics",
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "source_frame_cut": false,
+      "added_text_or_HUD": false,
+      "trained_model": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          238,
+          475
+        ],
+        "reviewed_native_frames": [
+          160872,
+          161110,
+          161347
+        ],
+        "full_video_manually_watched": false
+      },
+      "audit_sha256": {
+        "execution": "d2db600e1928a4cd2eb59130feecb882e9ea7e3698469264e292d68b65bdae3a",
+        "motion_audit": "42e4b45614b0c249206b1b0cfbcaab7922718ea7922c66be413e6c56965edb5c",
+        "action_audit": "f6d0a600e86e3755aa485b71900f2cc85f10e95e2f4b42057ff8afe243790d73",
+        "sensor_audit": "c7aebce610e8c58a636c753e7b18877910b6054055b7ded495b15a4f7fd2cad8",
+        "native_video_manifest": "402ab83b711713ffbfa82f2dbde193ec7f80b4be2e4f4d9354829ef6a0c15358",
+        "native_video_audit": "cd91c6ad7f8ec09e00f98e8608ddeb69f4394a67eb29ea1448f661fc8f1133bf",
+        "sumo_manifest": "deae895a3fab3557da1d8970535ccb7a450310160192df9872ac7fd6697a583e",
+        "sumo_audit": "39588e08871f060509c83d8dd0e441bd9adeeb126334746dec83b7a4631f8aaa",
+        "pane_manifest": "7df0f42dc0cbdbc2849715b22d4dde743d27e8a6f3dca5a355ce7e087d9c881e",
+        "pane_audit": "ba17213bbcc24f42c6374885ca3d725740abe2f584b87eca71a96d30e0e63ad9",
+        "manual_review": "38df4f225e0d01552f804b6e5f35307c6be12f23a52e0d14f42d9bd4ebca8d63"
+      },
+      "media": [
+        {
+          "bytes": 44168738,
+          "sha256": "99dbcba8586d46f04af2db3a37e645ac85152fd2a3d025feeee89fa07a3be133",
+          "frames": 476,
+          "fps": 20,
+          "duration_s": 23.8,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "ramp-exit-native-1.mp4",
+          "path": "carla/release-v2/ramp-exit-native-1.mp4",
+          "role": "native-1"
+        },
+        {
+          "bytes": 16383570,
+          "sha256": "f5ba6d1d9bc2a821bf410c7015eb272aa0719ba921b49f64406ec2ed60e387df",
+          "frames": 476,
+          "fps": 20,
+          "duration_s": 23.8,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "ramp-exit-native-2.mp4",
+          "path": "carla/release-v2/ramp-exit-native-2.mp4",
+          "role": "native-2"
+        },
+        {
+          "bytes": 13469637,
+          "sha256": "93152886b153fd1d39d034415c54caa5f0f8b8a8c0d8a0cd3213021e6b7cd1f5",
+          "frames": 476,
+          "fps": 20,
+          "duration_s": 23.8,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "ramp-exit-native-3.mp4",
+          "path": "carla/release-v2/ramp-exit-native-3.mp4",
+          "role": "native-3"
+        },
+        {
+          "bytes": 37862070,
+          "sha256": "fc6116ef1ab0311a301ca6e0021b3633fcaa2aa1c6fb9ffe359ed019f0766e49",
+          "frames": 476,
+          "fps": 20,
+          "duration_s": 23.8,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "ramp-exit-carla-sumo-four-pane.mp4",
+          "path": "carla/release-v2/ramp-exit-carla-sumo-four-pane.mp4",
+          "role": "carla-sumo-four-pane"
+        }
+      ],
+      "preview": {
+        "bytes": 2867311,
+        "sha256": "14d198ab201e9216878c0035e6dfee9edb53e09b92ac99f7f76e529f3f15ecf6",
+        "duration_s": 6,
+        "fps": 10,
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false,
+        "source_sample_start": 0,
+        "source_sample_end_exclusive": 120,
+        "selected_native_frame_ids": [
+          160872,
+          160874,
+          160876,
+          160878,
+          160880,
+          160882,
+          160884,
+          160886,
+          160888,
+          160890,
+          160892,
+          160894,
+          160896,
+          160898,
+          160900,
+          160902,
+          160904,
+          160906,
+          160908,
+          160910,
+          160912,
+          160914,
+          160916,
+          160918,
+          160920,
+          160922,
+          160924,
+          160926,
+          160928,
+          160930,
+          160932,
+          160934,
+          160936,
+          160938,
+          160940,
+          160942,
+          160944,
+          160946,
+          160948,
+          160950,
+          160952,
+          160954,
+          160956,
+          160958,
+          160960,
+          160962,
+          160964,
+          160966,
+          160968,
+          160970,
+          160972,
+          160974,
+          160976,
+          160978,
+          160980,
+          160982,
+          160984,
+          160986,
+          160988,
+          160990
+        ],
+        "source_video_sha256": "fc6116ef1ab0311a301ca6e0021b3633fcaa2aa1c6fb9ffe359ed019f0766e49",
+        "path": "docs/media/ramp-exit.gif"
+      },
+      "sumo_replay_qualification": null
+    },
+    {
+      "id": "left-turn",
+      "native_frames": 580,
+      "fps": 20,
+      "duration_s": 29.0,
+      "first_native_frame": 1199929,
+      "last_native_frame": 1200508,
+      "source_sha256": {
+        "manifest.json": "ccfa878abaa6b5146d8d134c76c7f4672191328076f68ad38f3c203d218b99d7",
+        "frames.jsonl": "9d6c6ba13d7bfd99c04d6208af5f4614e02673cd8ea7430ef40fc31fdf10fc75",
+        "map.xodr": "8f5b8eb0acbf51036cffe9113edeb589dc2eec3207166b865f92944c945ed56b"
+      },
+      "source_acquisition": "native_CARLA_physics",
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "source_frame_cut": false,
+      "added_text_or_HUD": false,
+      "trained_model": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          290,
+          579
+        ],
+        "reviewed_native_frames": [
+          1199929,
+          1200219,
+          1200508
+        ],
+        "full_video_manually_watched": false
+      },
+      "audit_sha256": {
+        "execution": "184712a3e3e47dce46a9dc120b04b1545e91b294751f5e3543516af0b288355e",
+        "motion_audit": "3592c7abaff7346db9747d4421a5587e23f4e1d6a5c341961631c5d9c708da00",
+        "action_audit": "959b3202df509f795f647702541bd7bdb7a5f8deac8abe75d3502ef44a09bc94",
+        "sensor_audit": "f27c2be3acaf70518bc857cd02910ee26a57ec96041923ef5dc5cb3a57f25a96",
+        "native_video_manifest": "4257ba4ff030b82902c4bfa2c7fc940ed86296d8d4f3e31103874cd41ceda9ce",
+        "native_video_audit": "8727bf2c86f6ecfe91386a5873f14be5dfd3835283fbc45e90ca483d66fe2c46",
+        "sumo_manifest": "08d03480c858b8533d307bb137a8f215a3e93f9533be7cd0f9f838ac2c5d84c4",
+        "sumo_audit": "b591a992bea2daef5df891d0d90e34924427d9794ef757a998f1d538eb36ca8e",
+        "pane_manifest": "103a8285cb19b00c5183edb36c6ae99306567dda7383d074c322661885323c6c",
+        "pane_audit": "6e207be55e926a3706a98bbce267c57e5b96332b18db51bd1465896173e63654",
+        "manual_review": "81e0428ff98a58fc032119bcfcbb492ff9fab3e2945290604d17a6a72201766c"
+      },
+      "media": [
+        {
+          "bytes": 47153612,
+          "sha256": "c71efd7c41159933c94716d1b0af0b668fde0c7675aaa4e75cbca24f7e509e86",
+          "frames": 580,
+          "fps": 20,
+          "duration_s": 29.0,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "left-turn-native-1.mp4",
+          "path": "carla/release-v2/left-turn-native-1.mp4",
+          "role": "native-1"
+        },
+        {
+          "bytes": 14632049,
+          "sha256": "23a41ea9d9ae9cf0d0a0ccb40bae6076ed2dd09118f34499c89f1a32cf2ac478",
+          "frames": 580,
+          "fps": 20,
+          "duration_s": 29.0,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "left-turn-native-2.mp4",
+          "path": "carla/release-v2/left-turn-native-2.mp4",
+          "role": "native-2"
+        },
+        {
+          "bytes": 13134287,
+          "sha256": "55be84aebd437065720aeb4afa446261374edcd8e6b72864bcb41fd625fb4ed9",
+          "frames": 580,
+          "fps": 20,
+          "duration_s": 29.0,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "left-turn-native-3.mp4",
+          "path": "carla/release-v2/left-turn-native-3.mp4",
+          "role": "native-3"
+        },
+        {
+          "bytes": 42244178,
+          "sha256": "807306ddb8393940b85ab8096a41fac23e95226648f99f42251f1bedb16ae253",
+          "frames": 580,
+          "fps": 20,
+          "duration_s": 29.0,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "left-turn-carla-sumo-four-pane.mp4",
+          "path": "carla/release-v2/left-turn-carla-sumo-four-pane.mp4",
+          "role": "carla-sumo-four-pane"
+        }
+      ],
+      "preview": {
+        "bytes": 3379962,
+        "sha256": "058d6afdb838e6074d7056219cda610ef08376033100e7e33afd08769cac52c9",
+        "duration_s": 6,
+        "fps": 10,
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false,
+        "source_sample_start": 300,
+        "source_sample_end_exclusive": 420,
+        "selected_native_frame_ids": [
+          1200229,
+          1200231,
+          1200233,
+          1200235,
+          1200237,
+          1200239,
+          1200241,
+          1200243,
+          1200245,
+          1200247,
+          1200249,
+          1200251,
+          1200253,
+          1200255,
+          1200257,
+          1200259,
+          1200261,
+          1200263,
+          1200265,
+          1200267,
+          1200269,
+          1200271,
+          1200273,
+          1200275,
+          1200277,
+          1200279,
+          1200281,
+          1200283,
+          1200285,
+          1200287,
+          1200289,
+          1200291,
+          1200293,
+          1200295,
+          1200297,
+          1200299,
+          1200301,
+          1200303,
+          1200305,
+          1200307,
+          1200309,
+          1200311,
+          1200313,
+          1200315,
+          1200317,
+          1200319,
+          1200321,
+          1200323,
+          1200325,
+          1200327,
+          1200329,
+          1200331,
+          1200333,
+          1200335,
+          1200337,
+          1200339,
+          1200341,
+          1200343,
+          1200345,
+          1200347
+        ],
+        "source_video_sha256": "807306ddb8393940b85ab8096a41fac23e95226648f99f42251f1bedb16ae253",
+        "path": "docs/media/left-turn.gif"
+      },
+      "sumo_replay_qualification": {
+        "qualification": "qualified_single_background_endpoint_native_SUMO_replay_mapping",
+        "all_actor_lane_membership": false,
+        "offnetwork_actor_samples": 1,
+        "source_sample": 501,
+        "native_frame": 1200430,
+        "actor_role": "dynamic_bg_015",
+        "ego_all_lane_membership": true,
+        "entire_offnetwork_actor_outside_actual_viewport": true,
+        "connected_endpoint_distance_m": 0.05839428328728442,
+        "exact_pose_preserved": true,
+        "lane_field_filled": false,
+        "source_modified": false,
+        "previous_sumo_lane": ":2014_16_0",
+        "following_sumo_lane": "-13_3"
+      }
+    },
+    {
+      "id": "roundabout",
+      "native_frames": 1001,
+      "fps": 20,
+      "duration_s": 50.05,
+      "first_native_frame": 1211955,
+      "last_native_frame": 1212955,
+      "source_sha256": {
+        "manifest.json": "42468b1b87c90001923bb4ae14bab749ecc89458288b256f3e8a3dc0398250ad",
+        "frames.jsonl": "415c522b3fcd4c9c261b1521af9d0115a0be8c9bca2ebd4b1bea6faceb683d88",
+        "map.xodr": "6b7b80d8396990433bf9e152fc4a21b9aeb2dc2cfe46bba8df6cc8880c29af7c"
+      },
+      "source_acquisition": "native_CARLA_physics",
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "source_frame_cut": false,
+      "added_text_or_HUD": false,
+      "trained_model": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          500,
+          1000
+        ],
+        "reviewed_native_frames": [
+          1211955,
+          1212455,
+          1212955
+        ],
+        "full_video_manually_watched": false
+      },
+      "audit_sha256": {
+        "execution": "c8ee82bd231e70f1486c7f6c9a0b6d28c73d6798d6e99dbe96663c3a63f18975",
+        "motion_audit": "ce15e64d24d6986c24c3264165eb634a63ea30b45d1af9c3e26448d3073ca978",
+        "action_audit": "49a06f360f4d0308ea313219d2198b1fe878a343eaecbe16e2c06200e6cbd4bc",
+        "sensor_audit": "43221eecf1edf8319cad8abab73eff8fa7a6083fb28d0a9cd33ad2ac41b4dc12",
+        "native_video_manifest": "06082783a83784623b9a489db666e0b72216b7a3986fb954b581597084b3de67",
+        "native_video_audit": "0fa0b22bf1051fd7a14769518380d48af61b5533419a5eb5681a8a678c8ff004",
+        "sumo_manifest": "cb5b8b42556d99d2a36415ce4c87b8b6df8911825ee8a5a4ba024c61b0a41a9a",
+        "sumo_audit": "33bae8ddbb8d5e429cb4422181cf6251d10190ea36f370f500915e52740c66c3",
+        "pane_manifest": "d1e4ea793f338cb5a48aff27353a0748e3e651f96dc8d10adab2f4a193cc612c",
+        "pane_audit": "50aae532c505b0abdfd59aff788442c35aab276237e1b3444fb6aec914355afc",
+        "manual_review": "2f0ba28ed3208caa98e6cbf395bf7fd675011db32f5f93786af1f4a7e9ea0078"
+      },
+      "media": [
+        {
+          "bytes": 85749560,
+          "sha256": "e19d0ebc2d56333d94d8e194946f59c0b3cdea1fb42641e14db34b7bec32fae2",
+          "frames": 1001,
+          "fps": 20,
+          "duration_s": 50.05,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "roundabout-native-1.mp4",
+          "path": "carla/release-v2/roundabout-native-1.mp4",
+          "role": "native-1"
+        },
+        {
+          "bytes": 28125023,
+          "sha256": "8528cb92a868f945fd1365c190bff64038d763b9d5e7911c65e2944c00e26885",
+          "frames": 1001,
+          "fps": 20,
+          "duration_s": 50.05,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "roundabout-native-2.mp4",
+          "path": "carla/release-v2/roundabout-native-2.mp4",
+          "role": "native-2"
+        },
+        {
+          "bytes": 23308861,
+          "sha256": "5bd515ded4e461beda0396102a58962006cc27083d6fde2b3ac91522231faeee",
+          "frames": 1001,
+          "fps": 20,
+          "duration_s": 50.05,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "roundabout-native-3.mp4",
+          "path": "carla/release-v2/roundabout-native-3.mp4",
+          "role": "native-3"
+        },
+        {
+          "bytes": 77841328,
+          "sha256": "641bfd840116e1ca961513fe863a3937eb0438879704f617d48de1027ad45d1b",
+          "frames": 1001,
+          "fps": 20,
+          "duration_s": 50.05,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "roundabout-carla-sumo-four-pane.mp4",
+          "path": "carla/release-v2/roundabout-carla-sumo-four-pane.mp4",
+          "role": "carla-sumo-four-pane"
+        }
+      ],
+      "preview": {
+        "bytes": 3403319,
+        "sha256": "966450b21c456ca6a6ac99d4a06df0dff24c5386c18e0f797a78196292ee07b9",
+        "duration_s": 6,
+        "fps": 10,
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false,
+        "source_sample_start": 740,
+        "source_sample_end_exclusive": 860,
+        "selected_native_frame_ids": [
+          1212695,
+          1212697,
+          1212699,
+          1212701,
+          1212703,
+          1212705,
+          1212707,
+          1212709,
+          1212711,
+          1212713,
+          1212715,
+          1212717,
+          1212719,
+          1212721,
+          1212723,
+          1212725,
+          1212727,
+          1212729,
+          1212731,
+          1212733,
+          1212735,
+          1212737,
+          1212739,
+          1212741,
+          1212743,
+          1212745,
+          1212747,
+          1212749,
+          1212751,
+          1212753,
+          1212755,
+          1212757,
+          1212759,
+          1212761,
+          1212763,
+          1212765,
+          1212767,
+          1212769,
+          1212771,
+          1212773,
+          1212775,
+          1212777,
+          1212779,
+          1212781,
+          1212783,
+          1212785,
+          1212787,
+          1212789,
+          1212791,
+          1212793,
+          1212795,
+          1212797,
+          1212799,
+          1212801,
+          1212803,
+          1212805,
+          1212807,
+          1212809,
+          1212811,
+          1212813
+        ],
+        "source_video_sha256": "641bfd840116e1ca961513fe863a3937eb0438879704f617d48de1027ad45d1b",
+        "path": "docs/media/roundabout.gif"
+      },
+      "sumo_replay_qualification": {
+        "qualification": "qualified_source_pose_native_GUI_roundabout_lane_metadata_limitations",
+        "all_actor_lane_membership": false,
+        "ego_lane_membership_all_frames": false,
+        "offnetwork_actor_samples": 16,
+        "ego_offnetwork_samples": 2,
+        "background_offnetwork_samples": 14,
+        "ego_endpoint_samples": [
+          {
+            "source_sample": 157,
+            "native_frame": 1212112,
+            "connected_endpoint_distance_m": 0.0367554263314458,
+            "native_GUI_ego_visible": true,
+            "previous_sumo_lane": "-25_4",
+            "following_sumo_lane": ":1469_2_1"
+          },
+          {
+            "source_sample": 473,
+            "native_frame": 1212428,
+            "connected_endpoint_distance_m": 0.05999445556809872,
+            "native_GUI_ego_visible": true,
+            "previous_sumo_lane": ":1469_2_1",
+            "following_sumo_lane": "-38_3"
+          }
+        ],
+        "background_sample_start": 41,
+        "background_sample_end_inclusive": 54,
+        "background_role": "dynamic_bg_013",
+        "background_native_road_id": 44,
+        "background_native_lane_id": -5,
+        "background_native_s_start_m": 1.9267873764038286,
+        "background_native_s_end_m": 5.8755493164062695,
+        "converted_narrow_lane_ids": [
+          "-44_1",
+          "-44_2",
+          "-44_5",
+          "-44_6"
+        ],
+        "all_gap_background_bodies_outside_actual_viewport": true,
+        "exact_source_pose_time_and_original_PNGs_verified": true,
+        "lane_field_filled": false,
+        "source_modified": false,
+        "native_GUI_repeat_render_max_changed_pixels": 3,
+        "native_GUI_repeat_render_min_nonidentical_PSNR_dB": 58.78623556057258,
+        "all_repeat_PNG_bytes_identical": false
+      }
+    },
+    {
+      "id": "live-highway",
+      "native_frames": 334,
+      "fps": 20,
+      "duration_s": 16.7,
+      "first_native_frame": 457907,
+      "last_native_frame": 458240,
+      "source_sha256": {
+        "manifest.json": "ac2387087cdd279d6bacc3468308ce47ca90883e6e270c593ce1bf08f4dc0cf1",
+        "frames.jsonl": "6412af93297e65744aaf0554ea2d52d422bea1e3f13072b91e14bd787e9494f9",
+        "map.xodr": "3d6f7d21ca6cf07377cda62c2b651acb8d6d533daf62705aea59f7bb40f11470"
+      },
+      "source_acquisition": "official_two_way_live_cosimulation",
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "source_frame_cut": false,
+      "added_text_or_HUD": false,
+      "trained_model": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          167,
+          333
+        ],
+        "reviewed_native_frames": [
+          457907,
+          458074,
+          458240
+        ],
+        "full_video_manually_watched": false
+      },
+      "audit_sha256": {
+        "execution": "294f1f9b27261435a02584068bc0254ba159587eabf9c1f3f1c9a46e6ee65eba",
+        "motion_audit": "ddc185ccd3cee2d026741dd699b67ce9dfec0bb23f9b3751a1303a1ff328d0d2",
+        "action_audit": "9ebefddc17b2be179587c33c9b2c3c5bcf63e9f14f19fa8f70672972e1065a58",
+        "sensor_audit": "3b70da041b2dd01dc8e48fae57210df623552624c839be630731550cdfe59ce6",
+        "native_video_manifest": "28625a6b5020720492415445fd525d5057767c6e9ff12f3c25edd796c720107d",
+        "native_video_audit": "80d1c564d8b8314d2da2e72b228f26509e8741650f88f03e1b8904a601bdced5",
+        "sumo_manifest": "d6c67c2e4088e38aac18c010f03e95e36f803f99e55eee9ab468d8dbb0fdef21",
+        "sumo_audit": "c3a8455670fa6c8fdf068b550000dc1586612f9f83d2c2e44be47a8f33916597",
+        "pane_manifest": "05b333e23226918c8dc97b98c7379c71327490192ab828199c3e8661ed220ff5",
+        "pane_audit": "0f929a350e98e3f91710022a8ef24cea7daab88c1932d48a207e6f18ced92d00",
+        "manual_review": "bf4550ab7b51267a52100f4bd3345f1ff8d9ff44b17c45fef9c5c44ccf8f700b",
+        "live_audit": "8d4b4dba13232d0ee201c78602176a0621f8cb10a6fdf978907c63666e50d9c7"
+      },
+      "media": [
+        {
+          "bytes": 31335781,
+          "sha256": "df29d9187aa5d3db138cb5f9f45346bb03ecf66ee80eb30e7f8bacabe34bd2ef",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "live-highway-native-1.mp4",
+          "path": "carla/release-v2/live-highway-native-1.mp4",
+          "role": "native-1"
+        },
+        {
+          "bytes": 10379539,
+          "sha256": "c359e551bf197a2c2f63d6839e9bc5c51200e8ccbe89126d7facbcb5a3a67746",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "live-highway-native-2.mp4",
+          "path": "carla/release-v2/live-highway-native-2.mp4",
+          "role": "native-2"
+        },
+        {
+          "bytes": 9263206,
+          "sha256": "2cb39c4af526cb9801ccd4a440604dba2fac941d1d75f7f632a32cc5417258ff",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1280,
+            720
+          ],
+          "name": "live-highway-native-3.mp4",
+          "path": "carla/release-v2/live-highway-native-3.mp4",
+          "role": "native-3"
+        },
+        {
+          "bytes": 27092524,
+          "sha256": "651d0c6eb59d2ec182648daacc6567d83956656960b955eac6c7a7700c853566",
+          "frames": 334,
+          "fps": 20,
+          "duration_s": 16.7,
+          "size": [
+            1920,
+            1080
+          ],
+          "name": "live-highway-carla-sumo-four-pane.mp4",
+          "path": "carla/release-v2/live-highway-carla-sumo-four-pane.mp4",
+          "role": "carla-sumo-four-pane"
+        }
+      ],
+      "preview": {
+        "bytes": 3119409,
+        "sha256": "838fe353fa0504cf734f13aa710db023d33a6fd20b50b012802e80d8ca113d71",
+        "duration_s": 6,
+        "fps": 10,
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false,
+        "source_sample_start": 0,
+        "source_sample_end_exclusive": 120,
+        "selected_native_frame_ids": [
+          457907,
+          457909,
+          457911,
+          457913,
+          457915,
+          457917,
+          457919,
+          457921,
+          457923,
+          457925,
+          457927,
+          457929,
+          457931,
+          457933,
+          457935,
+          457937,
+          457939,
+          457941,
+          457943,
+          457945,
+          457947,
+          457949,
+          457951,
+          457953,
+          457955,
+          457957,
+          457959,
+          457961,
+          457963,
+          457965,
+          457967,
+          457969,
+          457971,
+          457973,
+          457975,
+          457977,
+          457979,
+          457981,
+          457983,
+          457985,
+          457987,
+          457989,
+          457991,
+          457993,
+          457995,
+          457997,
+          457999,
+          458001,
+          458003,
+          458005,
+          458007,
+          458009,
+          458011,
+          458013,
+          458015,
+          458017,
+          458019,
+          458021,
+          458023,
+          458025
+        ],
+        "source_video_sha256": "651d0c6eb59d2ec182648daacc6567d83956656960b955eac6c7a7700c853566",
+        "path": "docs/media/live-highway.gif"
+      },
+      "sumo_replay_qualification": null
+    }
+  ],
+  "trained_policy": false,
+  "image_boxes_are_native_ground_truth": true,
+  "pointcloud_is_native_sensor_processing": true,
+  "published": false,
+  "limitations": [
+    "SUMO GUI panes are post-capture replay, including the independently verified live source.",
+    "Simulator-label boxes are ground truth assisted image processing, not learned detection.",
+    "Vehicle separation checks sample recorded world frames, not continuous-time safety guarantees.",
+    "Manual sample review is disclosed separately from full automated video decoding.",
+    "Left-turn SUMO replay retains one empty lane field for a background vehicle at a connected road endpoint (sample 501, native frame 1200430, 0.058394 m from the endpoint). Its complete footprint is outside the actual native GUI viewport. All ego lane fields and all source poses, times and images remain verified; all-actor lane membership is explicitly false. The original strict FAIL is preserved and no lane or pose was filled or modified.",
+    "Roundabout SUMO replay retains 16 empty lane fields: two visible ego samples at connected normal/internal endpoints within 0.1 m and 14 consecutive samples (41-54) of background road44/-5 outside the actual viewport. All-actor and all-ego lane membership are false, while exact full source poses/times and original PNG hashes pass. The original strict FAIL remains; lanes and poses were not repaired. Independent native GUI repeats match actual viewport and all poses and differ by at most 4 pixels; measured PSNR is disclosed, not claimed identical bytes. This is post-capture GUI representation, not a new closed-loop roundabout run."
+  ]
+}

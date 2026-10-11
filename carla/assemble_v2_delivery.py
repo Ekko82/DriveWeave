@@ -9,6 +9,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import argparse
 import hashlib
+import importlib.util
 import json
 import math
 import os
@@ -174,6 +175,22 @@ def scene_gate(spec, root=ROOT):
     pane = reports['pane_manifest']; pane_audit = reports['pane_audit']
     clean_report(pane_audit, 'automated_checks_passed')
     sumo = reports['sumo_manifest']; sync = reports['sumo_audit']; clean_report(sync, 'passed')
+    qualification = None
+    if sync.get('audit_type') == 'qualified_single_background_endpoint_native_SUMO_replay_mapping':
+        require(scene_id == 'left-turn', 'The approved single-boundary qualification is specific to left-turn')
+        module_spec = importlib.util.spec_from_file_location('sumo_boundary_qualification',
+                         Path(__file__).with_name('audit_sumo_sync_boundary_qualified.py'))
+        qualifier = importlib.util.module_from_spec(module_spec); module_spec.loader.exec_module(qualifier)
+        qualification = qualifier.revalidate_report(sync)
+    elif sync.get('audit_type') == 'qualified_source_pose_native_GUI_roundabout_lane_metadata_limitations':
+        require(scene_id == 'roundabout', 'The approved roundabout metadata scope cannot apply to other scenes')
+        module_spec = importlib.util.spec_from_file_location('sumo_round_qualification',
+                         Path(__file__).with_name('audit_sumo_sync_round_qualified.py'))
+        qualifier = importlib.util.module_from_spec(module_spec); module_spec.loader.exec_module(qualifier)
+        qualification = qualifier.revalidate_report(sync)
+    else:
+        require(sync.get('all_actor_lane_membership') is not False,
+                'An all-lane failure needs the explicitly validated qualified scope')
     require(sumo.get('status') == 'complete' and sumo.get('mode') == 'post_capture_synchronized_replay'
             and sumo.get('sumo_process_exit_code') == 0 and sumo.get('native_gui_only') is True
             and sumo.get('carla_connected_or_ticked') is False
@@ -245,7 +262,8 @@ def scene_gate(spec, root=ROOT):
             'files': files, 'reports': reports, 'native': native, 'pane': pane,
             'manual_review': manual, 'live_joint_simulation_verified': live is not None,
             'requested_action_verified': True, 'full_internal_plan_completed': True,
-            'sumo_view_mode': 'post_capture_synchronized_replay'}
+            'sumo_view_mode': 'post_capture_synchronized_replay',
+            'sumo_replay_qualification': qualification}
 
 
 def validate_config(config, root=ROOT):
@@ -347,7 +365,8 @@ def execute(config, accepted, root=ROOT, promote_current=False):
                           for k,p in scene['files'].items()}
         local = {k:scene[k] for k in ('id','source_run','processed_run','native_frame_ids','native_frames',
                   'fps','duration_s','source_sha256','manual_review','live_joint_simulation_verified',
-                  'requested_action_verified','full_internal_plan_completed','sumo_view_mode')}
+                  'requested_action_verified','full_internal_plan_completed','sumo_view_mode',
+                  'sumo_replay_qualification')}
         local.update({'verification_reports':list(report_records.values()),'release_outputs':media,
                       'native_manifest':str(scene['files']['native_video_manifest']),
                       'sumo_manifest':str(scene['files']['sumo_manifest']),
@@ -362,7 +381,8 @@ def execute(config, accepted, root=ROOT, promote_current=False):
               'source_frame_cut':False,'added_text_or_HUD':False,'trained_model':False,
               'requested_action_verified':True,'full_internal_plan_completed':True,
               'manual_review':scene['manual_review'],'audit_sha256':{k:v['sha256'] for k,v in report_records.items()},
-              'media':media,'preview':preview})
+              'media':media,'preview':preview,
+              'sumo_replay_qualification':scene['sumo_replay_qualification']})
     public = {'schema_version':1,'version':'v2','status':'accepted_local_media_publication_pending',
         'scenes':public_scenes,'trained_policy':False,'image_boxes_are_native_ground_truth':True,
         'pointcloud_is_native_sensor_processing':True,'published':False,
@@ -370,6 +390,10 @@ def execute(config, accepted, root=ROOT, promote_current=False):
                        'Simulator-label boxes are ground truth assisted image processing, not learned detection.',
                        'Vehicle separation checks sample recorded world frames, not continuous-time safety guarantees.',
                        'Manual sample review is disclosed separately from full automated video decoding.']}
+    if any(s['id']=='left-turn' and s['sumo_replay_qualification'] is not None for s in public_scenes):
+        public['limitations'].append('Left-turn SUMO replay retains one empty lane field for a background vehicle at a connected road endpoint (sample 501, native frame 1200430, 0.058394 m from the endpoint). Its complete footprint is outside the actual native GUI viewport. All ego lane fields and all source poses, times and images remain verified; all-actor lane membership is explicitly false. The original strict FAIL is preserved and no lane or pose was filled or modified.')
+    if any(s['id']=='roundabout' and s['sumo_replay_qualification'] is not None for s in public_scenes):
+        public['limitations'].append('Roundabout SUMO replay retains 16 empty lane fields: two visible ego samples at connected normal/internal endpoints within 0.1 m and 14 consecutive samples (41-54) of background road44/-5 outside the actual viewport. All-actor and all-ego lane membership are false, while exact full source poses/times and original PNG hashes pass. The original strict FAIL remains; lanes and poses were not repaired. Independent native GUI repeats match actual viewport and all poses and differ by at most 4 pixels; measured PSNR is disclosed, not claimed identical bytes. This is post-capture GUI representation, not a new closed-loop roundabout run.')
     # Every public field is constructed explicitly. Do not recursively publish
     # arbitrary audit details or free-form manual notes containing local paths.
     blob = json.dumps(public,ensure_ascii=False)
@@ -388,11 +412,21 @@ def execute(config, accepted, root=ROOT, promote_current=False):
         gallery += ('## '+scene['id']+'\n\n!['+scene['id']+']('+scene['id']+'.gif)\n\n'
                     +str(scene['native_frames'])+' source frames, '+str(scene['duration_s'])+' s. '
                     'Full release asset: `'+scene['media'][-1]['name']+'`.\n\n')
+        if scene['id']=='left-turn' and scene['sumo_replay_qualification'] is not None:
+            gallery += ('SUMO representation qualification: one invisible background endpoint sample has an '
+                        'unchanged empty lane field. The original strict all-lane audit remains FAIL; '
+                        'ego lanes, exact poses/times and native images are verified.\n\n')
+        if scene['id']=='roundabout' and scene['sumo_replay_qualification'] is not None:
+            gallery += ('SUMO representation qualification: two visible ego endpoint lane fields and 14 invisible '
+                        'background lane fields remain empty. All-actor and all-ego lane membership are false; '
+                        'the original strict FAIL remains. Exact poses/times and all native source PNG hashes are verified.\n\n')
     gallery += ('Release URLs remain pending until actual upload and remote SHA verification. '
                 'See preview-index.json and accepted-v2-summary.json for hashes and scope.\n')
     atomic(stage/'accepted-v2-summary.json',public)
     atomic(stage/'preview-index.json',index)
     (stage/'preview-gallery.md').write_text(gallery,encoding='utf-8')
+    notes = '# Accepted local v2 media scope\n\n' + '\n\n'.join(public['limitations']) + '\n'
+    (stage/'release-notes.md').write_text(notes,encoding='utf-8')
     stage.rename(release)
     for scene in public_scenes:
         shutil.copyfile(release/(scene['id']+'.gif'),previews/(scene['id']+'.gif'))

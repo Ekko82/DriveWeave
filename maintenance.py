@@ -34,12 +34,16 @@ ALLOWED_PREFIXES = {
     'carla/processed-v2': 'superseded_processed_cache',
     'carla/sumo-replay-v2': 'superseded_sumo_replay_cache',
     'carla/v2-probes': 'superseded_probe_binary',
+    'carla/output': 'superseded_v1_delivery_media',
+    'carla/output-sumo': 'superseded_v1_delivery_media',
     'carla/output-v2': 'superseded_version_media',
     'carla/output-sumo-v2': 'superseded_version_media',
     'carla/release-v2': 'superseded_version_release_copy',
     'carla/releases': 'superseded_release_copy'}
 VERSION_SCOPED_MEDIA_ROOTS = {'carla/output-v2':'v2',
                             'carla/output-sumo-v2':'v2', 'carla/release-v2':'v2'}
+EXACT_V1_MEDIA_ROOTS = {'carla/output', 'carla/output-sumo'}
+V1_MEDIA_EXTENSIONS = {'.mp4', '.gif', '.zip'}
 PERMANENT_PREFIXES = ['.git', 'assets', 'verification', 'research',
     'carla/verification', 'carla/executions', 'carla/plans', 'carla/research',
     'carla/map-inventory', 'carla/sumo-live-assets', 'carla/sumo-network-investigation']
@@ -217,6 +221,8 @@ def category(path, protected):
     rel = relative(path)
     for prefix, kind in ALLOWED_PREFIXES.items():
         if rel.startswith(prefix+'/'):
+            if prefix in EXACT_V1_MEDIA_ROOTS and path.suffix.lower() not in V1_MEDIA_EXTENSIONS:
+                return None
             return kind
     return None
 
@@ -288,6 +294,12 @@ def validate_obsolete_versions(m):
             raise Refusal('Each obsolete version needs a different ID, reason and exact paths')
         for p in old['paths']:
             exact = inside(p)
+            rel = relative(exact)
+            if any(rel == prefix or rel.startswith(prefix+'/') for prefix in EXACT_V1_MEDIA_ROOTS):
+                current_major = re.match(r'^v(\d+)(?:$|[.\-_/])', m['version'])
+                if (old['version'] != 'v1' or not current_major or int(current_major[1]) < 2
+                        or not exact.is_file() or exact.suffix.lower() not in V1_MEDIA_EXTENSIONS):
+                    raise Refusal('Legacy delivery media require an exact MP4/GIF/ZIP file, obsolete version v1 and a newer major publication: '+p)
             if relative(exact) in REFERENCE_CONTAINERS:
                 scoped_version = VERSION_SCOPED_MEDIA_ROOTS.get(relative(exact))
                 current_major = re.match(r'^v(\d+)(?:$|[.\-_/])',m['version'])

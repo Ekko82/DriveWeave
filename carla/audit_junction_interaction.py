@@ -95,6 +95,26 @@ def first_body_pass(trace):
             'occupied_samples':len(occupied)}
 
 
+def recorded_straight_core(trace, incoming=7, connector=1140, outgoing=6):
+    """Select a truly observed traversal, allowing native physical preroll.
+
+    A recording may begin on the known straight connector. It still must show
+    that actual connector and its outgoing road, and later passes the unchanged
+    position/tangent/yaw proof. Neither an arbitrary turn connector nor a clip
+    starting after the junction can use this fallback.
+    """
+    start=next((i for i,q in enumerate(trace) if q['native_road']==incoming),None)
+    origin='actual_incoming_road_observed'
+    if start is None and trace and trace[0]['native_road']==connector:
+        start=0;origin='recording_starts_on_exact_native_straight_connector_after_physical_preroll'
+    end=next((i for i,q in enumerate(trace) if start is not None and i>start and q['native_road']==outgoing),None)
+    core=trace[start:end+1] if start is not None and end is not None else []
+    if not any(q['native_road']==connector for q in core):core=[]
+    return core, {'observation_origin':origin if core else 'required_actual_connector_and_outgoing_not_both_observed',
+        'incoming_prefix_recorded':bool(core) and core[0]['native_road']==incoming,
+        'required_actual_connector':connector,'required_actual_outgoing':outgoing}
+
+
 def straight_motion_proof(core, points):
     """Use actual core poses/yaw, not a requested route's maneuver label."""
     middle=[q for q in core if q['junction']]
@@ -242,11 +262,10 @@ def audit(run, plan, execution_path, out, signal_path=None):
         check('ego_actual_native_left_arc',len(fit)>=5 and all(q['lateral_distance_m']<=1.0 and q['reference_heading_error_deg']<=15 for q in fit),{'samples':len(fit),'worst_samples':sorted(fit,key=lambda q:q['lateral_distance_m'],reverse=True)[:5]})
         for specification in plan['traffic']:
             role=specification['name'];trace=traces[role]
-            start=next((i for i,q in enumerate(trace) if q['native_road']==7),None)
-            end=next((i for i,q in enumerate(trace) if start is not None and i>start and q['native_road']==6),None)
-            core=trace[start:end+1] if start is not None and end is not None else []
+            core,observed_suffix=recorded_straight_core(trace)
             ref=reference(native_map,specification['stages'],{1140})
             good,evidence=straight_motion_proof(core,ref)
+            evidence.update(observed_suffix)
             check(role+'_actually_straight_not_turning',good,evidence)
         if signal_path is None:signal_path=run/'signal-policy.json'
         if signal_path.is_file():

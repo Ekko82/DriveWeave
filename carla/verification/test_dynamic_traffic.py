@@ -12,13 +12,18 @@ from types import SimpleNamespace
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import carla
+from runtime_config import RuntimeConfig
 from dynamic_traffic import (Footprint, TrafficConfig, _actor_footprint,
     build_spawn_candidates, horizontal_body_clearance, setup_dynamic_traffic,
     spawn_rejection)
 
 BASE = Path(__file__).resolve().parents[1]
 MAP_FILE = BASE / 'map-inventory/Town04/map.xodr'
+if not MAP_FILE.is_file():
+    MAP_FILE = (RuntimeConfig.resolve(require_carla=True).carla_root /
+                'CarlaUE4/Content/Carla/Maps/OpenDrive/Town04.xodr')
 
 
 def copied_pose(pose):
