@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "version": "v2.0.0-beta.1",
+  "status": "published_verified_beta",
+  "published": true,
+  "six_scene_stable_accepted": false,
+  "current_manifest_promoted": false,
+  "pending_scene_ids": [
+    "left-turn",
+    "roundabout"
+  ],
+  "scenes": [
+    {
+      "id": "highway",
+      "native_frames": 334,
+      "native_frame_first": 160296,
+      "native_frame_last": 160629,
+      "fps": 20,
+      "duration_s": 16.7,
+      "source_frame_cut": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "live_joint_simulation_verified": false,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          167,
+          333
+        ],
+        "reviewed_native_frames": [
+          160296,
+          160463,
+          160629
+        ],
+        "full_video_manually_watched": false
+      },
+      "video": {
+        "name": "highway.mp4",
+        "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/highway.mp4",
+        "bytes": 26890353,
+        "sha256": "8982791a72cacfa926e2cabf098a35b0021992b08396e3e2dcf03377ee142d89"
+      }
+    },
+    {
+      "id": "ramp-entry",
+      "native_frames": 487,
+      "native_frame_first": 178539,
+      "native_frame_last": 179025,
+      "fps": 20,
+      "duration_s": 24.35,
+      "source_frame_cut": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "live_joint_simulation_verified": false,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          243,
+          486
+        ],
+        "reviewed_native_frames": [
+          178539,
+          178782,
+          179025
+        ],
+        "full_video_manually_watched": false
+      },
+      "video": {
+        "name": "ramp-entry.mp4",
+        "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-entry.mp4",
+        "bytes": 41516809,
+        "sha256": "87e8e815d5b471b2aff9c5c26e1aa3558792d676986aed02620c6405d1f70e66"
+      }
+    },
+    {
+      "id": "ramp-exit",
+      "native_frames": 476,
+      "native_frame_first": 160872,
+      "native_frame_last": 161347,
+      "fps": 20,
+      "duration_s": 23.8,
+      "source_frame_cut": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "live_joint_simulation_verified": false,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          238,
+          475
+        ],
+        "reviewed_native_frames": [
+          160872,
+          161110,
+          161347
+        ],
+        "full_video_manually_watched": false
+      },
+      "video": {
+        "name": "ramp-exit.mp4",
+        "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-exit.mp4",
+        "bytes": 37862070,
+        "sha256": "fc6116ef1ab0311a301ca6e0021b3633fcaa2aa1c6fb9ffe359ed019f0766e49"
+      }
+    },
+    {
+      "id": "live-highway",
+      "native_frames": 334,
+      "native_frame_first": 457907,
+      "native_frame_last": 458240,
+      "fps": 20,
+      "duration_s": 16.7,
+      "source_frame_cut": false,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "displayed_SUMO_viewport_mode": "post_capture_synchronized_replay",
+      "live_joint_simulation_verified": true,
+      "manual_review": {
+        "accepted": true,
+        "reviewed_sample_indices": [
+          0,
+          167,
+          333
+        ],
+        "reviewed_native_frames": [
+          457907,
+          458074,
+          458240
+        ],
+        "full_video_manually_watched": false
+      },
+      "video": {
+        "name": "live-highway.mp4",
+        "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/live-highway.mp4",
+        "bytes": 27092524,
+        "sha256": "651d0c6eb59d2ec182648daacc6567d83956656960b955eac6c7a7700c853566"
+      }
+    }
+  ],
+  "trained_policy": false,
+  "image_boxes_are_native_ground_truth": true,
+  "displayed_SUMO_viewports_are_post_capture_replay": true,
+  "publication": {
+    "repository": "Ekko82/autodrive-showcase",
+    "tag": "v2.0.0-beta.1",
+    "commit_sha": "ab0570758ca5da9e5ba5da570130f7a45f815b75",
+    "release_url": "https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0-beta.1",
+    "published_at": "2026-10-11T21:05:55Z",
+    "verified_utc": "2026-10-11T21:19:44.206776+00:00"
+  },
+  "publication_manifest_sha256": "d85b773b1b4ad71abdbfa1197c27c1dd1572259710ecd3eb29518a531c779c30",
+  "verification_receipt_sha256": "a945e3710a43b57726e2e2f31008c21a71d84efe65b3b616c989ae29225533d8"
+}

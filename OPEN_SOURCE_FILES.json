@@ -89,7 +89,8 @@
     "finalize_release_docs.py",
     "tests/test_finalize_release_docs.py",
     "docs/verified-release-docs.md",
-    "carla/verification/v2-wide-left-turn-short-entry-verification.json"
+    "carla/verification/v2-wide-left-turn-short-entry-verification.json",
+    "docs/media/beta-public-summary.json"
   ],
   "excluded_categories": [
     "CARLA/SUMO distributions and original runtime maps/meshes",

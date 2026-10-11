@@ -6,16 +6,20 @@
 
 ## 视频预览与版本状态
 
-v2.0.0-beta.1 收录四组本地全量验收通过的真实录像，正在上传并核验 GitHub Release。宽路口左转和环岛还在重录，预览版不收录未通过的片段。完整六场景尚未升级为 v2。
+v2.0.0-beta.1 的四条视频已实际上传 GitHub，并核验公开 tag/commit、所有资源完整下载的字节数与 SHA-256。宽路口左转和环岛尚待完成，完整六场景正式版尚未验收或替换当前交付清单。
 
-| 场景 | 完整原速视频 | 时长 |
-| --- | --- | --- |
-| 高速换道、超车、回道 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/highway.mp4) | 16.7 秒 |
-| 匝道驶入 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-entry.mp4) | 24.35 秒 |
-| 匝道驶出 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-exit.mp4) | 23.8 秒 |
-| 官方双向实时联合仿真 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/live-highway.mp4) | 16.7 秒 |
+[已验证 Beta Release](https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0-beta.1)；源代码版本 `ab0570758ca5da9e5ba5da570130f7a45f815b75`。
 
-视频四窗口为原生 CARLA 跟车、真实 SUMO GUI 回放、图像处理与点云处理，没有额外标题或 HUD。每组保留所有录制源帧，20 Hz、原速，未裁剪尾部。左转和环岛通过完整实际验收后，再发布六场景正式版。
+| 场景 | 实际源帧 | 完整时长 | 原速高清录像 |
+| --- | ---: | ---: | --- |
+| 高速换道 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/highway.mp4) |
+| 匝道驶入 | 487 | 24.35 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-entry.mp4) |
+| 匝道驶出 | 476 | 23.8 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-exit.mp4) |
+| 官方双向实时协同 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/live-highway.mp4) |
+
+四条视频均保留全部 20 Hz 源帧，未经裁剪、插值或加速播放；没有额外标题或 HUD。画面包括原生 Tesla 跟车、原生 SUMO GUI、图像处理及点云处理。右上角 SUMO 均是**录制后的同步回放**；live-highway 的源录制另有实际官方双向协同证据。图像框使用原生真值，点云来自真实 LiDAR 返回，没有训练检测或驾驶模型。
+
+真实抽样审阅范围、各视频 SHA 与待完成场景见 [Beta 验收摘要](docs/media/beta-public-summary.json)。抽样审阅不代表全片人工观看。
 
 ## 两种 SUMO 流程
 
