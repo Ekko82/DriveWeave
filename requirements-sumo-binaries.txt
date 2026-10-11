@@ -1,0 +1,3 @@
+# Optional native binary distribution. Existing SUMO installations may be used
+# instead by setting SUMO_HOME; this is not part of the CPU default install.
+eclipse-sumo==1.28.0

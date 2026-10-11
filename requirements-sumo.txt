@@ -1,0 +1,4 @@
+# Python tools for an independently installed SUMO 1.28.0 distribution.
+traci==1.28.0
+sumolib==1.28.0
+lxml==6.1.3

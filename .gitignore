@@ -1,0 +1,60 @@
+# Native runtimes and large generated media are distributed as verified release
+# assets, not Git blobs. This is an ignore policy, never a deletion policy.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+private/
+credentials/
+*.log
+*.mp4
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.blend
+*.blend1
+*.glb
+*.fbx
+*.bgra
+*.bin
+*.npy
+*.npz
+*.ply
+*.pcd
+*.las
+
+# Keep source scripts, JSON/JSONL audits, XML/XODR networks, CSV and licenses.
+# Do not ignore all PNG globally: docs/media may contain selected README stills.
+/carla/captures/**/*.png
+/carla/captures-v2/**/*.png
+/carla/live-captures/**/*.png
+/carla/live-captures-v2/**/*.png
+/carla/processed/**/*.png
+/carla/processed/**/*.jpg
+/carla/processed-v2/**/*.png
+/carla/processed-v2/**/*.jpg
+/carla/sumo-replay/**/frames_native_sumo/
+/carla/sumo-replay-v2/**/frames_native_sumo/
+/carla/v2-probes/**/*.png
+/scenes/**/*.png
+/output/**/*.png
+/carla/output/**/*.png
+/carla/output-sumo/**/*.png
+/carla/output-v2/
+/carla/output-sumo-v2/
+/carla/release-v2/
+/carla/release-v2.staging-*/
+/carla/v2-runtime/
+/carla/executions/
+/assets/sources/**/*.png
+/assets/sources/**/*.jpg
+/assets/sources/**/*.jpeg
+
+# Local cleanup plans, inventories and execution receipts can contain machine
+# paths and huge per-file listings. The script and schema remain versioned.
+/maintenance/reports/
+/maintenance/publications/
+*.tmp

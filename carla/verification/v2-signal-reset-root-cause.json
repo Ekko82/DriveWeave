@@ -1,0 +1,228 @@
+{
+  "cause": "Dynamic traffic setup seeds TrafficManager after signal setup. Official SetRandomDeviceSeed synchronously resets all native traffic-light groups to their initial phase, preserving configured durations.",
+  "local_setup_order_evidence": {
+    "capture_native.py": {
+      "signal_setup_line": 307,
+      "dynamic_setup_line": 311,
+      "sha256_at_diagnosis": "31dff1678088803733e14443013f957b141e019bc9152d654e52d94e20b01ced"
+    },
+    "dynamic_traffic.py": {
+      "seed_call_line": 446,
+      "sha256": "c779051f8e46bc26fb6324c2a7b8993b15a044a65bd6e876477eff39554a7bad"
+    }
+  },
+  "official_source": {
+    "url": "https://raw.githubusercontent.com/carla-simulator/carla/0.9.16/LibCarla/source/carla/trafficmanager/TrafficManagerLocal.cpp",
+    "sha256": "5569301e2c4eadb60d13408e01d4e8d0ffda948f7956420c0e8fb7114ace14aa",
+    "function": "TrafficManagerLocal::SetRandomDeviceSeed",
+    "reset_call_line": 452,
+    "call": "world.ResetAllTrafficLights();"
+  },
+  "actual_failed_native_captures": [
+    {
+      "run": "20261012-033134-164137",
+      "source_signal_sha256": "01bc4a8d5456900d12b0464a848f424e3d94f228bb8ee2b09b4fdf3c4f7de87c",
+      "native_frame": 282255,
+      "actual_states": [
+        {
+          "actor_id": 1482,
+          "native_state": "Green",
+          "desired_state": "Green",
+          "green_yellow_red_s": [
+            180.0500030517578,
+            180.0500030517578,
+            180.0500030517578
+          ],
+          "elapsed_s": 0.05000000074505806
+        },
+        {
+          "actor_id": 1483,
+          "native_state": "Red",
+          "desired_state": "Red",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1484,
+          "native_state": "Red",
+          "desired_state": "Green",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1485,
+          "native_state": "Red",
+          "desired_state": "Red",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        }
+      ],
+      "strict_failed": true,
+      "raw_modified": false
+    },
+    {
+      "run": "20261012-033213-256902",
+      "source_signal_sha256": "ea6946ed4566e97bda8d799d094d78f74487d13b495620443b3c4dda29548c53",
+      "native_frame": 287061,
+      "actual_states": [
+        {
+          "actor_id": 1628,
+          "native_state": "Green",
+          "desired_state": "Green",
+          "green_yellow_red_s": [
+            180.0500030517578,
+            180.0500030517578,
+            180.0500030517578
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1629,
+          "native_state": "Red",
+          "desired_state": "Red",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1630,
+          "native_state": "Red",
+          "desired_state": "Green",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1631,
+          "native_state": "Red",
+          "desired_state": "Red",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        }
+      ],
+      "strict_failed": true,
+      "raw_modified": false
+    },
+    {
+      "run": "20261012-034737-183556",
+      "source_signal_sha256": "cf93a8851c4df4211ebd86c473e859018436e08469a6fd768c154643527d5241",
+      "native_frame": 373291,
+      "actual_states": [
+        {
+          "actor_id": 1893,
+          "native_state": "Green",
+          "desired_state": "Green",
+          "green_yellow_red_s": [
+            180.0500030517578,
+            180.0500030517578,
+            180.0500030517578
+          ],
+          "elapsed_s": 0.05000000074505806
+        },
+        {
+          "actor_id": 1894,
+          "native_state": "Red",
+          "desired_state": "Red",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1895,
+          "native_state": "Red",
+          "desired_state": "Green",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        },
+        {
+          "actor_id": 1896,
+          "native_state": "Red",
+          "desired_state": "Red",
+          "green_yellow_red_s": [
+            180.0,
+            180.0,
+            180.0
+          ],
+          "elapsed_s": 0.0
+        }
+      ],
+      "strict_failed": true,
+      "raw_modified": false
+    }
+  ],
+  "actual_native_probe_comparison": [
+    {
+      "mode": "long_phase_no_barrier",
+      "evidence_sha256": "f57b7f08a66bd1faea8d7d071f76648f96ac99221ebe97cd1758114f0d378ec9",
+      "settle_samples": 5,
+      "actual_first_five_all_opposing_green_cross_red": true,
+      "actual_following_100_all_opposing_green_cross_red": true,
+      "verified_restoration_actual_tick": true,
+      "native_run_is_probe_not_capture": true
+    },
+    {
+      "mode": "long_phase_sync_barrier",
+      "evidence_sha256": "f27cfda00d8ba62d93f63ff3148db5e6d15fb7dd220bb1b91f29844eac3b80f3",
+      "settle_samples": 5,
+      "actual_first_five_all_opposing_green_cross_red": true,
+      "actual_following_100_all_opposing_green_cross_red": true,
+      "verified_restoration_actual_tick": true,
+      "native_run_is_probe_not_capture": true
+    },
+    {
+      "mode": "global_frozen_sync_barrier",
+      "evidence_sha256": "34791e53712e1f90d651f86ce02094a861627b1b0a5cbcc7315eec287bd2d578",
+      "settle_samples": 5,
+      "actual_first_five_all_opposing_green_cross_red": true,
+      "actual_following_100_all_opposing_green_cross_red": true,
+      "verified_restoration_actual_tick": true,
+      "native_run_is_probe_not_capture": true
+    },
+    {
+      "mode": "sequential_states_frozen",
+      "evidence_sha256": "d1f31a95271516ba02060d84f061f4b5971b9b51919657b8ebfe70fdb653e1c6",
+      "settle_samples": 5,
+      "actual_first_five_all_opposing_green_cross_red": true,
+      "actual_following_100_all_opposing_green_cross_red": true,
+      "verified_restoration_actual_tick": true,
+      "native_run_is_probe_not_capture": true
+    }
+  ],
+  "conclusions": {
+    "two_opposing_native_greens_are_supported": true,
+    "first_tick_latency_was_reproduced": false,
+    "capture_pass_is_proven": false,
+    "native_probe_signal_dormancy_detected": false
+  },
+  "recommended_fix": "Root sole owner moves signal setup after every TM seed/reset and dynamic traffic setup; separately record up to20 initialization ticks with five consecutive actual passes before strict per-frame warmup/capture observation.",
+  "capture_or_raw_evidence_modified": false
+}

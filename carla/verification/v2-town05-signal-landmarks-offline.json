@@ -1,0 +1,737 @@
+{
+  "map": "Town05",
+  "junction_id": 1126,
+  "signalized": true,
+  "source_root_env": "CARLA_ROOT",
+  "source_xodr": "CarlaUE4/Content/Carla/Maps/OpenDrive/Town05.xodr",
+  "source_xodr_sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851",
+  "server_connected": false,
+  "world_ticked": false,
+  "landmarks_are_not_runtime_get_stop_waypoints": true,
+  "runtime_stop_waypoint_classification_required": true,
+  "runtime_states_and_actions_verified": false,
+  "desired_native_landmark_states": {
+    "2394": "Green",
+    "2396": "Green",
+    "2393": "Red",
+    "2395": "Red"
+  },
+  "all_expected_incoming_lanes_covered": true,
+  "config": {
+    "enable": true,
+    "map": "Town05",
+    "junction_id": 1126,
+    "mode": "permissive_opposing_axis_duration_hold",
+    "junction_center_xy_m": [
+      -50.69066619873047,
+      -92.60450744628906
+    ],
+    "green_approaches": [
+      {
+        "role": "ego_westbound",
+        "road_id": 6,
+        "lane_ids": [
+          -1,
+          -2
+        ],
+        "yaw_deg": -179.9136962890625
+      },
+      {
+        "role": "opposing_eastbound",
+        "road_id": 7,
+        "lane_ids": [
+          1,
+          2
+        ],
+        "yaw_deg": 0.0863037109375
+      }
+    ],
+    "red_approaches": [
+      {
+        "role": "cross_from_south",
+        "road_id": 46,
+        "lane_ids": [
+          -1,
+          -2
+        ],
+        "yaw_deg": 90.0
+      },
+      {
+        "role": "cross_from_north",
+        "road_id": 47,
+        "lane_ids": [
+          1,
+          2
+        ],
+        "yaw_deg": 269.6625061035156
+      }
+    ],
+    "max_stop_distance_m": 40.0,
+    "max_predecessor_trace_m": 60.0,
+    "max_heading_error_deg": 20.0,
+    "hold_seconds": 120.0,
+    "freeze_world_lights": false,
+    "owned_fresh_world": false,
+    "no_protected_left_arrow_claim": true
+  },
+  "native_landmarks": [
+    {
+      "landmark_id": "2394",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -62.74848175048828,
+        -101.7810287475586,
+        -0.6939776539802551
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1182,
+        "lane_id": -1,
+        "s_m": 2.119999885559082,
+        "xyz_m": [
+          -37.717288970947266,
+          -91.45062255859375,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 6,
+        "lane_id": -1,
+        "s_m": 53.979999885559074,
+        "xyz_m": [
+          -35.217288970947266,
+          -91.44684600830078,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 2.5,
+      "role": "ego_westbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2396",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -39.672733306884766,
+        -78.09844970703125,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1140,
+        "lane_id": 2,
+        "s_m": 27.0,
+        "xyz_m": [
+          -62.60780334472656,
+          -84.48810577392578,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 7,
+        "lane_id": 2,
+        "s_m": 0.32000000000000606,
+        "xyz_m": [
+          -66.10779571533203,
+          -84.49337005615234,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.5,
+      "role": "opposing_eastbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2396",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -39.672733306884766,
+        -78.09844970703125,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1140,
+        "lane_id": 1,
+        "s_m": 27.079999923706055,
+        "xyz_m": [
+          -62.68252944946289,
+          -87.98821258544922,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 7,
+        "lane_id": 1,
+        "s_m": 0.39999992370606074,
+        "xyz_m": [
+          -66.18252563476562,
+          -87.99348449707031,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.5,
+      "role": "opposing_eastbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2394",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -62.74848175048828,
+        -101.7810287475586,
+        -0.6939776539802551
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1141,
+        "lane_id": -2,
+        "s_m": 2.0999999046325684,
+        "xyz_m": [
+          -37.6920166015625,
+          -94.9505844116211,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 6,
+        "lane_id": -2,
+        "s_m": 53.95999990463256,
+        "xyz_m": [
+          -35.192020416259766,
+          -94.94680786132812,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 2.5,
+      "role": "ego_westbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2394",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -62.74848175048828,
+        -101.7810287475586,
+        -0.6939776539802551
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1141,
+        "lane_id": -1,
+        "s_m": 2.119999885559082,
+        "xyz_m": [
+          -37.717288970947266,
+          -91.45062255859375,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 6,
+        "lane_id": -1,
+        "s_m": 53.979999885559074,
+        "xyz_m": [
+          -35.217288970947266,
+          -91.44684600830078,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 2.5,
+      "role": "ego_westbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2393",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -38.83258056640625,
+        -101.21338653564453,
+        -0.7041884660720825
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1174,
+        "lane_id": 1,
+        "s_m": 15.84346866607666,
+        "xyz_m": [
+          -44.42067337036133,
+          -77.29630279541016,
+          0.055450439453125
+        ],
+        "yaw_deg": -90.33749389648438,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 47,
+        "lane_id": 2,
+        "s_m": 0.38999982346013917,
+        "xyz_m": [
+          -44.40301513671875,
+          -74.2977294921875,
+          0.055450439453125
+        ],
+        "yaw_deg": 269.6625061035156,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.0,
+      "role": "cross_from_north",
+      "required_state": "Red",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2395",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -61.13002014160156,
+        -78.16950225830078,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1193,
+        "lane_id": -1,
+        "s_m": 6.329999923706055,
+        "xyz_m": [
+          -51.634395599365234,
+          -102.2417221069336,
+          0.055450439453125
+        ],
+        "yaw_deg": -273.6964111328125,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 46,
+        "lane_id": -1,
+        "s_m": 73.18999992370607,
+        "xyz_m": [
+          -52.53002166748047,
+          -108.38965606689453,
+          0.055450439453125
+        ],
+        "yaw_deg": 77.1192626953125,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 6.5,
+      "role": "cross_from_south",
+      "required_state": "Red",
+      "heading_error_deg": 12.8807373046875
+    },
+    {
+      "landmark_id": "2394",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -62.74848175048828,
+        -101.7810287475586,
+        -0.6939776539802551
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1201,
+        "lane_id": -1,
+        "s_m": 2.0999999046325684,
+        "xyz_m": [
+          -37.6920166015625,
+          -94.9505844116211,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 6,
+        "lane_id": -2,
+        "s_m": 53.95999990463256,
+        "xyz_m": [
+          -35.192020416259766,
+          -94.94680786132812,
+          0.0
+        ],
+        "yaw_deg": -179.9136962890625,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 2.5,
+      "role": "ego_westbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2396",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -39.672733306884766,
+        -78.09844970703125,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1211,
+        "lane_id": 1,
+        "s_m": 17.164901733398438,
+        "xyz_m": [
+          -62.60780334472656,
+          -84.48809814453125,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 7,
+        "lane_id": 2,
+        "s_m": 0.3199991243209994,
+        "xyz_m": [
+          -66.10779571533203,
+          -84.49337005615234,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.5,
+      "role": "opposing_eastbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2393",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -38.83258056640625,
+        -101.21338653564453,
+        -0.7041884660720825
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1222,
+        "lane_id": 1,
+        "s_m": 23.15839385986328,
+        "xyz_m": [
+          -47.92079162597656,
+          -77.3056869506836,
+          0.055450439453125
+        ],
+        "yaw_deg": -90.33749389648438,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 47,
+        "lane_id": 1,
+        "s_m": 0.35999998001693223,
+        "xyz_m": [
+          -47.90312957763672,
+          -74.30711364746094,
+          0.055450439453125
+        ],
+        "yaw_deg": 269.6625061035156,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.0,
+      "role": "cross_from_north",
+      "required_state": "Red",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2395",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -61.13002014160156,
+        -78.16950225830078,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1231,
+        "lane_id": -1,
+        "s_m": 5.527803897857666,
+        "xyz_m": [
+          -55.14358139038086,
+          -102.25808715820312,
+          0.055450439453125
+        ],
+        "yaw_deg": -274.0901184082031,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 46,
+        "lane_id": -2,
+        "s_m": 72.88780389785768,
+        "xyz_m": [
+          -56.001548767089844,
+          -107.86565399169922,
+          0.055450439453125
+        ],
+        "yaw_deg": 76.69226837158203,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 6.0,
+      "role": "cross_from_south",
+      "required_state": "Red",
+      "heading_error_deg": 13.307731628417969
+    },
+    {
+      "landmark_id": "2396",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -39.672733306884766,
+        -78.09844970703125,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1236,
+        "lane_id": 1,
+        "s_m": 26.561214447021484,
+        "xyz_m": [
+          -62.682533264160156,
+          -87.98821258544922,
+          0.0
+        ],
+        "yaw_deg": -359.9136962890625,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 7,
+        "lane_id": 1,
+        "s_m": 0.40000000716748696,
+        "xyz_m": [
+          -66.18252563476562,
+          -87.99348449707031,
+          0.0
+        ],
+        "yaw_deg": 0.0863037109375,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.5,
+      "role": "opposing_eastbound",
+      "required_state": "Green",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2395",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -61.13002014160156,
+        -78.16950225830078,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1290,
+        "lane_id": -2,
+        "s_m": 6.267319202423096,
+        "xyz_m": [
+          -55.130672454833984,
+          -102.0705337524414,
+          0.055450439453125
+        ],
+        "yaw_deg": -273.78497314453125,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 46,
+        "lane_id": -2,
+        "s_m": 73.12731920242311,
+        "xyz_m": [
+          -55.95415115356445,
+          -107.66260528564453,
+          0.055450439453125
+        ],
+        "yaw_deg": 77.03070068359375,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 6.5,
+      "role": "cross_from_south",
+      "required_state": "Red",
+      "heading_error_deg": 12.96929931640625
+    },
+    {
+      "landmark_id": "2395",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Negative",
+      "native_pole_xyz_m": [
+        -61.13002014160156,
+        -78.16950225830078,
+        -0.6990432739257812
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1290,
+        "lane_id": -1,
+        "s_m": 6.32041597366333,
+        "xyz_m": [
+          -51.63499069213867,
+          -102.2508773803711,
+          0.055450439453125
+        ],
+        "yaw_deg": -273.7099609375,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 46,
+        "lane_id": -1,
+        "s_m": 73.18041597366334,
+        "xyz_m": [
+          -52.532066345214844,
+          -108.39859008789062,
+          0.055450439453125
+        ],
+        "yaw_deg": 77.10572052001953,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 6.5,
+      "role": "cross_from_south",
+      "required_state": "Red",
+      "heading_error_deg": 12.894279479980469
+    },
+    {
+      "landmark_id": "2393",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -38.83258056640625,
+        -101.21338653564453,
+        -0.7041884660720825
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1291,
+        "lane_id": 1,
+        "s_m": 31.389999389648438,
+        "xyz_m": [
+          -47.920799255371094,
+          -77.30706787109375,
+          0.055450439453125
+        ],
+        "yaw_deg": -90.33749389648438,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 47,
+        "lane_id": 1,
+        "s_m": 0.35999938964848477,
+        "xyz_m": [
+          -47.90312957763672,
+          -74.30711364746094,
+          0.055450439453125
+        ],
+        "yaw_deg": 269.6625061035156,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.0,
+      "role": "cross_from_north",
+      "required_state": "Red",
+      "heading_error_deg": 0.0
+    },
+    {
+      "landmark_id": "2393",
+      "native_type": "1000001",
+      "native_name": "Signal_3Light_Post01",
+      "native_orientation": "Positive",
+      "native_pole_xyz_m": [
+        -38.83258056640625,
+        -101.21338653564453,
+        -0.7041884660720825
+      ],
+      "native_affected_waypoint": {
+        "road_id": 1291,
+        "lane_id": 2,
+        "s_m": 31.420000076293945,
+        "xyz_m": [
+          -44.420684814453125,
+          -77.29767608642578,
+          0.055450439453125
+        ],
+        "yaw_deg": -90.33749389648438,
+        "is_junction": true,
+        "junction_id": 1126
+      },
+      "resolved_external_incoming_waypoint": {
+        "road_id": 47,
+        "lane_id": 2,
+        "s_m": 0.3900000762939926,
+        "xyz_m": [
+          -44.40301513671875,
+          -74.2977294921875,
+          0.055450439453125
+        ],
+        "yaw_deg": 269.6625061035156,
+        "is_junction": false,
+        "junction_id": null
+      },
+      "native_predecessor_trace_m": 3.0,
+      "role": "cross_from_north",
+      "required_state": "Red",
+      "heading_error_deg": 0.0
+    }
+  ],
+  "global_freeze_api_scope": "CARLA TrafficLight.freeze acts on all episode lights; disabled by default.",
+  "timer_hold_runtime_validation_required": true
+}

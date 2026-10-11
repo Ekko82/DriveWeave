@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "version": "v2",
+  "status": "pending_actual_capture_and_quality_audit",
+  "no_placeholder_media": true,
+  "items": [
+    {"id": "highway", "label": "高速换道", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
+    {"id": "ramp-entry", "label": "入口匝道", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
+    {"id": "ramp-exit", "label": "出口匝道", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
+    {"id": "left-turn", "label": "宽路口左转", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
+    {"id": "roundabout", "label": "环岛", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null},
+    {"id": "live-highway", "label": "官方双向实时协同", "video_url": null, "poster_path": null, "sha256": null, "audit_path": null}
+  ],
+  "update_rule": "Only real uploaded release URLs and actual SHA256 after source, action, sensor and video acceptance. Keep live acquisition and post-capture GUI visualization separate."
+}

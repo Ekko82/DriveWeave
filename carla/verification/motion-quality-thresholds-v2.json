@@ -1,0 +1,39 @@
+{
+  "schema": "motion_quality_v2_project_targets",
+  "thresholds": {
+    "first_forward_speed_mps": 4.0,
+    "opening_seconds": 2.0,
+    "opening_moving_floor_mps": 0.5,
+    "derivative_window_seconds": 0.5,
+    "max_windowed_acceleration_mps2": 4.0,
+    "max_windowed_braking_mps2": 6.0,
+    "p95_abs_windowed_jerk_mps3": 6.0,
+    "max_abs_windowed_jerk_mps3": 12.0,
+    "max_throttle_rate_per_s": 9.0,
+    "max_brake_rate_per_s": 9.0,
+    "max_steer_rate_per_s": 2.4,
+    "minimum_all_body_clearance_m": 0.75,
+    "minimum_ego_body_clearance_m": 1.0,
+    "neighbor_distance_m": 80.0,
+    "projected_minimum_area_px2": 96.0,
+    "opening_mean_projected_neighbors": 2.0,
+    "opening_frames_with_neighbor_fraction": 0.75,
+    "opening_frames_with_active_neighbor_fraction": 0.75,
+    "active_neighbor_speed_mps": 1.0,
+    "mask_minimum_instance_pixels": 20,
+    "road_center_extra_tolerance_m": 0.35,
+    "road_vertical_tolerance_m": 1.5,
+    "speed_record_tolerance_mps": 0.05,
+    "step_tolerance_s": 0.002
+  },
+  "interpretation": {
+    "mandatory_start": "Measured velocity projected on actual vehicle forward axis >=4m/s; this cannot be lowered by config.",
+    "opening_motion": "Entire first2s >=0.5m/s forward, excluding settled-body numerical jitter.",
+    "derivatives": "Raw gradients always reported; quality gates use a fixed0.5s quadratic least-squares fit, min5 actual samples, including one-sided endpoints. No spike deletion.",
+    "smoothness": "Acceleration+4/braking-6m/s2, p95absjerk6/maxabsjerk12m/s3 are declared project targets, not legal or industry standards.",
+    "controls": "Per-second actual throttle/brake/steer differences; thresholds are rates and do not silently depend on FPS.",
+    "clearance": "All recorded pairs>=0.75m and ego pairs>=1m full3D native OBB. Any negative clearance below1micrometer counts as bbox overlap; this does not assert mesh contact.",
+    "traffic": "Chase opening mean>=2 projected neighbors within80m and >=96px2, candidate present/active in75% samples. Pure calibrated geometry; occlusion remains unknown.",
+    "pixels": "Optional native instance rendered masks bound to callback rawSHA; missing rawBGRA is allowed only if entire PNG-derived BGRA exactSHA matches. No assumed actor mapping."
+  }
+}

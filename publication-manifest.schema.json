@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Verified release assets and post-publication cleanup declaration",
+  "description": "No calendar schedule. Cleanup runs only after this exact public GitHub release/tag/commit and every actual resource download pass verification. Current accepted assets, sources and audits are preserved.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "cleanup_trigger", "version", "repository", "tag", "commit_sha", "assets", "accepted_manifests", "keep_paths", "obsolete_versions"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "cleanup_trigger": {"const": "after_successful_publication"},
+    "version": {"type": "string", "minLength": 1},
+    "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "tag": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"},
+    "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "assets": {
+      "type": "array", "minItems": 1,
+      "description": "All resources required to call this version published. URL must be the exact GitHub release download URL for repository/tag/name; local and streamed remote bytes and SHA256 must match.",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "path", "url", "bytes", "sha256"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1, "pattern": "^[^/\\\\]+$"},
+          "path": {"$ref": "#/$defs/relative_path"},
+          "url": {"type": "string", "pattern": "^https://github\\.com/[^/]+/[^/]+/releases/download/"},
+          "bytes": {"type": "integer", "minimum": 1},
+          "sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "accepted_manifests": {
+      "type": "array", "minItems": 1,
+      "description": "Current accepted delivery/source manifests, pinned by hash. Their existing local path reference closure is automatically protected, including entire source/processed directories.",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {"path": {"$ref": "#/$defs/relative_path"}, "sha256": {"$ref": "#/$defs/sha256"}}
+      }
+    },
+    "keep_paths": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "description": "Additional current version files/directories, including a new version still awaiting insertion into a delivery manifest. Never list the project root.",
+      "items": {"$ref": "#/$defs/relative_path"}
+    },
+    "obsolete_versions": {
+      "type": "array", "minItems": 1,
+      "description": "Explicitly reviewed prior-version cache roots. Not age based. Their source/audit/non-binary files remain even when binary caches are removed. Current version ID is forbidden.",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["version", "reason", "paths"],
+        "properties": {
+          "version": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "paths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/relative_path"}}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relative_path": {
+      "type": "string", "minLength": 1,
+      "description": "Literal slash-separated path under the project; no absolute path, colon, dot traversal, wildcard, symlink or junction.",
+      "pattern": "^(?!/)(?!.*[:*?])(?!.*(?:^|/)\\.\\.?(?:/|$))[^\\\\]+$"
+    }
+  }
+}
