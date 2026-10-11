@@ -113,6 +113,49 @@ class Safety(TestCase):
                      self.put('verification/old.png', b'evidence')]:
             self.assertIsNone(m.category(path, protected))
 
+    def test_old_media_namespace_only_future_major_and_exact_v2_declaration(self):
+        for name in ['output-v2','output-sumo-v2','release-v2']:
+            self.put(f'carla/{name}/old/video.mp4',b'prior media')
+            for current,old,allowed in [('v3','v2',True),('v3.1.0','v2',True),
+                                      ('v2','v1',False),('v2.0.0-beta.1','v2',False),
+                                      ('v1','v2',False),('v3','old',False)]:
+                value=self.manifest();value['version']=current
+                value['obsolete_versions']=[{'version':old,'reason':'explicit superseded prior version',
+                                             'paths':[f'carla/{name}']}]
+                if allowed:m.validate_obsolete_versions(value)
+                else:
+                    with self.assertRaises(m.Refusal):m.validate_obsolete_versions(value)
+
+    def test_future_media_parent_plan_keeps_current_release_and_permanent_evidence(self):
+        references=[];expected=[]
+        for name in ['output-v2','output-sumo-v2','release-v2']:
+            references.append(str(self.root/f'carla/{name}/accepted'))
+            self.put(f'carla/{name}/accepted/current.mp4',b'accepted current media')
+            old=self.put(f'carla/{name}/old/prior.mp4',b'old media');expected.append(m.relative(old))
+            self.put(f'carla/{name}/old/audit.json',b'{}')
+            self.put(f'carla/{name}/old/source.py',b'print(1)')
+        self.accepted.write_text(json.dumps({'final_delivery_accepted':True,'references':references}))
+        value=self.manifest();value['version']='v3'
+        value['obsolete_versions']=[{'version':'v2','reason':'new actual version replaces old media',
+            'paths':['carla/output-v2','carla/output-sumo-v2','carla/release-v2']}]
+        path=self.put('publication-future.json',json.dumps(value).encode())
+        with patch('sys.stdout',io.StringIO()):
+            plan=m.build_plan(path,self.root/'maintenance/reports/future-plan.json')
+        self.assertEqual(sorted(f['path'] for f in plan['files']),sorted(expected))
+        self.assertTrue(all((self.root/p).is_file() for p in expected))
+
+    def test_release_copies_exact_prior_folder_only_and_current_sha_protected(self):
+        current=self.put('carla/releases/current/highway.mp4',b'current release')
+        old=self.put('carla/releases/prior/highway.mp4',b'prior release')
+        evidence=self.put('carla/releases/prior/receipt.json',b'{}')
+        value=self.manifest();value['keep_paths'].append('carla/releases/current')
+        value['obsolete_versions'][0]['paths']=['carla/releases']
+        with self.assertRaises(m.Refusal):m.validate_obsolete_versions(value)
+        value['obsolete_versions'][0]['paths']=['carla/releases/prior']
+        protected,_,_=m.accepted_protection(value)
+        self.assertIsNone(m.category(current,protected));self.assertIsNotNone(m.category(old,protected))
+        self.assertIsNone(m.category(evidence,protected))
+
     def test_report_output_cannot_replace_delivery_or_source(self):
         for path in [self.accepted, self.root/'README.md', self.root.parent/'outside.json']:
             with self.assertRaises(m.Refusal):

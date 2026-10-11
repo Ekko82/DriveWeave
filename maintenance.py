@@ -290,9 +290,9 @@ def validate_obsolete_versions(m):
             exact = inside(p)
             if relative(exact) in REFERENCE_CONTAINERS:
                 scoped_version = VERSION_SCOPED_MEDIA_ROOTS.get(relative(exact))
-                current_version_family = m['version'].split('-')[0].split('.')[0].split('_')[0].split('/')[0]
+                current_major = re.match(r'^v(\d+)(?:$|[.\-_/])',m['version'])
                 if not (scoped_version and old['version'] == scoped_version
-                        and current_version_family != scoped_version):
+                        and current_major and int(current_major[1])>int(scoped_version[1:])):
                     raise Refusal('Obsolete paths must select concrete prior runs/scenes/files, never a whole cache parent: '+p)
             for ancestor in [exact, *exact.parents]:
                 if ancestor == ROOT:
