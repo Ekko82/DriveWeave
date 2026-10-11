@@ -85,7 +85,11 @@
     "carla/signal_policy_probe.py",
     "carla/plans/diagnose_roundabout_stop_offline.py",
     "carla/verification/v2-signal-reset-root-cause.json",
-    "tests/test_live_replay_binding.py"
+    "tests/test_live_replay_binding.py",
+    "finalize_release_docs.py",
+    "tests/test_finalize_release_docs.py",
+    "docs/verified-release-docs.md",
+    "carla/verification/v2-wide-left-turn-short-entry-verification.json"
   ],
   "excluded_categories": [
     "CARLA/SUMO distributions and original runtime maps/meshes",

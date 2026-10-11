@@ -1,0 +1,230 @@
+{
+  "recorded_utc": "2026-10-11T20:47:13.208853+00:00",
+  "server_connected": false,
+  "world_ticked": false,
+  "runtime_acceptance": false,
+  "plan_path": "plans/v2-wide-left-turn.json",
+  "plan_sha256": "5a73ee0676a16cc006381ae41b6b5c5e27c3fc337cefd6c14def57359927e211",
+  "generator_sha256": "04a6d6bebf4b467ac953f43e010afde852799800c897f1c42010f32edb23d9dd",
+  "geometry_json_sha256": "b12f8fb4c2d26b84885453359f0dd2e71c4f4016510f062a72da8b0ee1ab5364",
+  "geometry_png_sha256": "fab10ae12b0ba8212ad7c70b3b8b7a71c85037fee65de9f6bfee64d27c19b16a",
+  "checks": {
+    "ego_stage_0_native_continuous": {
+      "pass": true,
+      "evidence": {
+        "max_spacing_m": 0.500000536441803,
+        "max_heading_step_deg": 0.0,
+        "count": 71
+      }
+    },
+    "ego_stage_1_native_continuous": {
+      "pass": true,
+      "evidence": {
+        "max_spacing_m": 0.5643458366394043,
+        "max_heading_step_deg": 2.4408416748046875,
+        "count": 140
+      }
+    },
+    "oncoming_0_stage_0_native_continuous": {
+      "pass": true,
+      "evidence": {
+        "max_spacing_m": 0.5066811442375183,
+        "max_heading_step_deg": 0.644927978515625,
+        "count": 334
+      }
+    },
+    "oncoming_1_stage_0_native_continuous": {
+      "pass": true,
+      "evidence": {
+        "max_spacing_m": 0.5066969990730286,
+        "max_heading_step_deg": 0.644927978515625,
+        "count": 334
+      }
+    },
+    "natural_finish_no_extra_tail": {
+      "pass": true,
+      "evidence": {
+        "stage_count": 2,
+        "end": [
+          47,
+          -1,
+          40.0
+        ]
+      }
+    },
+    "rolling_start_preserved": {
+      "pass": true,
+      "evidence": {
+        "min_preroll_s": 3.0,
+        "max_preroll_s": 12.0,
+        "min_speed_mps": 4.0,
+        "approach_m": 34.99999965089358
+      }
+    },
+    "opponents_selected_approach_true_straight": {
+      "pass": true,
+      "evidence": {
+        "spawns": [
+          {
+            "road_id": 7,
+            "lane_id": 1,
+            "s_m": 0.10000000149011612
+          },
+          {
+            "road_id": 7,
+            "lane_id": 2,
+            "s_m": 0.10000000149011612
+          }
+        ],
+        "core": [
+          {
+            "points": 174,
+            "road_order": [
+              7,
+              1140,
+              6
+            ],
+            "length_m": 84.63899488464749,
+            "maximum_waypoint_spacing_m": 0.49870356340963046,
+            "maximum_heading_step_deg": 0.0,
+            "minimum_local_turn_radius_m": 10000000000.0,
+            "heading_change_deg": 0.0,
+            "only_native_driving_waypoints": true
+          },
+          {
+            "points": 174,
+            "road_order": [
+              7,
+              1140,
+              6
+            ],
+            "length_m": 84.6389948846475,
+            "maximum_waypoint_spacing_m": 0.49870356340963046,
+            "maximum_heading_step_deg": 0.0,
+            "minimum_local_turn_radius_m": 10000000000.0,
+            "heading_change_deg": 0.0,
+            "only_native_driving_waypoints": true
+          }
+        ]
+      }
+    },
+    "inner_opp_reserved_outer_available": {
+      "pass": true,
+      "evidence": {
+        "reserved": [
+          [
+            6,
+            -1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            47,
+            -1
+          ],
+          [
+            47,
+            1
+          ],
+          [
+            1140,
+            1
+          ],
+          [
+            1140,
+            2
+          ],
+          [
+            1182,
+            -1
+          ]
+        ],
+        "dynamic_count": 24,
+        "later_TM_routes_not_guaranteed": true
+      }
+    },
+    "real_body_clearance_required_before_left": {
+      "pass": true,
+      "evidence": {
+        "gate": {
+          "polygon_xy": [
+            [
+              -56.527387619018555,
+              -91.50009155273438
+            ],
+            [
+              -39.896305084228516,
+              -91.50009155273438
+            ],
+            [
+              -39.896305084228516,
+              -81.00759506225586
+            ],
+            [
+              -56.527387619018555,
+              -81.00759506225586
+            ]
+          ],
+          "prediction_s": 5,
+          "actor_roles": [
+            "oncoming_0",
+            "oncoming_1"
+          ],
+          "require_observed_pass_roles": [
+            "oncoming_0",
+            "oncoming_1"
+          ]
+        },
+        "required_stopped_s": 0.5,
+        "ego_min_body_clearance_m": 1.5,
+        "runtime_verified": false
+      }
+    },
+    "40m_exit_before_next_native_lamp": {
+      "pass": true,
+      "evidence": {
+        "exit_length_m": 39.999000159434104,
+        "endpoint_to_lamp_arc_m": 23.466024852571564,
+        "runtime_trigger_volume_not_claimed": true
+      }
+    },
+    "hash_bindings": {
+      "pass": true,
+      "evidence": {
+        "plan_sha256": "5a73ee0676a16cc006381ae41b6b5c5e27c3fc337cefd6c14def57359927e211",
+        "generator_sha256": "04a6d6bebf4b467ac953f43e010afde852799800c897f1c42010f32edb23d9dd",
+        "xodr_sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851"
+      }
+    },
+    "failed_raw_preserved": {
+      "pass": true,
+      "evidence": {
+        "old_run": "20261012-042351-988730",
+        "manifest_sha256": "8016e2f6c325d7a1c031a404b795271371cadbac139316aca3c4c3b0f3edea8e",
+        "frames_sha256": "5281f2cefbc0c55e64e3087a40e6a10eb2ec40544a0d3710342bb2b3b22b74f6",
+        "execution_sha256": "a6f32b08ddc2d23180e26ce43bf5aa82e041c7134b987ac9d69cd2d797fb106d",
+        "old_action_audit_sha256": "68d2b9b80542795090418dd946cd454a28cb114019b0f6cb53afd57ba642021b",
+        "old_runtime_accepted": false
+      }
+    }
+  },
+  "offline_geometry_pass": true,
+  "action_auditor_tests": {
+    "actual_command": "python carla/tests/test_junction_interaction.py",
+    "actual_exit_code": 0,
+    "tests_passed": 12,
+    "source_sha256": "06a3a74ca5c7cb6846f6def995fbf2c5d563766ea2c033d2f3e941e7d850a7b8",
+    "no_runtime_acceptance_implied": true
+  },
+  "npc_timing_note": "14/12kmh intersection targets reduce unrelated upstream-light delay. Actual >=0.5s stop and both full-body gate clearance need a new physical recording. No artificial minimum-time wait."
+}
