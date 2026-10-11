@@ -6,20 +6,62 @@
 
 ## 视频预览与版本状态
 
-v2.0.0-beta.1 的四条视频已实际上传 GitHub，并核验公开 tag/commit、所有资源完整下载的字节数与 SHA-256。宽路口左转和环岛尚待完成，完整六场景正式版尚未验收或替换当前交付清单。
+本版本的六条实际录制、动作、传感器和完整视频已通过自动核验及真实人工抽样审阅。全部原速 20 fps，不裁剪完整源帧、不插值，不添加标题或 HUD。
 
-[已验证 Beta Release](https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0-beta.1)；源代码版本 `ab0570758ca5da9e5ba5da570130f7a45f815b75`。
+[已验证 GitHub Release](https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0)；公开源代码版本 `daf31c832e14b6eba5fcd96c93777dad01aa73cb`。下方 GIF 是对应完整视频中连续六秒的真实解码画面，以 10 fps 展示，播放时长仍为六秒。
 
-| 场景 | 实际源帧 | 完整时长 | 原速高清录像 |
+| 场景 | 实际源帧 | 完整时长 | 高清视频 |
 | --- | ---: | ---: | --- |
-| 高速换道 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/highway.mp4) |
-| 匝道驶入 | 487 | 24.35 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-entry.mp4) |
-| 匝道驶出 | 476 | 23.8 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/ramp-exit.mp4) |
-| 官方双向实时协同 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0-beta.1/live-highway.mp4) |
+| 高速换道 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4) |
+| 匝道驶入 | 487 | 24.35 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4) |
+| 匝道驶出 | 476 | 23.8 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4) |
+| 宽路口无保护左转 | 580 | 29 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4) |
+| 环岛驶入驶出 | 1001 | 50.05 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4) |
+| 官方双向实时协同 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4) |
 
-四条视频均保留全部 20 Hz 源帧，未经裁剪、插值或加速播放；没有额外标题或 HUD。画面包括原生 Tesla 跟车、原生 SUMO GUI、图像处理及点云处理。右上角 SUMO 均是**录制后的同步回放**；live-highway 的源录制另有实际官方双向协同证据。图像框使用原生真值，点云来自真实 LiDAR 返回，没有训练检测或驾驶模型。
+五条普通场景源于 CARLA 原生物理录制；live-highway 源录制另有实际官方双向协同与 SUMO 自主车辆运动证据。**六片右上角均为录制后的原生 SUMO GUI 同步回放**，不能把展示回放称为重新运行的实时控制。图像框来自仿真真值，点云来自原生 LiDAR 处理；没有训练检测或驾驶模型。
 
-真实抽样审阅范围、各视频 SHA 与待完成场景见 [Beta 验收摘要](docs/media/beta-public-summary.json)。抽样审阅不代表全片人工观看。
+左转 SUMO 回放有一处明确的表示限制：后台车辆在相连道路端点附近的一个样本（501，原生帧 1200430）返回空车道字段，距端点约 5.8 厘米；整辆车位于实际原生 GUI 视口外。原严格全车道审计 FAIL 仍保留，未补写车道或改动姿态。主车全部车道字段及全部源姿态、时间、截图已核验；不能声称所有车辆所有样本车道归属均通过。
+
+环岛 SUMO 回放保留 16 个原始空车道字段：主车在相连道路端点处的两个单帧（157、473，距端点均小于 0.1 米，原生截图主车仍可见），以及一个后台车辆在转换路网 road44/-5 上连续 14 帧（41–54，整车位于实际视口外）。全部源位置、朝向、时间及原始截图 SHA 已核验，但全车辆/全主车样本的车道归属均不能声称通过；原 strict FAIL 保留，未补字段或移动车辆。独立 GUI 重现的少量栅格差异单独实测，原截图始终不变；此片展示的是录制后同步回放。
+
+### 高速换道
+
+![高速换道](docs/media/highway.gif)
+
+[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4)
+
+### 匝道驶入
+
+![匝道驶入](docs/media/ramp-entry.gif)
+
+[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4)
+
+### 匝道驶出
+
+![匝道驶出](docs/media/ramp-exit.gif)
+
+[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4)
+
+### 宽路口无保护左转
+
+![宽路口无保护左转](docs/media/left-turn.gif)
+
+[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4)
+
+### 环岛驶入驶出
+
+![环岛驶入驶出](docs/media/roundabout.gif)
+
+[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4)
+
+### 官方双向实时协同
+
+![官方双向实时协同](docs/media/live-highway.gif)
+
+[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4)
+
+帧数、SHA-256、源采集与展示范围见 [公开验收摘要](docs/media/accepted-v2-summary.json) 和 [预览索引](docs/media/preview-index.json)。人工审阅范围在摘要中逐片披露，不冒充全片人工观看。
 
 ## 两种 SUMO 流程
 

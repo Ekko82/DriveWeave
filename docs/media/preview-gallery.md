@@ -1,45 +1,43 @@
-# Verified v2 native previews
+# Verified native v2 previews
 
-Each GIF shows six seconds from the accepted full video at its original speed. All SUMO GUI panes are post-capture replay. The live-highway source separately has audited official two-way live acquisition.
+[Verified Release](https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0)
 
-## highway
+## 高速换道
 
-![highway](highway.gif)
+![高速换道](highway.gif)
 
-334 source frames, 16.7 s. Full release asset: `highway-carla-sumo-four-pane.mp4`.
+[Full video](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4)
 
-## ramp-entry
+## 匝道驶入
 
-![ramp-entry](ramp-entry.gif)
+![匝道驶入](ramp-entry.gif)
 
-487 source frames, 24.35 s. Full release asset: `ramp-entry-carla-sumo-four-pane.mp4`.
+[Full video](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4)
 
-## ramp-exit
+## 匝道驶出
 
-![ramp-exit](ramp-exit.gif)
+![匝道驶出](ramp-exit.gif)
 
-476 source frames, 23.8 s. Full release asset: `ramp-exit-carla-sumo-four-pane.mp4`.
+[Full video](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4)
 
-## left-turn
+## 宽路口无保护左转
 
-![left-turn](left-turn.gif)
+![宽路口无保护左转](left-turn.gif)
 
-580 source frames, 29.0 s. Full release asset: `left-turn-carla-sumo-four-pane.mp4`.
+[Full video](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4)
 
-SUMO representation qualification: one invisible background endpoint sample has an unchanged empty lane field. The original strict all-lane audit remains FAIL; ego lanes, exact poses/times and native images are verified.
+## 环岛驶入驶出
 
-## roundabout
+![环岛驶入驶出](roundabout.gif)
 
-![roundabout](roundabout.gif)
+[Full video](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4)
 
-1001 source frames, 50.05 s. Full release asset: `roundabout-carla-sumo-four-pane.mp4`.
+## 官方双向实时协同
 
-SUMO representation qualification: two visible ego endpoint lane fields and 14 invisible background lane fields remain empty. All-actor and all-ego lane membership are false; the original strict FAIL remains. Exact poses/times and all native source PNG hashes are verified.
+![官方双向实时协同](live-highway.gif)
 
-## live-highway
+[Full video](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4)
 
-![live-highway](live-highway.gif)
-
-334 source frames, 16.7 s. Full release asset: `live-highway-carla-sumo-four-pane.mp4`.
-
-Release URLs remain pending until actual upload and remote SHA verification. See preview-index.json and accepted-v2-summary.json for hashes and scope.
+All displayed SUMO GUI panes remain post-capture replay. Live acquisition is independently verified for live-highway only.
+Left-turn retains one unchanged empty background lane field at an invisible connected-endpoint sample. The original strict all-lane FAIL is preserved; all-actor lane membership is false. Ego lane membership, exact source poses/times and native images remain verified.
+Roundabout retains two visible ego endpoint empty lane fields and fourteen invisible background empty lane fields. All-actor and all-ego lane membership are false; the original strict FAIL remains. Exact full source poses/times and original native PNG hashes are verified; independent GUI repeat raster variation is disclosed.

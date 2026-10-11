@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "v2",
-  "status": "accepted_local_media_publication_pending",
+  "status": "published_verified",
   "scenes": [
     {
       "id": "highway",
@@ -62,7 +62,8 @@
           ],
           "name": "highway-native-1.mp4",
           "path": "carla/release-v2/highway-native-1.mp4",
-          "role": "native-1"
+          "role": "native-1",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-native-1.mp4"
         },
         {
           "bytes": 10283630,
@@ -76,7 +77,8 @@
           ],
           "name": "highway-native-2.mp4",
           "path": "carla/release-v2/highway-native-2.mp4",
-          "role": "native-2"
+          "role": "native-2",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-native-2.mp4"
         },
         {
           "bytes": 9106905,
@@ -90,7 +92,8 @@
           ],
           "name": "highway-native-3.mp4",
           "path": "carla/release-v2/highway-native-3.mp4",
-          "role": "native-3"
+          "role": "native-3",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-native-3.mp4"
         },
         {
           "bytes": 26890353,
@@ -104,7 +107,8 @@
           ],
           "name": "highway-carla-sumo-four-pane.mp4",
           "path": "carla/release-v2/highway-carla-sumo-four-pane.mp4",
-          "role": "carla-sumo-four-pane"
+          "role": "carla-sumo-four-pane",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4"
         }
       ],
       "preview": {
@@ -184,7 +188,8 @@
         "source_video_sha256": "8982791a72cacfa926e2cabf098a35b0021992b08396e3e2dcf03377ee142d89",
         "path": "docs/media/highway.gif"
       },
-      "sumo_replay_qualification": null
+      "sumo_replay_qualification": null,
+      "verified_video_url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4"
     },
     {
       "id": "ramp-entry",
@@ -245,7 +250,8 @@
           ],
           "name": "ramp-entry-native-1.mp4",
           "path": "carla/release-v2/ramp-entry-native-1.mp4",
-          "role": "native-1"
+          "role": "native-1",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-native-1.mp4"
         },
         {
           "bytes": 17792614,
@@ -259,7 +265,8 @@
           ],
           "name": "ramp-entry-native-2.mp4",
           "path": "carla/release-v2/ramp-entry-native-2.mp4",
-          "role": "native-2"
+          "role": "native-2",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-native-2.mp4"
         },
         {
           "bytes": 15250832,
@@ -273,7 +280,8 @@
           ],
           "name": "ramp-entry-native-3.mp4",
           "path": "carla/release-v2/ramp-entry-native-3.mp4",
-          "role": "native-3"
+          "role": "native-3",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-native-3.mp4"
         },
         {
           "bytes": 41516809,
@@ -287,7 +295,8 @@
           ],
           "name": "ramp-entry-carla-sumo-four-pane.mp4",
           "path": "carla/release-v2/ramp-entry-carla-sumo-four-pane.mp4",
-          "role": "carla-sumo-four-pane"
+          "role": "carla-sumo-four-pane",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4"
         }
       ],
       "preview": {
@@ -367,7 +376,8 @@
         "source_video_sha256": "87e8e815d5b471b2aff9c5c26e1aa3558792d676986aed02620c6405d1f70e66",
         "path": "docs/media/ramp-entry.gif"
       },
-      "sumo_replay_qualification": null
+      "sumo_replay_qualification": null,
+      "verified_video_url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4"
     },
     {
       "id": "ramp-exit",
@@ -428,7 +438,8 @@
           ],
           "name": "ramp-exit-native-1.mp4",
           "path": "carla/release-v2/ramp-exit-native-1.mp4",
-          "role": "native-1"
+          "role": "native-1",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-native-1.mp4"
         },
         {
           "bytes": 16383570,
@@ -442,7 +453,8 @@
           ],
           "name": "ramp-exit-native-2.mp4",
           "path": "carla/release-v2/ramp-exit-native-2.mp4",
-          "role": "native-2"
+          "role": "native-2",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-native-2.mp4"
         },
         {
           "bytes": 13469637,
@@ -456,7 +468,8 @@
           ],
           "name": "ramp-exit-native-3.mp4",
           "path": "carla/release-v2/ramp-exit-native-3.mp4",
-          "role": "native-3"
+          "role": "native-3",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-native-3.mp4"
         },
         {
           "bytes": 37862070,
@@ -470,7 +483,8 @@
           ],
           "name": "ramp-exit-carla-sumo-four-pane.mp4",
           "path": "carla/release-v2/ramp-exit-carla-sumo-four-pane.mp4",
-          "role": "carla-sumo-four-pane"
+          "role": "carla-sumo-four-pane",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4"
         }
       ],
       "preview": {
@@ -550,7 +564,8 @@
         "source_video_sha256": "fc6116ef1ab0311a301ca6e0021b3633fcaa2aa1c6fb9ffe359ed019f0766e49",
         "path": "docs/media/ramp-exit.gif"
       },
-      "sumo_replay_qualification": null
+      "sumo_replay_qualification": null,
+      "verified_video_url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4"
     },
     {
       "id": "left-turn",
@@ -611,7 +626,8 @@
           ],
           "name": "left-turn-native-1.mp4",
           "path": "carla/release-v2/left-turn-native-1.mp4",
-          "role": "native-1"
+          "role": "native-1",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-native-1.mp4"
         },
         {
           "bytes": 14632049,
@@ -625,7 +641,8 @@
           ],
           "name": "left-turn-native-2.mp4",
           "path": "carla/release-v2/left-turn-native-2.mp4",
-          "role": "native-2"
+          "role": "native-2",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-native-2.mp4"
         },
         {
           "bytes": 13134287,
@@ -639,7 +656,8 @@
           ],
           "name": "left-turn-native-3.mp4",
           "path": "carla/release-v2/left-turn-native-3.mp4",
-          "role": "native-3"
+          "role": "native-3",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-native-3.mp4"
         },
         {
           "bytes": 42244178,
@@ -653,7 +671,8 @@
           ],
           "name": "left-turn-carla-sumo-four-pane.mp4",
           "path": "carla/release-v2/left-turn-carla-sumo-four-pane.mp4",
-          "role": "carla-sumo-four-pane"
+          "role": "carla-sumo-four-pane",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4"
         }
       ],
       "preview": {
@@ -748,7 +767,8 @@
         "source_modified": false,
         "previous_sumo_lane": ":2014_16_0",
         "following_sumo_lane": "-13_3"
-      }
+      },
+      "verified_video_url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4"
     },
     {
       "id": "roundabout",
@@ -809,7 +829,8 @@
           ],
           "name": "roundabout-native-1.mp4",
           "path": "carla/release-v2/roundabout-native-1.mp4",
-          "role": "native-1"
+          "role": "native-1",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-native-1.mp4"
         },
         {
           "bytes": 28125023,
@@ -823,7 +844,8 @@
           ],
           "name": "roundabout-native-2.mp4",
           "path": "carla/release-v2/roundabout-native-2.mp4",
-          "role": "native-2"
+          "role": "native-2",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-native-2.mp4"
         },
         {
           "bytes": 23308861,
@@ -837,7 +859,8 @@
           ],
           "name": "roundabout-native-3.mp4",
           "path": "carla/release-v2/roundabout-native-3.mp4",
-          "role": "native-3"
+          "role": "native-3",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-native-3.mp4"
         },
         {
           "bytes": 77841328,
@@ -851,7 +874,8 @@
           ],
           "name": "roundabout-carla-sumo-four-pane.mp4",
           "path": "carla/release-v2/roundabout-carla-sumo-four-pane.mp4",
-          "role": "carla-sumo-four-pane"
+          "role": "carla-sumo-four-pane",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4"
         }
       ],
       "preview": {
@@ -976,7 +1000,8 @@
         "native_GUI_repeat_render_max_changed_pixels": 3,
         "native_GUI_repeat_render_min_nonidentical_PSNR_dB": 58.78623556057258,
         "all_repeat_PNG_bytes_identical": false
-      }
+      },
+      "verified_video_url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4"
     },
     {
       "id": "live-highway",
@@ -1038,7 +1063,8 @@
           ],
           "name": "live-highway-native-1.mp4",
           "path": "carla/release-v2/live-highway-native-1.mp4",
-          "role": "native-1"
+          "role": "native-1",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-native-1.mp4"
         },
         {
           "bytes": 10379539,
@@ -1052,7 +1078,8 @@
           ],
           "name": "live-highway-native-2.mp4",
           "path": "carla/release-v2/live-highway-native-2.mp4",
-          "role": "native-2"
+          "role": "native-2",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-native-2.mp4"
         },
         {
           "bytes": 9263206,
@@ -1066,7 +1093,8 @@
           ],
           "name": "live-highway-native-3.mp4",
           "path": "carla/release-v2/live-highway-native-3.mp4",
-          "role": "native-3"
+          "role": "native-3",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-native-3.mp4"
         },
         {
           "bytes": 27092524,
@@ -1080,7 +1108,8 @@
           ],
           "name": "live-highway-carla-sumo-four-pane.mp4",
           "path": "carla/release-v2/live-highway-carla-sumo-four-pane.mp4",
-          "role": "carla-sumo-four-pane"
+          "role": "carla-sumo-four-pane",
+          "url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4"
         }
       ],
       "preview": {
@@ -1160,13 +1189,14 @@
         "source_video_sha256": "651d0c6eb59d2ec182648daacc6567d83956656960b955eac6c7a7700c853566",
         "path": "docs/media/live-highway.gif"
       },
-      "sumo_replay_qualification": null
+      "sumo_replay_qualification": null,
+      "verified_video_url": "https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4"
     }
   ],
   "trained_policy": false,
   "image_boxes_are_native_ground_truth": true,
   "pointcloud_is_native_sensor_processing": true,
-  "published": false,
+  "published": true,
   "limitations": [
     "SUMO GUI panes are post-capture replay, including the independently verified live source.",
     "Simulator-label boxes are ground truth assisted image processing, not learned detection.",
@@ -1174,5 +1204,15 @@
     "Manual sample review is disclosed separately from full automated video decoding.",
     "Left-turn SUMO replay retains one empty lane field for a background vehicle at a connected road endpoint (sample 501, native frame 1200430, 0.058394 m from the endpoint). Its complete footprint is outside the actual native GUI viewport. All ego lane fields and all source poses, times and images remain verified; all-actor lane membership is explicitly false. The original strict FAIL is preserved and no lane or pose was filled or modified.",
     "Roundabout SUMO replay retains 16 empty lane fields: two visible ego samples at connected normal/internal endpoints within 0.1 m and 14 consecutive samples (41-54) of background road44/-5 outside the actual viewport. All-actor and all-ego lane membership are false, while exact full source poses/times and original PNG hashes pass. The original strict FAIL remains; lanes and poses were not repaired. Independent native GUI repeats match actual viewport and all poses and differ by at most 4 pixels; measured PSNR is disclosed, not claimed identical bytes. This is post-capture GUI representation, not a new closed-loop roundabout run."
-  ]
+  ],
+  "publication": {
+    "repository": "Ekko82/autodrive-showcase",
+    "tag": "v2.0.0",
+    "commit_sha": "daf31c832e14b6eba5fcd96c93777dad01aa73cb",
+    "release_url": "https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0",
+    "published_at": "2026-10-11T22:53:06Z",
+    "verified_utc": "2026-10-11T23:04:29.383859+00:00"
+  },
+  "publication_manifest_sha256": "912d5b80bf94e80f4b3b41895868e4d13e239a04c37b942e0479ba8e28aff39d",
+  "verification_receipt_sha256": "366c07e7ed34ed25f117bdfdeacea0476291b3b16fb06d6369ac6178a3b5a60d"
 }
