@@ -1,4 +1,8 @@
-# CARLA + SUMO 自动驾驶场景与传感器演示
+# DriveWeave
+
+CARLA + SUMO 自动驾驶软件仿真与传感器工具链。
+
+[GitHub 源代码](https://github.com/Ekko82/DriveWeave) · [已发布版本](https://github.com/Ekko82/DriveWeave/releases)
 
 使用 **CARLA 0.9.16 内置 Tesla Model 3**、原生车辆物理、相机和激光雷达录制道路场景，并用 CPU 处理真实传感器数据。主车使用公开规则、原生 waypoint 和 VehicleControl；背景交通使用 TrafficManager 或明确配置的场景控制。项目包含官方 CARLA/SUMO 双向实时协同与录制后 SUMO-GUI 同步回放两条流程。
 
@@ -8,16 +12,16 @@
 
 本版本的六条实际录制、动作、传感器和完整视频已通过自动核验及真实人工抽样审阅。全部原速 20 fps，不裁剪完整源帧、不插值，不添加标题或 HUD。
 
-[已验证 GitHub Release](https://github.com/Ekko82/autodrive-showcase/releases/tag/v2.0.0)；公开源代码版本 `daf31c832e14b6eba5fcd96c93777dad01aa73cb`。下方 GIF 是对应完整视频中连续六秒的真实解码画面，以 10 fps 展示，播放时长仍为六秒。
+[已验证 GitHub Release](https://github.com/Ekko82/DriveWeave/releases/tag/v2.0.0)；公开源代码版本 `daf31c832e14b6eba5fcd96c93777dad01aa73cb`。下方 GIF 是对应完整视频中连续六秒的真实解码画面，以 10 fps 展示，播放时长仍为六秒。
 
 | 场景 | 实际源帧 | 完整时长 | 高清视频 |
 | --- | ---: | ---: | --- |
-| 高速换道 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4) |
-| 匝道驶入 | 487 | 24.35 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4) |
-| 匝道驶出 | 476 | 23.8 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4) |
-| 宽路口无保护左转 | 580 | 29 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4) |
-| 环岛驶入驶出 | 1001 | 50.05 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4) |
-| 官方双向实时协同 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4) |
+| 高速换道 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4) |
+| 匝道驶入 | 487 | 24.35 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4) |
+| 匝道驶出 | 476 | 23.8 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4) |
+| 宽路口无保护左转 | 580 | 29 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4) |
+| 环岛驶入驶出 | 1001 | 50.05 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4) |
+| 官方双向实时协同 | 334 | 16.7 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4) |
 
 五条普通场景源于 CARLA 原生物理录制；live-highway 源录制另有实际官方双向协同与 SUMO 自主车辆运动证据。**六片右上角均为录制后的原生 SUMO GUI 同步回放**，不能把展示回放称为重新运行的实时控制。图像框来自仿真真值，点云来自原生 LiDAR 处理；没有训练检测或驾驶模型。
 
@@ -29,37 +33,37 @@
 
 ![高速换道](docs/media/highway.gif)
 
-[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4)
+[完整原速视频](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/highway-carla-sumo-four-pane.mp4)
 
 ### 匝道驶入
 
 ![匝道驶入](docs/media/ramp-entry.gif)
 
-[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4)
+[完整原速视频](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/ramp-entry-carla-sumo-four-pane.mp4)
 
 ### 匝道驶出
 
 ![匝道驶出](docs/media/ramp-exit.gif)
 
-[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4)
+[完整原速视频](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/ramp-exit-carla-sumo-four-pane.mp4)
 
 ### 宽路口无保护左转
 
 ![宽路口无保护左转](docs/media/left-turn.gif)
 
-[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4)
+[完整原速视频](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/left-turn-carla-sumo-four-pane.mp4)
 
 ### 环岛驶入驶出
 
 ![环岛驶入驶出](docs/media/roundabout.gif)
 
-[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4)
+[完整原速视频](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/roundabout-carla-sumo-four-pane.mp4)
 
 ### 官方双向实时协同
 
 ![官方双向实时协同](docs/media/live-highway.gif)
 
-[完整原速视频](https://github.com/Ekko82/autodrive-showcase/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4)
+[完整原速视频](https://github.com/Ekko82/DriveWeave/releases/download/v2.0.0/live-highway-carla-sumo-four-pane.mp4)
 
 帧数、SHA-256、源采集与展示范围见 [公开验收摘要](docs/media/accepted-v2-summary.json) 和 [预览索引](docs/media/preview-index.json)。人工审阅范围在摘要中逐片披露，不冒充全片人工观看。
 

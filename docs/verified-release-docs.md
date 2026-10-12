@@ -32,3 +32,5 @@ python finalize_release_docs.py --publication maintenance/publications/ACTUAL_ST
 文档正常提交到 main，不移动原发布 tag。工具没有 Git 操作。加入公开清单的是工具、本文、可移植测试和实际生成的脱敏摘要；本机 publication/执行/审核凭据不公开。
 
 每次实际新版本发布验证成功后，才按已审阅清理声明处理上版本缓存，没有日历 schedule。`carla/releases` 只能选明确旧版本子目录，不能清理整个父目录。将来 v3 或更高主版本可声明 `old.version="v2"`，选择 `carla/output-v2`、`carla/output-sumo-v2`、`carla/release-v2`；当前 accepted 引用闭包和 keep_paths 始终保护原文件。源码、审计和元数据永久保留，执行只 unlink 已核验的精确二进制文件。
+
+仓库现名为 [DriveWeave](https://github.com/Ekko82/DriveWeave)，后续发布命令显式使用 `--repository Ekko82/DriveWeave`。历史发布与完整 SHA 验证凭据保留验证当时的仓库名和原字节；GitHub 将旧仓库链接重定向到同一仓库。改名不移动已发布 tag，也不重新上传既有视频。新版发布生成新的 publication manifest 和实际远端校验凭据，不改写历史记录。
