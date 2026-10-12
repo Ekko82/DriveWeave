@@ -2,15 +2,39 @@
 
 CARLA + SUMO 自动驾驶软件仿真与传感器工具链。
 
+基于 CARLA 官方 Town03、Town04、Town05、Town06 地图定制交通场景、车辆交互和传感器配置；当前未自建道路几何、建筑或地形。
+
 [GitHub 源代码](https://github.com/Ekko82/DriveWeave) · [已发布版本](https://github.com/Ekko82/DriveWeave/releases)
 
 使用 **CARLA 0.9.16 内置 Tesla Model 3**、原生车辆物理、相机和激光雷达录制道路场景，并用 CPU 处理真实传感器数据。主车使用公开规则、原生 waypoint 和 VehicleControl；背景交通使用 TrafficManager 或明确配置的场景控制。项目包含官方 CARLA/SUMO 双向实时协同与录制后 SUMO-GUI 同步回放两条流程。
 
 项目用于仿真演示、接口复现和数据核验。没有训练或加载自动驾驶/目标检测模型，没有运行 LimSim。语义与实例掩码是仿真真值；点云来自原生 LiDAR 返回。处理结果没有回传为视觉感知驾驶闭环。
 
-## 视频预览与版本状态
+## v3 交通交互与综合视频
 
-本版本的六条实际录制、动作、传感器和完整视频已通过自动核验及真实人工抽样审阅。全部原速 20 fps，不裁剪完整源帧、不插值，不添加标题或 HUD。
+[观看综合视频](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-traffic-and-sensors.mp4) · [v3 完整素材](https://github.com/Ekko82/DriveWeave/releases/tag/v3.0.0) · [运行方法](docs/traffic-v3.md) · [验收摘要](docs/media/accepted-v3-summary.json)
+
+这一版增加前车、后车和邻道交通，录制了真实后视相机。高速场景包含慢车跟随、邻道后车接近、等待间隙及换道；匝道包含合流和驶出；路口与环岛包含对向或环内车流、停车让行及继续驶出。车辆采用 CARLA 原生物理，交通角色由公开规则配置。
+
+![v3 高速原速录制片段](docs/media/highway-v3.gif)
+
+上图取自新高速录像的第 12–18 秒，按 10 fps 展示，仍为六秒原速。[预览来源](docs/media/preview-v3.json)
+
+| 新录制场景 | 原始帧数 | 完整时长 | 跟车画面 | 相机与处理四视图 |
+| --- | ---: | ---: | --- | --- |
+| 高速换道 | 827 | 41.35 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-highway-chase.mp4) | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-highway-sensors.mp4) |
+| 匝道驶入 | 722 | 36.10 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-ramp-entry-chase.mp4) | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-ramp-entry-sensors.mp4) |
+| 匝道驶出 | 705 | 35.25 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-ramp-exit-chase.mp4) | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-ramp-exit-sensors.mp4) |
+| 无保护左转 | 675 | 33.75 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-left-turn-chase.mp4) | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-left-turn-sensors.mp4) |
+| 环岛驶入驶出 | 972 | 48.60 秒 | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-roundabout-chase.mp4) | [MP4](https://github.com/Ekko82/DriveWeave/releases/download/v3.0.0/DriveWeave-roundabout-sensors.mp4) |
+
+完整场景按原速 20 fps 保留全部源帧；综合视频剪辑场景和机位，保持原速，不加画面文字或插值。新四视图为跟车、前视、图像处理和点云处理。综合片末尾引用 v2 的官方 CARLA/SUMO 协同录制，SUMO 窗口仍是录制后同步回放；本轮五个新场景尚未接入实时协同录制器。
+
+高速录像实际等待约 6.9 秒后换道，整个换道过程的动态间距通过检查。左转在六辆对向车全部通过后进入路口。环岛原先较宽的入口区域检查仍有一项 FAIL；按真实行驶车道与车身扫掠区域复核，实际交叉冲突区域没有同时占用，两个报告均保留。左转及环岛驶出尾段没有持续近距离后车，人工画面审阅也只是抽样；详细范围见验收摘要。
+
+## v2 历史录像与 GIF 预览
+
+以下六条为 v2 录像及其原有验证记录。全部原速 20 fps，不裁剪完整源帧、不插值，不添加标题或 HUD。
 
 [已验证 GitHub Release](https://github.com/Ekko82/DriveWeave/releases/tag/v2.0.0)；公开源代码版本 `daf31c832e14b6eba5fcd96c93777dad01aa73cb`。下方 GIF 是对应完整视频中连续六秒的真实解码画面，以 10 fps 展示，播放时长仍为六秒。
 

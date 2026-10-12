@@ -1,0 +1,46 @@
+{
+  "plans": [
+    {
+      "scene": "highway",
+      "path": "carla/plans/public-v3/highway.json",
+      "original_plan_sha256": "1c9648446714eeb4ca68c756d6a87f26fb54ec81c9719b48cb4eccd2cec94269",
+      "public_plan_sha256": "cdd0e68ec4f2bad0d815ee6ff66c8e6846b77919f5e937dd75d4219482b1d899",
+      "normalized_path_labels": []
+    },
+    {
+      "scene": "left-turn",
+      "path": "carla/plans/public-v3/left-turn.json",
+      "original_plan_sha256": "a134beebfadf4672607566e5fdb9453c2af21f5908bfc1cddf318b06d10dd71b",
+      "public_plan_sha256": "92a266a4d4aaf8e7d2d2bcffa7cb942064aec746dd8fad8ae81d2c8d436a8157",
+      "normalized_path_labels": [
+        "/traffic/6/longitudinal_stop_policy/calibration_source",
+        "/traffic/7/longitudinal_stop_policy/calibration_source",
+        "/longitudinal_stop_policy/calibration_source"
+      ]
+    },
+    {
+      "scene": "ramp-entry",
+      "path": "carla/plans/public-v3/ramp-entry.json",
+      "original_plan_sha256": "0ab1ed46392eaaabcbeebf0df59700305b07e071995090cc3365c38ca9bc37d0",
+      "public_plan_sha256": "b3429e6e4e52892d47277372c6ce4b37f208c6b3dabc6d6873898dceaeab19b9",
+      "normalized_path_labels": []
+    },
+    {
+      "scene": "ramp-exit",
+      "path": "carla/plans/public-v3/ramp-exit.json",
+      "original_plan_sha256": "0d2500820b901d6ef78c0876cecb18050f1c3f9209e8f53c1c81fdeb39f0e383",
+      "public_plan_sha256": "a6d8f13c2f34ad9d8c3f503e18cc3c47d16cb823643246e2c86a2550bce94ca2",
+      "normalized_path_labels": []
+    },
+    {
+      "scene": "roundabout",
+      "path": "carla/plans/public-v3/roundabout.json",
+      "original_plan_sha256": "588f9ad04a7cdc4dfe9ceff022eada1189cb65121bc7a1daa406a3ce36a1a9e9",
+      "public_plan_sha256": "a4820676966e16689036e6380242e0ffd0058c8f7e33e22c6e6734c834742e37",
+      "normalized_path_labels": []
+    }
+  ],
+  "accepted_media_report_pending": false,
+  "accepted_media_report": "docs/media/accepted-v3-summary.json",
+  "acceptance_scope": "Five source scenes accepted, including explicit roundabout precise-corridor qualification; publication verified separately."
+}

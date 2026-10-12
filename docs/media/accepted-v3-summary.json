@@ -1,0 +1,1049 @@
+{
+  "schema_version": 1,
+  "version": "v3",
+  "status": "accepted_local_media_publication_pending",
+  "accepted": true,
+  "created_at_utc": "2026-10-12T11:25:05.089314+00:00",
+  "published": false,
+  "release_version": "v3.0.0",
+  "scenes": [
+    {
+      "id": "highway",
+      "status": "accepted",
+      "accepted": true,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "frames": 827,
+      "fps": 20,
+      "duration_s": 41.35,
+      "native_frame_range": [
+        1260111,
+        1260937
+      ],
+      "map": "Carla/Maps/Town04",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "04111dae64cc25d03d6fe2069e1df7a09c50fd658036c899cf36c25c533e46ea",
+        "native_frames": "c7b44c9eb74e123a8b6f4fc2816fe5232f75b349a00dc43bd54096e56f9c8ec6",
+        "processing_manifest": "3017860e1f6c914e482a9f75660e5a9ee5aa5bf749ce98dc9c69e73241d7c6ce"
+      },
+      "proof_sha256": {
+        "action": "866dda2af87e1513e922b8f3aa32dda53eb26b2a7d43215f82bbec18701fe43e",
+        "motion": "4bb95c7d913ea0570a9c98adfd3ef105d4ca239025ce11c7c3e33ad3799969cf",
+        "png": "038c810d51b88ece7fe8e484452c6accaa4d7d35e03053b3220bc86c29ea2b8d",
+        "sensor": "344784e46fccd64e32937d17afbdad865f39c835c3378dc6b81860140ffe1dfd",
+        "codec": "e0ccb8f65cfd500a09bdc252a96bcfe2db921ca0f8c2e289fb1d40b51ee81d21",
+        "manual": "be24cdf05ef13162505f36a48040b891d6b394fc462c614e46f0cb3eb0ffa037",
+        "execution": "7cf9fde71fa6cde686fe3982a527ff92c27b4d6d1cd5c8a026acad6ee1a6c12e",
+        "media": "55776a8c7793c17dfd32566cf6aaa2e4484f7a7d871cc08d948f873d82a36a16",
+        "processing": "3017860e1f6c914e482a9f75660e5a9ee5aa5bf749ce98dc9c69e73241d7c6ce"
+      },
+      "gates": {
+        "actual_process_exit0": true,
+        "source_hashes_bound": true,
+        "native_action_verified": true,
+        "motion_passed": true,
+        "all_camera_png_integrity_passed": true,
+        "sensor_processing_passed": true,
+        "all_six_videos_fully_decoded": true,
+        "sampled_visual_review_passed": true
+      },
+      "strict_scene_gate_passed": true,
+      "native_corridor_review_passed": null,
+      "manual_review": {
+        "accepted": true,
+        "method": "Actually inspected12 decoded images through view_image, including three gap-wait/pass/change action frames.",
+        "full_video_manually_watched": false,
+        "sampled_only": true,
+        "sample_count": 12
+      },
+      "metrics": {
+        "actual_speed_kmh": {
+          "minimum": 44.51866347677898,
+          "median": 62.81710143829955,
+          "maximum": 75.97768956121324
+        },
+        "actual_stage_speed_kmh": {
+          "approach_slow_lead_with_surrounding_traffic": {
+            "seconds": 5.95,
+            "median": 59.73068011329909,
+            "maximum": 62.89228645910381
+          },
+          "reject_unsafe_rear_gap_then_native_left_change": {
+            "seconds": 13.0,
+            "median": 56.7452781437634,
+            "maximum": 67.953596895985
+          },
+          "persistent_native_multiroad_highway_flow": {
+            "seconds": 22.4,
+            "median": 63.82927476421764,
+            "maximum": 75.97768956121324
+          }
+        },
+        "rear_geometry": {
+          "definition_id": "uniform_actual_root_rear_v1",
+          "rear60_fraction": 1.0,
+          "rear40_fraction": 0.8911729141475212,
+          "same_width_rear60_fraction": 0.7400241837968561,
+          "last_three_seconds_rear60_fraction": 1.0,
+          "pixel_visibility_verified": false
+        }
+      },
+      "media": [
+        {
+          "role": "chase",
+          "name": "DriveWeave-highway-chase.mp4",
+          "sha256": "9fba892d7cf4df24bb1159fb206e19ece5676b877c8c9f46c1e82ceea10c41dd",
+          "bytes": 27659253,
+          "frames": 827,
+          "fps": 20,
+          "duration_s": 41.35,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "front",
+          "name": "DriveWeave-highway-front.mp4",
+          "sha256": "edc5dc9f95c2372ddf37f337944e8d678a07d595dc6ea835af51a16aac573d96",
+          "bytes": 23803322,
+          "frames": 827,
+          "fps": 20,
+          "duration_s": 41.35,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "rear",
+          "name": "DriveWeave-highway-rear.mp4",
+          "sha256": "80c133de1025999f70fe10ce877697882c9640ffbde4f8f71ec56794e5d6c660",
+          "bytes": 33826040,
+          "frames": 827,
+          "fps": 20,
+          "duration_s": 41.35,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "image-processing",
+          "name": "DriveWeave-highway-image-processing.mp4",
+          "sha256": "989528311c9cd3d1b6a5a432663c2ca9be85e27fb2daf719c1b85c7faf8f782c",
+          "bytes": 23797730,
+          "frames": 827,
+          "fps": 20,
+          "duration_s": 41.35,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "lidar-processing",
+          "name": "DriveWeave-highway-lidar-processing.mp4",
+          "sha256": "ad6a861093518e42e29115ce72d97cbd80731f78c84fae79783e7e0868e937d0",
+          "bytes": 35880633,
+          "frames": 827,
+          "fps": 20,
+          "duration_s": 41.35,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "sensors",
+          "name": "DriveWeave-highway-sensors.mp4",
+          "sha256": "6f817b820e458d81a5f14324efb7de6a5663eb51e7de19774c4555067a491280",
+          "bytes": 71199481,
+          "frames": 827,
+          "fps": 20,
+          "duration_s": 41.35,
+          "dimensions": [
+            1920,
+            1080
+          ]
+        }
+      ],
+      "limits": [
+        "One deterministic8-role traffic arrangement. Separate repetition probes are not random-traffic robustness evidence.",
+        "The highway lane-change action and full internal plan completed in the source; sampled visual review is not full manual playback."
+      ],
+      "preview": {
+        "source_version": "v3.0.0",
+        "scene": "highway",
+        "path": "docs/media/highway-v3.gif",
+        "sha256": "9623764cc1366d01cc10aed16b98d5bb0593a5bf6e6155fcc04279bc91fa6055",
+        "bytes": 3335034,
+        "source_video_name": "DriveWeave-highway-chase.mp4",
+        "source_video_sha256": "9fba892d7cf4df24bb1159fb206e19ece5676b877c8c9f46c1e82ceea10c41dd",
+        "capture_manifest_sha256": "04111dae64cc25d03d6fe2069e1df7a09c50fd658036c899cf36c25c533e46ea",
+        "source_frames_sha256": "c7b44c9eb74e123a8b6f4fc2816fe5232f75b349a00dc43bd54096e56f9c8ec6",
+        "source_sample_indices": [
+          240,
+          242,
+          244,
+          246,
+          248,
+          250,
+          252,
+          254,
+          256,
+          258,
+          260,
+          262,
+          264,
+          266,
+          268,
+          270,
+          272,
+          274,
+          276,
+          278,
+          280,
+          282,
+          284,
+          286,
+          288,
+          290,
+          292,
+          294,
+          296,
+          298,
+          300,
+          302,
+          304,
+          306,
+          308,
+          310,
+          312,
+          314,
+          316,
+          318,
+          320,
+          322,
+          324,
+          326,
+          328,
+          330,
+          332,
+          334,
+          336,
+          338,
+          340,
+          342,
+          344,
+          346,
+          348,
+          350,
+          352,
+          354,
+          356,
+          358
+        ],
+        "native_frame_ids": [
+          1260351,
+          1260353,
+          1260355,
+          1260357,
+          1260359,
+          1260361,
+          1260363,
+          1260365,
+          1260367,
+          1260369,
+          1260371,
+          1260373,
+          1260375,
+          1260377,
+          1260379,
+          1260381,
+          1260383,
+          1260385,
+          1260387,
+          1260389,
+          1260391,
+          1260393,
+          1260395,
+          1260397,
+          1260399,
+          1260401,
+          1260403,
+          1260405,
+          1260407,
+          1260409,
+          1260411,
+          1260413,
+          1260415,
+          1260417,
+          1260419,
+          1260421,
+          1260423,
+          1260425,
+          1260427,
+          1260429,
+          1260431,
+          1260433,
+          1260435,
+          1260437,
+          1260439,
+          1260441,
+          1260443,
+          1260445,
+          1260447,
+          1260449,
+          1260451,
+          1260453,
+          1260455,
+          1260457,
+          1260459,
+          1260461,
+          1260463,
+          1260465,
+          1260467,
+          1260469
+        ],
+        "frames": 60,
+        "fps": 10,
+        "duration_s": 6,
+        "playback_speed": 1,
+        "added_text": false,
+        "all_frames_decoded": true,
+        "minimum_source_psnr_db": 31.38112412764356,
+        "manual_review": {
+          "first_frame_viewed": true,
+          "all_animation_frames_manually_watched": false
+        },
+        "dimensions": [
+          480,
+          270
+        ],
+        "size": [
+          480,
+          270
+        ],
+        "interpolated_frames": false
+      }
+    },
+    {
+      "id": "ramp-entry",
+      "status": "accepted_with_verified_map_newline_equivalence",
+      "accepted": true,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "frames": 722,
+      "fps": 20,
+      "duration_s": 36.1,
+      "native_frame_range": [
+        1252530,
+        1253251
+      ],
+      "map": "Carla/Maps/Town06",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "8b259a0c43e2846763f36d2857a78d3f3575eef9bf119b1dd05738e79a8eef12",
+        "native_frames": "4c5563f05ec3c37eebc95df64715237fc01e59ef96187aba69ea4eed208249de",
+        "processing_manifest": "32b3e73bb32ff7d089ea4414e3cb93813c8a33241f4ba7e525c735de127a9823"
+      },
+      "proof_sha256": {
+        "action": "f3a880a1f16886343c5f4dbe5579ae41c5a76f240d13d9926bc5ffb56beca1f0",
+        "motion": "1092a2ff346f3ce287a69d4416d71528b5e6b222ead3e87b0cdd8dc746730cd8",
+        "png": "187f4c52233f0460ab2c925ead07d271c0211d441affc9c91335192db67529cd",
+        "sensor": "c81678bcd592291cffe2433477136bf69b9e6fbf3c9a31f77660c6aa16b383b8",
+        "codec": "ae50841a88978729f3f7ac3c9ef3a846f89e0314a0fead0d026e4f997e5682e4",
+        "manual": "c9c4914b01fe27292a3aeb08009411d3c503fd07344b853d40bf28539ea5bb79",
+        "original_strict": "8247d2d2c45c05a9d740f8478025bc960f723583c47121a7b688d11a81dc78a6",
+        "execution": "4af88cc915a71697e18dbad6bd2714fdce1425a5078d430c3f0d2178fd9e3a09",
+        "media": "9be9451bc7d693bb84d8e449cec8c306385f6e5f9c86f51104181ba6b5394cd1",
+        "processing": "32b3e73bb32ff7d089ea4414e3cb93813c8a33241f4ba7e525c735de127a9823"
+      },
+      "gates": {
+        "actual_process_exit0": true,
+        "source_hashes_bound": true,
+        "native_action_verified": true,
+        "motion_passed": true,
+        "all_camera_png_integrity_passed": true,
+        "sensor_processing_passed": true,
+        "all_six_videos_fully_decoded": true,
+        "sampled_visual_review_passed": true
+      },
+      "strict_scene_gate_passed": true,
+      "native_corridor_review_passed": null,
+      "manual_review": {
+        "accepted": true,
+        "method": "Actual view_image inspection of five decoded sensor-montage times and the same five decoded native rear times. Montage contains chase/front/image-processing/lidar-processing; each individual video also has full-decode and5sample source PSNR evidence.",
+        "full_video_manually_watched": false,
+        "sampled_only": true,
+        "sample_count": 5
+      },
+      "metrics": {
+        "actual_speed_kmh": {
+          "minimum": 22.7399870314833,
+          "median": 39.23918343123461,
+          "maximum": 45.69127518383924
+        },
+        "actual_stage_speed_kmh": {
+          "native_curved_entry_ramp": {
+            "seconds": 12.45,
+            "median": 39.21621107976823,
+            "maximum": 39.27853489526106
+          },
+          "native_acceleration_lane": {
+            "seconds": 4.15,
+            "median": 35.90218166292382,
+            "maximum": 39.049709912510245
+          },
+          "gap_checked_merge_into_native_mainline": {
+            "seconds": 8.95,
+            "median": 37.11054625976038,
+            "maximum": 45.161459113492974
+          },
+          "stabilize_on_native_mainline": {
+            "seconds": 10.55,
+            "median": 43.777576118708716,
+            "maximum": 45.69127518383924
+          }
+        },
+        "rear_geometry": {
+          "definition_id": "uniform_actual_root_rear_v1",
+          "rear60_fraction": 1.0,
+          "rear40_fraction": 1.0,
+          "same_width_rear60_fraction": 0.6662049861495845,
+          "last_three_seconds_rear60_fraction": 1.0,
+          "pixel_visibility_verified": false
+        }
+      },
+      "media": [
+        {
+          "role": "chase",
+          "name": "DriveWeave-ramp-entry-chase.mp4",
+          "sha256": "102ed54767ec4b479a9f08ffa8e975f223b5b86f08da553a5dc8882def22e4dc",
+          "bytes": 25112807,
+          "frames": 722,
+          "fps": 20,
+          "duration_s": 36.1,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "front",
+          "name": "DriveWeave-ramp-entry-front.mp4",
+          "sha256": "9895b1791157bd2408ae8f264e99311fbc5c81f77d84cdeabd036b00b28fbc3b",
+          "bytes": 21323123,
+          "frames": 722,
+          "fps": 20,
+          "duration_s": 36.1,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "rear",
+          "name": "DriveWeave-ramp-entry-rear.mp4",
+          "sha256": "a9660c14d364f1d39e50a74e9b00fcd6bc8ffb21dc9cf2f9e251caf0ff67129c",
+          "bytes": 28267982,
+          "frames": 722,
+          "fps": 20,
+          "duration_s": 36.1,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "image-processing",
+          "name": "DriveWeave-ramp-entry-image-processing.mp4",
+          "sha256": "33ca83e778be1bcc5be004b98e2a3e1edcd11978e7f37affffa417c237c2c50f",
+          "bytes": 21222121,
+          "frames": 722,
+          "fps": 20,
+          "duration_s": 36.1,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "lidar-processing",
+          "name": "DriveWeave-ramp-entry-lidar-processing.mp4",
+          "sha256": "42a7c35c8369a8f589e0a399f56ccbcf77efc846a7f22ab2085fdc990241c9cc",
+          "bytes": 39515696,
+          "frames": 722,
+          "fps": 20,
+          "duration_s": 36.1,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "sensors",
+          "name": "DriveWeave-ramp-entry-sensors.mp4",
+          "sha256": "7bcf19ce164b60e57f27b79a2e47ce38f83ce1c2e61dedbf141c89cc586ee34e",
+          "bytes": 69708883,
+          "frames": 722,
+          "fps": 20,
+          "duration_s": 36.1,
+          "dimensions": [
+            1920,
+            1080
+          ]
+        }
+      ],
+      "limits": [
+        "Native left-side ramp and mainline merge are shown; this is a CARLA map-specific layout.",
+        "Map-byte strict FAIL is retained. Only verified CRLF-to-LF equivalence is accepted; no physical threshold changed."
+      ],
+      "original_map_byte_strict_passed": false,
+      "verified_map_binding_mode": "CRLF_to_LF_only_no_geometry_change"
+    },
+    {
+      "id": "ramp-exit",
+      "status": "accepted_with_verified_map_newline_equivalence",
+      "accepted": true,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "frames": 705,
+      "fps": 20,
+      "duration_s": 35.25,
+      "native_frame_range": [
+        1104866,
+        1105570
+      ],
+      "map": "Carla/Maps/Town06",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "7c420976254a6d18a81ff2b67a724e03185d02b8bd60c22d3ab53349e4b21d8e",
+        "native_frames": "4565b9b17527b5a276f72d8bc0cf27da80698279a9e21b2449ab791be2e2998e",
+        "processing_manifest": "38066f53eec81e0576300bc7860316dddd30eea9294dc81b362f0841b1860c6c"
+      },
+      "proof_sha256": {
+        "action": "b1485badf180d59849f71033633611d0f50bc493b9b6c5f4c7f5c8d666e3b04c",
+        "motion": "3d67491da210725c33a0c86c9950a3000f2ff8528ba4477c8a1dd6e551801781",
+        "png": "07a1e308e55797ac871a5e16b65e42b6748c866693ce86e531460ae93323578c",
+        "sensor": "3cf9f3fcf1494a8d308e3bb172414603b7ad985ec641454d74ad8be16ff225ff",
+        "codec": "78a3c99b33476966049bb2660f19fa237001991933f66607926a66d918cf03a2",
+        "manual": "74ce2e14597ba7a2e9c5762b0db32cf8eb55c605ea1cf3f4ef8ca9001219db37",
+        "original_strict": "6b3368c9ec0d48c23354abe9290678d2b8f400fcd5e4d37bf457dfe25bb896fc",
+        "execution": "519c2ef95ece51cb05498d364e02b98c29a463bc3937ff2f869cf98a150039ab",
+        "media": "e928c38161c2d266e862daf176cbe501ef085e8b3847d75d6cb3f44612107089",
+        "processing": "38066f53eec81e0576300bc7860316dddd30eea9294dc81b362f0841b1860c6c"
+      },
+      "gates": {
+        "actual_process_exit0": true,
+        "source_hashes_bound": true,
+        "native_action_verified": true,
+        "motion_passed": true,
+        "all_camera_png_integrity_passed": true,
+        "sensor_processing_passed": true,
+        "all_six_videos_fully_decoded": true,
+        "sampled_visual_review_passed": true
+      },
+      "strict_scene_gate_passed": true,
+      "native_corridor_review_passed": null,
+      "manual_review": {
+        "accepted": true,
+        "method": "Actual view_image inspection of five decoded sensor-montage times and the same five decoded native rear times. Montage contains chase/front/image-processing/lidar-processing; each individual video also has full-decode and5sample source PSNR evidence.",
+        "full_video_manually_watched": false,
+        "sampled_only": true,
+        "sample_count": 5
+      },
+      "metrics": {
+        "actual_speed_kmh": {
+          "minimum": 22.740314674439336,
+          "median": 30.160918388908687,
+          "maximum": 41.20074024688565
+        },
+        "actual_stage_speed_kmh": {
+          "native_mainline_exit_approach": {
+            "seconds": 2.5,
+            "median": 32.31734559937287,
+            "maximum": 40.5801988405315
+          },
+          "gap_checked_change_to_native_exit_lane": {
+            "seconds": 7.3,
+            "median": 33.53395545937161,
+            "maximum": 41.20074024688565
+          },
+          "decelerate_before_native_diverge": {
+            "seconds": 1.7,
+            "median": 32.625150369971905,
+            "maximum": 35.46694965492988
+          },
+          "follow_complete_native_curved_exit_ramp": {
+            "seconds": 23.75,
+            "median": 30.13814078330557,
+            "maximum": 30.22193827542556
+          }
+        },
+        "rear_geometry": {
+          "definition_id": "uniform_actual_root_rear_v1",
+          "rear60_fraction": 0.9290780141843972,
+          "rear40_fraction": 0.9290780141843972,
+          "same_width_rear60_fraction": 0.6581560283687943,
+          "last_three_seconds_rear60_fraction": 1.0,
+          "pixel_visibility_verified": false
+        }
+      },
+      "media": [
+        {
+          "role": "chase",
+          "name": "DriveWeave-ramp-exit-chase.mp4",
+          "sha256": "1bf2c190f6a9893b9ce1b7a7f9768784530414cc1ad17075e44c00a8e3256378",
+          "bytes": 23667561,
+          "frames": 705,
+          "fps": 20,
+          "duration_s": 35.25,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "front",
+          "name": "DriveWeave-ramp-exit-front.mp4",
+          "sha256": "0b81aa1af2b2417ab5b711843718701c75dbcb880b2fd1fd7680ae658c5a7f5f",
+          "bytes": 19384944,
+          "frames": 705,
+          "fps": 20,
+          "duration_s": 35.25,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "rear",
+          "name": "DriveWeave-ramp-exit-rear.mp4",
+          "sha256": "86e9da040068e876b766e4611d4103247af9d4fdf470ab242dc6fab7829b5cb5",
+          "bytes": 26453542,
+          "frames": 705,
+          "fps": 20,
+          "duration_s": 35.25,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "image-processing",
+          "name": "DriveWeave-ramp-exit-image-processing.mp4",
+          "sha256": "115d538baba5ffacefe5aed48affb831d55b06dccca97307830ac1ec59e67d10",
+          "bytes": 19394034,
+          "frames": 705,
+          "fps": 20,
+          "duration_s": 35.25,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "lidar-processing",
+          "name": "DriveWeave-ramp-exit-lidar-processing.mp4",
+          "sha256": "da93a9f9336dfd19d7dd30ece7c8b74d35fab605572f78485d0f1508699b0ba3",
+          "bytes": 33927498,
+          "frames": 705,
+          "fps": 20,
+          "duration_s": 35.25,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "sensors",
+          "name": "DriveWeave-ramp-exit-sensors.mp4",
+          "sha256": "9d42dba89a38a035093df8e16f2ce47203d395482500bc87ecd2a66d3962f244",
+          "bytes": 63237067,
+          "frames": 705,
+          "fps": 20,
+          "duration_s": 35.25,
+          "dimensions": [
+            1920,
+            1080
+          ]
+        }
+      ],
+      "limits": [
+        "Native left-side mainline exit and curved ramp are shown.",
+        "Map-byte strict FAIL is retained. Only verified CRLF-to-LF equivalence is accepted; no physical threshold changed."
+      ],
+      "original_map_byte_strict_passed": false,
+      "verified_map_binding_mode": "CRLF_to_LF_only_no_geometry_change"
+    },
+    {
+      "id": "left-turn",
+      "status": "accepted",
+      "accepted": true,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "frames": 675,
+      "fps": 20,
+      "duration_s": 33.75,
+      "native_frame_range": [
+        420989,
+        421663
+      ],
+      "map": "Carla/Maps/Town05",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "a8c82cb3b4518cdde6ece1755611bf62de9379df43e58975e76b689ce69ae280",
+        "native_frames": "61c6fabeb5be29f3b29570d6186d8bc2cab9f9686b08e6ae3ddfbe7b78b122ef",
+        "processing_manifest": "9d457a33b799a0faa9e10fba89f0fcfe96bb23a2e2ae7e8b63d4e6897e56d704"
+      },
+      "proof_sha256": {
+        "action": "7e3bf175bfd8db3e1dca3f61548dab6f4f13c13bdbbe041c416353df7bbfe64a",
+        "motion": "50ff0a25dff487241883e8d57c55c9869f1fb399d1d39ac12a7690d2c735e133",
+        "png": "6e33d814e02caeb30c351d81226fdea4ec1422a8dd1fc1be7943fa1d347eafb2",
+        "sensor": "a642bb4f6d9f1b115bd7acf6d33c6763a443211425f49fa2d72796969919170b",
+        "codec": "9b447f145a447fb36317fdfb5f7dc8c2a3d10d8fde5254a83baa21593a82404e",
+        "manual": "9b447f145a447fb36317fdfb5f7dc8c2a3d10d8fde5254a83baa21593a82404e",
+        "execution": "2f4f82f8aee19e42f5e8686ceb42722ae5bf34a166e4dc2dd961bacbfe437528",
+        "media": "24663802ce7b0fa16cbeb6d6a1c0afebe1094c1f18993bb2ff03b0ebde9f415a",
+        "processing": "9d457a33b799a0faa9e10fba89f0fcfe96bb23a2e2ae7e8b63d4e6897e56d704"
+      },
+      "gates": {
+        "actual_process_exit0": true,
+        "source_hashes_bound": true,
+        "native_action_verified": true,
+        "motion_passed": true,
+        "all_camera_png_integrity_passed": true,
+        "sensor_processing_passed": true,
+        "all_six_videos_fully_decoded": true,
+        "sampled_visual_review_passed": true
+      },
+      "strict_scene_gate_passed": true,
+      "native_corridor_review_passed": null,
+      "manual_review": {
+        "accepted": true,
+        "method": "Actual source and decoded stills using view_image; individual six roles sampled, with additional chase/rear opening and final samples.",
+        "full_video_manually_watched": false,
+        "sampled_only": true,
+        "sample_count": 16
+      },
+      "metrics": {
+        "actual_speed_kmh": {
+          "minimum": 0.0,
+          "median": 11.94535522486988,
+          "maximum": 27.482154632670106
+        },
+        "actual_stage_speed_kmh": {
+          "moving_approach_to_wide_junction_yield": {
+            "seconds": 14.05,
+            "median": 6.542982974746064,
+            "maximum": 25.631179501165686
+          },
+          "native_conflict_traffic": {
+            "seconds": 6.5,
+            "median": 7.896633787709085e-07,
+            "maximum": 4.492628664401559e-05
+          },
+          "yield_then_smooth_native_left_turn_and_exit": {
+            "seconds": 7.55,
+            "median": 17.282207772753374,
+            "maximum": 18.30245422700338
+          },
+          "accelerate_on_native_junction_exit": {
+            "seconds": 5.65,
+            "median": 27.046863865990936,
+            "maximum": 27.482154632670106
+          }
+        },
+        "rear_geometry": {
+          "definition_id": "uniform_actual_root_rear_v1",
+          "rear60_fraction": 0.49333333333333335,
+          "rear40_fraction": 0.49333333333333335,
+          "same_width_rear60_fraction": 0.45185185185185184,
+          "last_three_seconds_rear60_fraction": 0.0,
+          "pixel_visibility_verified": false
+        }
+      },
+      "media": [
+        {
+          "role": "chase",
+          "name": "DriveWeave-left-turn-chase.mp4",
+          "sha256": "cff6e47ef95892b8a65377a091974ba02d90e98c48c71550fab397878f76e002",
+          "bytes": 14867610,
+          "frames": 675,
+          "fps": 20,
+          "duration_s": 33.75,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "front",
+          "name": "DriveWeave-left-turn-front.mp4",
+          "sha256": "dcc568629bc51f9af05f9c68e8f59c2335c461638bb9a2eb83d00dd52506eacc",
+          "bytes": 13188478,
+          "frames": 675,
+          "fps": 20,
+          "duration_s": 33.75,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "rear",
+          "name": "DriveWeave-left-turn-rear.mp4",
+          "sha256": "f43bf805a50e9d45c05412242df0e5e4a53c9bac37d595603c3854bb954a73f1",
+          "bytes": 18505809,
+          "frames": 675,
+          "fps": 20,
+          "duration_s": 33.75,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "image-processing",
+          "name": "DriveWeave-left-turn-image-processing.mp4",
+          "sha256": "4fb7b7751edf99d76ca0cb7ae2a985c361184a8ca31cfe328bdd9082ced7e0f2",
+          "bytes": 13189033,
+          "frames": 675,
+          "fps": 20,
+          "duration_s": 33.75,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "lidar-processing",
+          "name": "DriveWeave-left-turn-lidar-processing.mp4",
+          "sha256": "63580896c35e0e479d7fabf99d70e3546195a6bd940f5197f9c7257a56c0323a",
+          "bytes": 34702970,
+          "frames": 675,
+          "fps": 20,
+          "duration_s": 33.75,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "sensors",
+          "name": "DriveWeave-left-turn-sensors.mp4",
+          "sha256": "cd2a950eb47f3471a79a478ba63ae11c5ac32d7b5171aa85fbf0b4432430685b",
+          "bytes": 50457173,
+          "frames": 675,
+          "fps": 20,
+          "duration_s": 33.75,
+          "dimensions": [
+            1920,
+            1080
+          ]
+        }
+      ],
+      "limits": [
+        "All six observed oncoming vehicles clear before the left turn; no between-stream gap selection is demonstrated.",
+        "Near rear followers are visible before/early in the turn but are not continuously close in the exit tail.",
+        "Turn-stage median speed is17.28kmh; no improvement over the latest v2 turn-stage median17.68kmh is claimed."
+      ],
+      "observed_yield_pattern": "all_observed_conflict_traffic_cleared_before_entry"
+    },
+    {
+      "id": "roundabout",
+      "status": "accepted_with_retained_broad_gate_failure_and_precise_native_corridor_pass",
+      "accepted": true,
+      "requested_action_verified": true,
+      "full_internal_plan_completed": true,
+      "frames": 972,
+      "fps": 20,
+      "duration_s": 48.6,
+      "native_frame_range": [
+        1025972,
+        1026943
+      ],
+      "map": "Carla/Maps/Town03",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "fc68ab7e91da6efc19330c71a0b052c17623f5260ccec26e607ac6f034adce4b",
+        "native_frames": "41ff7629bc6bbfb34048146eec415b2336f157aa96342e9ffd42d9016f58a8b3",
+        "processing_manifest": "8c74d5a67f41255af06b3521fb0f82b041f3fb0b247ddcf5bebf872345fabb51"
+      },
+      "proof_sha256": {
+        "action": "b943f7b5909d758f8baced8a8a28b72a66fe2e27fe59ed4f4bbd5cf22656cf6d",
+        "motion": "44d71f7427527a3783994d208a90e5c3b705b91048bb449922af079fa3331149",
+        "png": "b5a49ad552d12ccecdb7d21ebe161fc7d3cd105e9372fc2cc21db6751c4eef70",
+        "sensor": "0ded282750aa80782018e2184375bd6f40250cb401a10a5984e68be5a26482f0",
+        "codec": "a2a3cef969450ecdb61622725fd175c8c68a819ae5a6982b67ddd8b3660cfc5c",
+        "manual": "a2a3cef969450ecdb61622725fd175c8c68a819ae5a6982b67ddd8b3660cfc5c",
+        "corridor": "8e04bcf6a29b3b45e1aeed5826d57ad50a9af345a51c46a5bda484cd3dc614dc",
+        "execution": "3b3e4cc36db8aa6db1297b6974440e16e99beddd617e4f49a3990454a19d470d",
+        "media": "c7d6700f2ca34937f7a38a3142a15ea91b9aea5a25a3fee46a5be7a54f6ecb42",
+        "processing": "8c74d5a67f41255af06b3521fb0f82b041f3fb0b247ddcf5bebf872345fabb51"
+      },
+      "gates": {
+        "actual_process_exit0": true,
+        "source_hashes_bound": true,
+        "native_action_verified": true,
+        "motion_passed": true,
+        "all_camera_png_integrity_passed": true,
+        "sensor_processing_passed": true,
+        "all_six_videos_fully_decoded": true,
+        "sampled_visual_review_passed": true
+      },
+      "strict_scene_gate_passed": false,
+      "native_corridor_review_passed": true,
+      "manual_review": {
+        "accepted": true,
+        "method": "Actual source and decoded stills using view_image; individual six roles sampled, with additional chase/rear opening and final samples.",
+        "full_video_manually_watched": false,
+        "sampled_only": true,
+        "sample_count": 16
+      },
+      "metrics": {
+        "actual_speed_kmh": {
+          "minimum": 0.0,
+          "median": 16.430375869472115,
+          "maximum": 23.846367959035586
+        },
+        "actual_stage_speed_kmh": {
+          "moving_native_35m_approach_to_ring_yield": {
+            "seconds": 12.7,
+            "median": 4.860239590788144,
+            "maximum": 18.552472714342212
+          },
+          "native_conflict_traffic": {
+            "seconds": 2.7,
+            "median": 1.5369594406513845e-06,
+            "maximum": 4.432798281094955e-05
+          },
+          "yield_and_circulate_native_ring": {
+            "seconds": 21.3,
+            "median": 15.876059782738817,
+            "maximum": 18.69872207198698
+          },
+          "take_native_east_exit": {
+            "seconds": 8.85,
+            "median": 21.97102268967336,
+            "maximum": 23.838541440854833
+          },
+          "continue_native_exit_with_no_stopped_tail": {
+            "seconds": 3.05,
+            "median": 23.839470070891988,
+            "maximum": 23.846367959035586
+          }
+        },
+        "rear_geometry": {
+          "definition_id": "uniform_actual_root_rear_v1",
+          "rear60_fraction": 0.2952674897119342,
+          "rear40_fraction": 0.2952674897119342,
+          "same_width_rear60_fraction": 0.2139917695473251,
+          "last_three_seconds_rear60_fraction": 0.0,
+          "pixel_visibility_verified": false
+        }
+      },
+      "media": [
+        {
+          "role": "chase",
+          "name": "DriveWeave-roundabout-chase.mp4",
+          "sha256": "6b790537fb94fdd2169b7617addac7386698a1c4c1ff0d721b45c1e45281b9d0",
+          "bytes": 27367041,
+          "frames": 972,
+          "fps": 20,
+          "duration_s": 48.6,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "front",
+          "name": "DriveWeave-roundabout-front.mp4",
+          "sha256": "1c3b8a62512ab52018c20c28678d0dd606cc633f3dda594f8179ce9761116cd7",
+          "bytes": 23723423,
+          "frames": 972,
+          "fps": 20,
+          "duration_s": 48.6,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "rear",
+          "name": "DriveWeave-roundabout-rear.mp4",
+          "sha256": "c63670173549dad0e50452e9ec7c9b523321cbb63777ba559328d2447ee760db",
+          "bytes": 25263763,
+          "frames": 972,
+          "fps": 20,
+          "duration_s": 48.6,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "image-processing",
+          "name": "DriveWeave-roundabout-image-processing.mp4",
+          "sha256": "6476381523bc82f22668bc9ea110ea6ba455ba96a15c7f2bb3dc118d7f5ae067",
+          "bytes": 23290677,
+          "frames": 972,
+          "fps": 20,
+          "duration_s": 48.6,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "lidar-processing",
+          "name": "DriveWeave-roundabout-lidar-processing.mp4",
+          "sha256": "7350c32fd8d8cbb1977850e890ec13c73680274e91b6959bb904f62751177790",
+          "bytes": 53639094,
+          "frames": 972,
+          "fps": 20,
+          "duration_s": 48.6,
+          "dimensions": [
+            1280,
+            720
+          ]
+        },
+        {
+          "role": "sensors",
+          "name": "DriveWeave-roundabout-sensors.mp4",
+          "sha256": "8e51fd377e1a456df4ffb41885229f0244d066d58877b08aa1c2449d8705282e",
+          "bytes": 83806628,
+          "frames": 972,
+          "fps": 20,
+          "duration_s": 48.6,
+          "dimensions": [
+            1920,
+            1080
+          ]
+        }
+      ],
+      "limits": [
+        "The original broad second-entry gate check remains FAIL; an independent native swept-body corridor supplement passes.",
+        "Adjacent-lane broad-gate co-occupancy was not exempted by lane IDs; shared physical conflict patches were checked.",
+        "Ring-stage median15.88kmh includes following and entry acceleration;22kmh is a configured target, not sustained observed speed.",
+        "Near rear following is not continuous through the final exit."
+      ],
+      "observed_yield_pattern": "between_observed_streams"
+    }
+  ],
+  "total_native_frames": 3901,
+  "total_six_view_files": 30,
+  "rear_metric_definition": "Uniform summary metric from all actual native frame root positions: planar radius<=60m, longitudinal[-60,0)m, absolute lateral<=7m, heading difference<=45deg, height difference<3m, other actual speed>=1m/s. Rear40 uses40m radius; same-width uses1.75m lateral. Frame fractions are geometric presence, not camera pixel visibility, route-distance or continuous following. Curved roads may undercount. These identical definitions apply to all five scenes; original auditor metrics remain separate.",
+  "limits": [
+    "This summary accepts five local native CARLA recorded media candidates, not a published release.",
+    "Full decoding and actual sampled visual checks are separate receipts; no end-to-end human playback is claimed.",
+    "The roundabout original broad-gate FAIL remains retained alongside an independent precise native corridor PASS.",
+    "Image boxes/masks are simulator ground truth; LiDAR outputs are geometric processing of native returns, not trained perception.",
+    "These five scenes do not claim live SUMO/LimSim co-simulation, random-traffic robustness, or road-driving safety certification.",
+    "Pose-based rear coverage is not continuous camera visibility; the left-turn and roundabout exit tails lack persistent near followers."
+  ]
+}

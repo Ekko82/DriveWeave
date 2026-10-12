@@ -35,7 +35,9 @@ def rolling_preroll(world, ego, owner_tick, drain, apply_controls, run, plan,
                 'controls':diagnostics}
             records.append(record)
             handle.write(json.dumps(record,separators=(',',':'))+'\n')
-            stable=stable+1 if speed>=threshold else 0
+            traffic = diagnostics.get('traffic_readiness')
+            ready = traffic is None or traffic.get('ready') is True
+            stable=stable+1 if speed>=threshold and ready else 0
             if (index+1)/fps>=minimum and stable>=round(.5*fps):
                 return {'source':'native physics driving with VehicleControl before capture',
                     'velocity_override':False,'settle_seconds':settle_seconds,

@@ -25,33 +25,38 @@ RULES = {
 TEXT_SUFFIXES = {".py", ".md", ".txt", ".json", ".toml", ".yaml", ".yml"}
 FORBIDDEN_PARTS = {".git", ".venv", "venv", "private", "credentials", "captures",
                    "live-captures", "processed", "sumo-replay", "executions", "research",
-                   "captures-v2", "live-captures-v2", "processed-v2", "sumo-replay-v2", "v2-probes"}
+                   "captures-v2", "live-captures-v2", "processed-v2", "sumo-replay-v2", "v2-probes",
+                   "captures-v3", "processed-v3", "output-v3", "v3-runtime"}
 
 
 def accepted_preview(root: Path, relative: str, payload: bytes, files: list) -> bool:
     """Permit only explicitly listed, hash-bound small README GIFs.
 
     Raw media, MP4s and runtime assets remain excluded. The generated sanitized
-    six-scene summary must itself be in the text allowlist, so it is scanned.
+    versioned scene summary must itself be in the text allowlist, so it is scanned.
     """
-    summary_name = 'docs/media/accepted-v2-summary.json'
+    version = 'v3' if relative.endswith('-v3.gif') else 'v2'
+    summary_name = 'docs/media/accepted-' + version + '-summary.json'
     if summary_name not in files or not relative.startswith('docs/media/'):
         return False
     if not payload.startswith((b'GIF87a', b'GIF89a')):
         return False
     summary = json.loads(allowed_path(root, summary_name).read_text(encoding='utf-8'))
-    if summary.get('schema_version') != 1 or summary.get('version') != 'v2' or summary.get('status') not in {
+    if summary.get('schema_version') != 1 or summary.get('version') != version or summary.get('status') not in {
             'accepted_local_media_publication_pending', 'published_verified'}:
         return False
     scenes = summary.get('scenes', [])
     ids = {'highway', 'ramp-entry', 'ramp-exit', 'left-turn', 'roundabout', 'live-highway'}
-    if len(scenes) != 6 or {s.get('id') for s in scenes} != ids:
+    if version == 'v3':
+        ids.remove('live-highway')
+    if len(scenes) != len(ids) or {s.get('id') for s in scenes} != ids:
         return False
     for scene in scenes:
         preview = scene.get('preview', {})
         if preview.get('path') != relative:
             continue
-        source = next((m for m in scene.get('media', []) if m.get('role') == 'carla-sumo-four-pane'), {})
+        role = 'chase' if version == 'v3' else 'carla-sumo-four-pane'
+        source = next((m for m in scene.get('media', []) if m.get('role') == role), {})
         return (preview.get('sha256') == hashlib.sha256(payload).hexdigest()
                 and preview.get('bytes') == len(payload) and preview.get('duration_s') == 6
                 and preview.get('size') == [480, 270] and preview.get('fps') == 10

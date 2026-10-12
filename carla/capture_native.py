@@ -40,6 +40,7 @@ def parser():
     p.add_argument('--sensor-timeout', type=float, default=30)
     p.add_argument('--route-json', type=Path, help='Optional verified native map path/route settings.')
     p.add_argument('--chase', action='store_true', help='Add a native rear RGB camera showing the Tesla.')
+    p.add_argument('--rear', action='store_true', help='Add an actual rear-facing RGB sensor to inspect following traffic.')
     p.add_argument('--chase-x', type=float, default=-6.5)
     p.add_argument('--chase-y', type=float, default=2.1)
     p.add_argument('--chase-z', type=float, default=2.05)
@@ -48,6 +49,8 @@ def parser():
     p.add_argument('--weather', choices=['clear', 'cloudy'], default='clear')
     p.add_argument('--instance', action='store_true', help='Add native instance-segmentation RGB codes for true instance masks.')
     p.add_argument('--keep-raw-bgra', action='store_true', help='Also keep exact camera raw_data bytes.')
+    p.add_argument('--png-compression', type=int, choices=range(10), default=6,
+        help='Lossless PNG compression level; lower values trade disk space for recording throughput.')
     p.add_argument('--out', type=Path, default=Path(__file__).resolve().parent / 'captures')
     return p
 
@@ -153,6 +156,9 @@ def main():
     if route.get('map') and route['map'] != args.map:
         raise RuntimeError('Route specification was built for a different map.')
     rule_mode = route.get('controller') == 'native_rule'
+    v3_mode = any(spec.get('controller') == 'v3_traffic' for spec in route.get('traffic', []))
+    if v3_mode:
+        from v3_traffic import V3TrafficController, traffic_ready
 
     client = carla.Client(args.host, args.port)
     client.set_timeout(args.sensor_timeout)
@@ -185,7 +191,7 @@ def main():
     collisions, lane_events, callback_errors = [], [], []
     run = args.out.resolve() / datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
     run.mkdir(parents=True, exist_ok=False)
-    for folder in ['rgb', 'semantic_labels', 'semantic_palette', 'lidar'] + (['chase'] if args.chase else []) + (['instance'] if args.instance else []):
+    for folder in ['rgb', 'semantic_labels', 'semantic_palette', 'lidar'] + (['chase'] if args.chase else []) + (['instance'] if args.instance else []) + (['rear'] if args.rear else []):
         (run / folder).mkdir()
     if args.keep_raw_bgra:
         (run / 'raw_bgra').mkdir()
@@ -205,6 +211,8 @@ def main():
         'frames_captured': 0}
     manifest['client_sources_sha256'] = {name:digest((Path(__file__).parent/name).read_bytes())
         for name in [Path(__file__).name,'native_controller.py','dynamic_traffic.py','physical_preroll.py','signal_policy.py']}
+    if v3_mode:
+        manifest['client_sources_sha256']['v3_traffic.py'] = digest((Path(__file__).parent/'v3_traffic.py').read_bytes())
     atomic_json(run / 'manifest.json', manifest)
     print('CAPTURE_RUN '+str(run), flush=True)
     (run / 'map.xodr').write_text(road_map.to_opendrive(), encoding='utf-8')
@@ -282,12 +290,14 @@ def main():
         for traffic_spec in route.get('traffic', []):
             traffic_bp = blueprint_library.find(traffic_spec.get('blueprint', 'vehicle.audi.a2'))
             traffic_bp.set_attribute('role_name', traffic_spec['name'])
+            if traffic_spec.get('color') and traffic_bp.has_attribute('color'):
+                traffic_bp.set_attribute('color', str(traffic_spec['color']))
             traffic_pose = spawn_from_xodr(road_map, traffic_spec['spawn_xodr'], carla) if traffic_spec.get('spawn_xodr') else spawn_points[int(traffic_spec['spawn_index'])]
             traffic_actor = world.try_spawn_actor(traffic_bp, traffic_pose)
             if traffic_actor is None:
                 raise RuntimeError(f'Explicit scenario actor could not spawn: {traffic_spec["name"]}')
             actors.append(traffic_actor)
-            traffic_actor.set_autopilot(traffic_spec.get('controller') != 'native_rule', args.tm_port)
+            traffic_actor.set_autopilot(traffic_spec.get('controller') not in ('native_rule','v3_traffic'), args.tm_port)
             tm.auto_lane_change(traffic_actor, traffic_spec.get('auto_lane_change', False))
             tm.ignore_vehicles_percentage(traffic_actor, 0)
             tm.ignore_lights_percentage(traffic_actor, 0)
@@ -301,6 +311,8 @@ def main():
                 tm.set_path(traffic_actor, [carla.Location(x=p[0],y=p[1],z=p[2]) for p in traffic_spec['path']])
             if traffic_spec.get('controller') == 'native_rule':
                 npc_controllers[traffic_actor.id] = NativeRuleController(world, traffic_actor, traffic_spec, carla)
+            elif traffic_spec.get('controller') == 'v3_traffic':
+                npc_controllers[traffic_actor.id] = V3TrafficController(world, traffic_actor, traffic_spec, carla_api=carla)
         # Refresh native actor caches before non-ticking traffic spawn guards.
         setup_frame = world.tick()
         stage_log('native_spawn_cache_refreshed',frame=setup_frame)
@@ -382,6 +394,10 @@ def main():
                 carla.Transform(carla.Location(x=args.chase_x, y=args.chase_y, z=args.chase_z),
                     carla.Rotation(pitch=args.chase_pitch, yaw=args.chase_yaw)),
                 camera_attributes | {'motion_blur_intensity': 0})
+        if args.rear:
+            attach('rear', 'sensor.camera.rgb',
+                carla.Transform(carla.Location(x=-2.15, z=1.65), carla.Rotation(pitch=-3, yaw=180)),
+                camera_attributes | {'motion_blur_intensity': 0})
         for sensor_id, bucket, reader in [
             ('sensor.other.collision', collisions, lambda e: {'other_actor': e.other_actor.id,
                 'other_type': e.other_actor.type_id, 'normal_impulse': [e.normal_impulse.x, e.normal_impulse.y, e.normal_impulse.z]}),
@@ -404,9 +420,10 @@ def main():
             if controller is not None:
                 ego.apply_control(controller.step(snapshot))
             persist_events()
+            ready = traffic_ready(snapshot, ego, npc_controllers, route.get('traffic_readiness', {})) if v3_mode else None
             return {'ego':dict(controller.diagnostics) if controller is not None else None,
                 'npc':{str(i):dict(c.diagnostics) for i,c in npc_controllers.items()},
-                'dynamic_traffic':state}
+                'dynamic_traffic':state, 'traffic_readiness':ready}
 
         def drain(frame):
             if signal_session is not None:
@@ -466,13 +483,13 @@ def main():
                         if name == 'semantic':
                             labels = pixels[:, :, 2].copy()
                             sensor_info[name]['class_ids'] = np.unique(labels).tolist()
-                            Image.fromarray(labels).save(run / 'semantic_labels' / f'{frame:08d}.png')
+                            Image.fromarray(labels).save(run / 'semantic_labels' / f'{frame:08d}.png', compress_level=args.png_compression)
                             item.save_to_disk(str(run / 'semantic_palette' / f'{frame:08d}.png'), carla.ColorConverter.CityScapesPalette)
                         else:
                             rgb = pixels[:, :, [2, 1, 0]]
                             if name != 'instance' and rgb.std() < 1:
                                 raise RuntimeError(f'Uniform/empty native {name} frame {frame}')
-                            Image.fromarray(rgb).save(run / name / f'{frame:08d}.png')
+                            Image.fromarray(rgb).save(run / name / f'{frame:08d}.png', compress_level=args.png_compression)
                         sensor_info[name].update({'width': item.width, 'height': item.height, 'fov': item.fov})
                 vehicle_states = []
                 for actor in actors:

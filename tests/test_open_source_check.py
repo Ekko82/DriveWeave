@@ -31,6 +31,8 @@ class PublicationListTests(unittest.TestCase):
 
     def test_private_path_and_traversal_refused_before_read(self):
         for value in ("../outside.py", "private/account.json", "captures/run/manifest.json",
+                      "carla/captures-v3/run/manifest.json", "carla/v3-runtime/owned-process.json",
+                      "carla/processed-v3/scene/processing-manifest.json", "carla/output-v3/scene/media-manifest.json",
                       "./script.py", "dir\\script.py", "C:/outside.py"):
             with self.assertRaises(ValueError):
                 allowed_path(self.root, value)
@@ -79,6 +81,32 @@ class PublicationListTests(unittest.TestCase):
         self.manifest([summary_name,'docs/media/highway.gif'])
         self.assertEqual(verify_allowlist(self.root)['status'],'pass')
         (media/'highway.gif').write_bytes(payload+b'changed')
+        self.assertEqual(verify_allowlist(self.root)['status'],'fail')
+
+    def test_v3_preview_requires_its_own_complete_summary_and_accepted_source(self):
+        media=self.root/'docs/media';media.mkdir(parents=True)
+        payload=b'GIF89a'+b'unit test v3 header fixture'
+        (media/'highway-v3.gif').write_bytes(payload)
+        summary_name='docs/media/accepted-v3-summary.json'
+        scenes=[{'id':x} for x in ['highway','ramp-entry','ramp-exit','left-turn','roundabout']]
+        highway=scenes[0]
+        highway.update(requested_action_verified=True,full_internal_plan_completed=True,
+            manual_review={'accepted':True},media=[{'role':'chase','sha256':'1'*64}],
+            preview={'path':'docs/media/highway-v3.gif','sha256':hashlib.sha256(payload).hexdigest(),
+                     'bytes':len(payload),'duration_s':6,'size':[480,270],'fps':10,
+                     'interpolated_frames':False,'source_video_sha256':'1'*64})
+        summary={'schema_version':1,'version':'v3','status':'accepted_local_media_publication_pending','scenes':scenes}
+        def write_summary():
+            (media/'accepted-v3-summary.json').write_text(json.dumps(summary),encoding='utf-8')
+        write_summary();self.manifest([summary_name,'docs/media/highway-v3.gif'])
+        self.assertEqual(verify_allowlist(self.root)['status'],'pass')
+        highway['manual_review']['accepted']=False;write_summary()
+        self.assertEqual(verify_allowlist(self.root)['status'],'fail')
+        highway['manual_review']['accepted']=True
+        highway['preview']['source_video_sha256']='2'*64;write_summary()
+        self.assertEqual(verify_allowlist(self.root)['status'],'fail')
+        highway['preview']['source_video_sha256']='1'*64
+        summary['scenes']=scenes[:-1];write_summary()
         self.assertEqual(verify_allowlist(self.root)['status'],'fail')
 
 

@@ -23,6 +23,16 @@ def main():
         forwarded = forwarded[1:]
     command = [sys.executable, '-u', str(Path(__file__).with_name('capture_native.py')), *forwarded]
     args.log.parent.mkdir(parents=True, exist_ok=True)
+    source_archive = args.log.with_name(args.log.stem + '-executed-sources')
+    source_archive.mkdir(exist_ok=False)
+    archived_sources = {}
+    for name in ['capture_native.py', 'native_controller.py', 'dynamic_traffic.py',
+                 'physical_preroll.py', 'signal_policy.py', 'v3_traffic.py', Path(__file__).name]:
+        source = Path(__file__).with_name(name)
+        if source.is_file():
+            payload = source.read_bytes()
+            (source_archive / name).write_bytes(payload)
+            archived_sources[name] = hashlib.sha256(payload).hexdigest()
     start = datetime.datetime.now(datetime.timezone.utc).isoformat()
     with args.log.open('wb') as handle:
         result = subprocess.run(command, stdout=handle, stderr=subprocess.STDOUT, check=False)
@@ -38,6 +48,7 @@ def main():
     manifest_info = file_info(capture_run/'manifest.json') if capture_run else {'sha256':None,'bytes':None}
     frames_info = file_info(capture_run/'frames.jsonl') if capture_run else {'sha256':None,'bytes':None}
     report = {'command': command, 'started_utc': start,'finished_utc':finish,
+        'source_archive': str(source_archive.resolve()), 'source_archive_sha256': archived_sources,
         'process_start_utc':start,'process_end_utc':finish,
         'returncode':result.returncode,'capture_run':str(capture_run) if capture_run else None,
         'manifest_sha256':manifest_info['sha256'],'manifest_bytes':manifest_info['bytes'],

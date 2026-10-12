@@ -77,7 +77,7 @@ class Safety(TestCase):
         self.assertNotIn(self.root/'carla/captures', protected)
 
     def test_v2_namespaces_protect_accepted_binary_and_preserve_old_audits(self):
-        namespaces=['captures-v2','live-captures-v2','processed-v2','sumo-replay-v2','v2-probes']
+        namespaces=['captures-v2','live-captures-v2','processed-v2','sumo-replay-v2','v2-probes','captures-v3','processed-v3']
         references=[]
         for name in namespaces:
             references.append(str(self.root/f'carla/{name}/current'))
@@ -96,7 +96,7 @@ class Safety(TestCase):
                 self.assertIsNone(m.category(self.root/f'carla/{name}/old/{filename}',protected))
 
     def test_v2_container_and_active_runs_cannot_be_declared_obsolete(self):
-        for name in ['captures-v2','live-captures-v2','processed-v2','sumo-replay-v2','v2-probes']:
+        for name in ['captures-v2','live-captures-v2','processed-v2','sumo-replay-v2','v2-probes','captures-v3','processed-v3']:
             self.put(f'carla/{name}/old/frame.png',b'old v2')
             self.put(f'carla/{name}/old/manifest.json',b'{"status":"capturing"}')
             value=self.manifest()

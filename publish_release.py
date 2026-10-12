@@ -391,7 +391,7 @@ def main():
         if checked_source_files()!=paths:raise ValueError('Source allowlist changed during publication')
         run(['git','add','--',*paths])
         result=subprocess.run(['git','diff','--cached','--quiet'],cwd=ROOT)
-        if result.returncode==1:run(['git','commit','-m','Publish '+a.tag+' native driving showcase'])
+        if result.returncode==1:run(['git','commit','-m','Publish '+a.tag+' traffic and sensor simulation'])
         elif result.returncode!=0:raise RuntimeError('Could not inspect staged changes')
         commit=run(['git','rev-parse','HEAD'],capture=True)
         existing=subprocess.run(['git','rev-parse','--verify','refs/tags/'+a.tag+'^{commit}'],cwd=ROOT,capture_output=True,text=True)

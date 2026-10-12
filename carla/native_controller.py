@@ -184,6 +184,7 @@ class NativeRuleController:
         self.events, self.diagnostics = [], {}
         self.wait_reason, self.gate_released = None, False
         self.gate_histories = {}
+        self.reapproach_stage = None
         self.target_lane, self.target_road = None, None
         self.previous_steer = 0
         self.dt = world.get_settings().fixed_delta_seconds
@@ -299,7 +300,8 @@ class NativeRuleController:
             bumper_gap = abs(along) - vehicle.bounding_box.extent.x - self.ego.bounding_box.extent.x
             other_speed = max(0, velocity.x * heading.x + velocity.y * heading.y)
             required = max(9, speed * 1.3) if along >= 0 else max(12, other_speed * 1.4 + max(0, other_speed - speed) * 3)
-            item = {'actor_id': vehicle.id, 'gap_m': bumper_gap, 'required_m': required}
+            item = {'actor_id': vehicle.id, 'gap_m': bumper_gap, 'required_m': required,
+                    'actual_speed_mps': other_speed}
             if along >= 0:
                 if nearest_front is None or bumper_gap < nearest_front['gap_m']:
                     nearest_front = item
@@ -329,6 +331,14 @@ class NativeRuleController:
         if permission not in ['Both', direction.capitalize()]:
             return None, 'native_marking_prohibits_lane_change', {'permission': permission}
         risk, gap = self.lane_gap(target, vehicles, speed)
+        margins = stage.get('gap_acceptance_margin_m', {})
+        for side in ('front', 'rear'):
+            item = gap[side]
+            margin = max(0., float(margins.get(side, 0.)))
+            if item is not None and item['gap_m'] < item['required_m'] + margin:
+                if not any(r['actor_id'] == item['actor_id'] for r in risk):
+                    risk.append(dict(item, planning_margin_m=margin,
+                        required_with_margin_m=item['required_m']+margin))
         if risk:
             return None, 'target_lane_gap', {'risks': risk, 'gap': gap}
         length = max(35, float(stage.get('distance_m', 45)))
@@ -417,6 +427,16 @@ class NativeRuleController:
                 self.path = self.load_path(stage)
                 self.event('path_follow_started', snapshot, kind=stage['kind'], reference_points=len(self.path))
             self.progress = 0
+            if stage['kind'] == 'follow_path' and stage.get('start_from_nearest_native_reference', False):
+                nearest_start = min(range(len(self.path)), key=lambda i: distance(position, self.path[i]))
+                initial_error = distance(position, self.path[nearest_start])
+                if initial_error > 3.5:
+                    self.path = None
+                    return self.wait('excessive_initial_reference_error', snapshot, error_m=initial_error)
+                self.progress = nearest_start
+                self.event('native_reference_start_selected', snapshot,
+                    reference_index=nearest_start, reference_error_m=initial_error,
+                    reference_position=self.path[nearest_start])
             if gap_waiting is None:
                 self.wait_reason = None
         else:
@@ -442,6 +462,19 @@ class NativeRuleController:
         steer = max(self.previous_steer-self.dt*1.2, min(self.previous_steer+self.dt*1.2, steer))
         self.previous_steer = steer
         desired = float(stage.get('speed_kmh', self.plan.get('desired_speed_kmh', 40))) / 3.6
+        if gap_waiting is not None and stage.get('gap_wait_follow_target_front', False):
+            front = gap_waiting['gap']['front']
+            if front is not None:
+                following_margin = 2. + max(0., float(stage.get('gap_acceptance_margin_m', {}).get('front', 0.)))
+                desired = min(desired, max(0., front['actual_speed_mps'] +
+                    .35 * (front['gap_m'] - front['required_m'] - following_margin)))
+        if gap_waiting is not None and stage.get('gap_wait_yield_to_rear', False):
+            rear = gap_waiting['gap']['rear']
+            if rear is not None and rear['gap_m'] < rear['required_m']:
+                desired = min(desired, max(0., rear['actual_speed_mps'] -
+                    float(stage.get('rear_passing_speed_difference_mps', 3.))))
+        if self.reapproach_stage == self.index:
+            desired = min(desired, 2.0)
         desired = min(desired, max(2, math.sqrt(2.5 / max(.001, abs(2*math.sin(alpha)/max(2,math.hypot(dx,dy)))))))
         active_lane_gap = None
         if stage['kind'] == 'lane_change' and gap_waiting is None:
@@ -471,6 +504,9 @@ class NativeRuleController:
         blocking = []
         emergency = False
         forward = transform.get_forward_vector()
+        following_policy = self.plan.get('following_policy', {})
+        native_follow_wp = (self.road_map.get_waypoint(transform.location)
+            if stage['kind'] == 'follow_path' and following_policy.get('native_lane_corridor', False) else None)
         for vehicle in vehicles:
             other, velocity = vehicle.get_location(), vehicle.get_velocity()
             ox, oy = other.x - position[0], other.y - position[1]
@@ -478,13 +514,36 @@ class NativeRuleController:
             lateral = abs(-ox * forward.y + oy * forward.x)
             gap = along - self.ego.bounding_box.extent.x - vehicle.bounding_box.extent.x
             if abs(other.z-position[2]) < 3 and along > 0 and lateral < self.ego.bounding_box.extent.y + vehicle.bounding_box.extent.y + .35:
-                safe = max(4, speed*1.5)
+                if native_follow_wp is not None and not native_follow_wp.is_junction:
+                    other_wp = self.road_map.get_waypoint(other)
+                    distinct_parallel_lane = (other_wp is not None and not other_wp.is_junction
+                        and other_wp.road_id == native_follow_wp.road_id
+                        and other_wp.lane_id != native_follow_wp.lane_id
+                        and other_wp.lane_id * native_follow_wp.lane_id > 0)
+                    close_body_risk = gap < 3 and lateral < self.ego.bounding_box.extent.y + vehicle.bounding_box.extent.y
+                    if distinct_parallel_lane and not close_body_risk:
+                        continue
+                safe = max(float(following_policy.get('min_body_gap_m', 4)),
+                           speed*float(following_policy.get('time_headway_s', 1.5)))
                 if gap < safe:
                     other_speed = max(0, velocity.x*forward.x + velocity.y*forward.y)
                     desired = min(desired, max(0, other_speed + (gap-safe)*.35))
                     blocking.append({'actor_id': vehicle.id, 'gap_m': gap})
                     closing = max(0.,speed-other_speed)
                     emergency |= gap < 1.5 or closing > .1 and gap/closing < .8
+        if (coast_requested and speed <= .1 and not blocking
+                and self.coast_stop.specification.get('allow_reapproach_after_intermediate_stop') is True
+                and (remaining >= float(stage.get('complete_radius_m', 2.2))
+                     or self.progress < len(self.path)-4)):
+            # Queue braking may stop the actor upstream of its stop line.
+            # Once the actual leader has cleared, drive physically toward the
+            # same endpoint at <=2m/s, then use the measured coast table again.
+            self.coast_stop.latched_stage = None
+            self.reapproach_stage = self.index
+            coast_requested = False
+            desired = min(2.0, float(stage.get('speed_kmh', 20))/3.6)
+            self.event('intermediate_stop_reapproach', snapshot, remaining_arc_m=remaining_arc,
+                actual_speed_mps=speed, maximum_reapproach_speed_mps=2.0)
         throttle, brake = self.longitudinal.step(desired, speed, emergency=emergency,
             coast_stop=coast_requested)
         current_wp = self.road_map.get_waypoint(transform.location)

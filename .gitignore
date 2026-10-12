@@ -49,6 +49,10 @@ credentials/
 /carla/release-v2.staging-*/
 /carla/v2-runtime/
 /carla/executions/
+/carla/captures-v3/
+/carla/processed-v3/
+/carla/output-v3/
+/carla/v3-runtime/
 /assets/sources/**/*.png
 /assets/sources/**/*.jpg
 /assets/sources/**/*.jpeg

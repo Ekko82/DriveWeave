@@ -115,7 +115,39 @@
     "docs/media/roundabout.gif",
     "docs/media/live-highway.gif",
     "docs/media/accepted-v2-summary.json",
-    "docs/media/preview-gallery.md"
+    "docs/media/preview-gallery.md",
+    "carla/v3_traffic.py",
+    "carla/v3_physics_probe.py",
+    "carla/audit_v3_junction.py",
+    "carla/audit_v3_ramp_probe.py",
+    "carla/evaluate_v3_traffic.py",
+    "carla/encode_v3_views.py",
+    "carla/review_v3_media.py",
+    "verification/audit_native_png_integrity.py",
+    "carla/tests/test_v3_traffic.py",
+    "carla/tests/test_v3_queue_reapproach.py",
+    "carla/tests/test_v3_junction_audit.py",
+    "carla/tests/test_ramp_gap_margins.py",
+    "production/assemble_project_video.py",
+    "carla/plans/public-v3/left-turn.json",
+    "carla/plans/public-v3/roundabout.json",
+    "carla/plans/public-v3/ramp-exit.json",
+    "carla/plans/public-v3/provenance.json",
+    "carla/plans/public-v3/ramp-entry.json",
+    "docs/traffic-v3.md",
+    "carla/plans/public-v3/highway.json",
+    "carla/audit_native_actions_newline_bound.py",
+    "carla/tests/test_native_map_newline_binding.py",
+    "verification/audit_v3_views.py",
+    "carla/audit_v3_entry_corridors.py",
+    "carla/tests/test_v3_entry_corridors.py",
+    "carla/audit_v3_highway.py",
+    "carla/tests/test_v3_highway_audit.py",
+    "carla/tests/test_v3_view_role_sources.py",
+    "docs/release-v3.md",
+    "docs/media/highway-v3.gif",
+    "docs/media/preview-v3.json",
+    "docs/media/accepted-v3-summary.json"
   ],
   "excluded_categories": [
     "CARLA/SUMO distributions and original runtime maps/meshes",
@@ -125,5 +157,5 @@
     "historical SUMO-to-Blender prototype assets and local model libraries",
     "credential stores, private directories, local environment files"
   ],
-  "media_policy": "Only independently accepted video/stills may be distributed separately in a verified release. README v2 links remain empty until actual acceptance."
+  "media_policy": "Only independently accepted video/stills may be distributed separately in a verified release. Public summaries disclose source and review scope."
 }
