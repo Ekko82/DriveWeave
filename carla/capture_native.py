@@ -39,6 +39,8 @@ def parser():
     p.add_argument('--warmup-seconds', type=float, default=2)
     p.add_argument('--sensor-timeout', type=float, default=30)
     p.add_argument('--route-json', type=Path, help='Optional verified native map path/route settings.')
+    p.add_argument('--sensor-profile-json', type=Path,
+        help='Optional native mounting/FOV profile; cameras in it are enabled automatically. Chase remains a filming camera.')
     p.add_argument('--chase', action='store_true', help='Add a native rear RGB camera showing the Tesla.')
     p.add_argument('--rear', action='store_true', help='Add an actual rear-facing RGB sensor to inspect following traffic.')
     p.add_argument('--chase-x', type=float, default=-6.5)
@@ -70,6 +72,100 @@ def waypoint_record(wp):
 def intrinsic(width, height, fov):
     focal = width / (2 * math.tan(math.radians(fov) / 2))
     return [[focal, 0, width / 2], [0, focal, height / 2], [0, 0, 1]]
+
+
+def load_sensor_profile(path, width, height, fps):
+    """Validate all native sensor settings before contacting a CARLA server.
+
+    Camera keys: rgb (required), rear, side_left, side_right. Each specifies
+    location_m [x,y,z], rotation_deg [pitch,yaw,roll], fov, optional width/height.
+    lidar specifies the same pose and an attributes dictionary. The input bytes
+    are retained for a faithful capture-side copy and SHA256, with no point crop.
+    """
+    if path is None:
+        return None
+    raw = Path(path).read_bytes()
+    definition = json.loads(raw.decode('utf-8-sig'))
+    if (not isinstance(definition, dict) or isinstance(definition.get('schema_version'), bool)
+            or definition.get('schema_version') != 1):
+        raise ValueError('Sensor profile requires schema_version=1')
+    if not isinstance(definition.get('name'), str) or not definition['name'].strip():
+        raise ValueError('Sensor profile requires a nonempty name')
+
+    def number(value, label):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            raise ValueError(f'{label} must be a finite number')
+        return value
+
+    def pose(spec, label):
+        if not isinstance(spec, dict):
+            raise ValueError(f'{label} must be an object')
+        result = {}
+        for field in ('location_m', 'rotation_deg'):
+            value = spec.get(field)
+            if not isinstance(value, list) or len(value) != 3:
+                raise ValueError(f'{label}.{field} requires three coordinates')
+            result[field] = [number(component, f'{label}.{field}') for component in value]
+        return result
+
+    cameras = definition.get('cameras')
+    if (not isinstance(cameras, dict) or 'rgb' not in cameras
+            or set(cameras)-{'rgb', 'rear', 'side_left', 'side_right'}):
+        raise ValueError('Profile cameras require rgb and may contain rear, side_left, side_right; chase is a filming camera')
+    resolved_cameras = {}
+    for name, spec in cameras.items():
+        resolved = pose(spec, name)
+        if set(spec)-{'location_m', 'rotation_deg', 'fov', 'width', 'height'}:
+            raise ValueError(f'Unknown camera profile setting for {name}')
+        for field, default in (('width', width), ('height', height)):
+            value = number(spec.get(field, default), f'{name}.{field}')
+            if int(value) != value or value < 64:
+                raise ValueError(f'{name}.{field} must be an integer >=64')
+            resolved[field] = int(value)
+        fov = number(spec.get('fov'), f'{name}.fov')
+        if not 0 < fov < 180:
+            raise ValueError(f'{name}.fov must be between 0 and 180 degrees')
+        resolved['fov'] = fov
+        resolved_cameras[name] = resolved
+
+    lidar = definition.get('lidar')
+    resolved_lidar = pose(lidar, 'lidar')
+    if set(lidar)-{'location_m', 'rotation_deg', 'attributes'}:
+        raise ValueError('Unknown LiDAR profile setting')
+    attributes = lidar.get('attributes')
+    required = {'channels', 'range', 'horizontal_fov', 'upper_fov', 'lower_fov',
+                'rotation_frequency', 'points_per_second'}
+    optional = {'noise_stddev', 'dropoff_general_rate', 'dropoff_intensity_limit',
+                'dropoff_zero_intensity', 'atmosphere_attenuation_rate', 'noise_seed'}
+    if not isinstance(attributes, dict) or required-set(attributes) or set(attributes)-required-optional:
+        raise ValueError('LiDAR attributes are missing required keys or contain unsupported settings')
+    attributes = {key: number(value, f'lidar.{key}') for key, value in attributes.items()}
+    for field in ('channels', 'points_per_second'):
+        if attributes[field] <= 0 or int(attributes[field]) != attributes[field]:
+            raise ValueError(f'lidar.{field} must be a positive integer')
+        attributes[field] = int(attributes[field])
+    if not (attributes['range'] > 0 and 0 < attributes['horizontal_fov'] <= 360
+            and -90 <= attributes['lower_fov'] < attributes['upper_fov'] <= 90):
+        raise ValueError('Invalid LiDAR range or native field of view')
+    if not math.isclose(attributes['rotation_frequency'], fps, rel_tol=0, abs_tol=1e-8):
+        raise ValueError('Profile rotation_frequency must equal capture fps for one full native FOV sweep per frame')
+    if attributes['points_per_second'] / fps / attributes['channels'] < 1:
+        raise ValueError('LiDAR must request at least one ray per channel per frame')
+    for field in ('noise_stddev', 'atmosphere_attenuation_rate'):
+        if attributes.get(field, 0) < 0:
+            raise ValueError(f'lidar.{field} cannot be negative')
+    for field in ('dropoff_general_rate', 'dropoff_intensity_limit', 'dropoff_zero_intensity'):
+        if field in attributes and not 0 <= attributes[field] <= 1:
+            raise ValueError(f'lidar.{field} must be between 0 and 1')
+    if attributes.get('dropoff_intensity_limit', 1) <= 0:
+        raise ValueError('lidar.dropoff_intensity_limit must be positive')
+    if 'noise_seed' in attributes and (attributes['noise_seed'] < 0 or int(attributes['noise_seed']) != attributes['noise_seed']):
+        raise ValueError('lidar.noise_seed must be a nonnegative integer')
+    if 'noise_seed' in attributes:
+        attributes['noise_seed'] = int(attributes['noise_seed'])
+    resolved_lidar['attributes'] = {'sensor_tick': 0, **attributes}
+    return {'definition': definition, 'raw_bytes': raw, 'sha256': hashlib.sha256(raw).hexdigest(),
+            'cameras': resolved_cameras, 'lidar': resolved_lidar}
 
 
 def same_frame(stream, frame, timeout):
@@ -143,6 +239,12 @@ def main():
     args = parser().parse_args()
     if args.seconds <= 0 or args.traffic < 0 or args.width < 64 or args.height < 64:
         raise SystemExit('Invalid duration, traffic count or image size.')
+    try:
+        sensor_profile = load_sensor_profile(args.sensor_profile_json, args.width, args.height, args.fps)
+        if sensor_profile is not None and args.rear and 'rear' not in sensor_profile['cameras']:
+            raise ValueError('--rear requires a rear camera in the selected sensor profile')
+    except (OSError, ValueError, TypeError) as error:
+        raise SystemExit(f'Invalid sensor profile: {error}') from error
     # Deferred imports permit --help and syntax checks without an installed runtime.
     import carla
     import numpy as np
@@ -191,7 +293,8 @@ def main():
     collisions, lane_events, callback_errors = [], [], []
     run = args.out.resolve() / datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
     run.mkdir(parents=True, exist_ok=False)
-    for folder in ['rgb', 'semantic_labels', 'semantic_palette', 'lidar'] + (['chase'] if args.chase else []) + (['instance'] if args.instance else []) + (['rear'] if args.rear else []):
+    rgb_names = list(sensor_profile['cameras']) if sensor_profile is not None else ['rgb'] + (['rear'] if args.rear else [])
+    for folder in rgb_names + ['semantic_labels', 'semantic_palette', 'lidar'] + (['chase'] if args.chase else []) + (['instance'] if args.instance else []):
         (run / folder).mkdir()
     if args.keep_raw_bgra:
         (run / 'raw_bgra').mkdir()
@@ -207,8 +310,24 @@ def main():
             'transform': 'world_from_local 4x4; no SUMO front-bumper conversion'},
         'camera_intrinsic': intrinsic(args.width, args.height, args.fov),
         'semantic_encoding': 'native BGRA red channel is class ID; 0.9.14+ taxonomy',
-        'settings': vars(args) | {'out': str(args.out), 'route_json': str(args.route_json) if args.route_json else None},
+        'settings': vars(args) | {'out': str(args.out), 'route_json': str(args.route_json) if args.route_json else None,
+            'sensor_profile_json': str(args.sensor_profile_json) if args.sensor_profile_json else None},
         'frames_captured': 0}
+    if sensor_profile is not None:
+        (run/'sensor-profile.json').write_bytes(sensor_profile['raw_bytes'])
+        manifest['sensor_profile'] = {'file': 'sensor-profile.json', 'sha256': sensor_profile['sha256'],
+            'definition': sensor_profile['definition'],
+            'resolved_cameras': sensor_profile['cameras'], 'resolved_lidar': sensor_profile['lidar'],
+            'native_mounts_and_blueprint_fov': True, 'post_capture_fov_crop': False,
+            'model_claim': 'Generic production-style placement; not an exact OEM sensor specification',
+            'lidar_scan': {'implementation': 'CARLA 0.9.16 native RayCastSemanticLidar::SimulateLidar inherited by RayCastLidar',
+                'azimuth_interval_deg': [-sensor_profile['lidar']['attributes']['horizontal_fov']/2,
+                                         sensor_profile['lidar']['attributes']['horizontal_fov']/2],
+                'azimuth_coordinates': 'LiDAR sensor local yaw, before rigid attachment transform',
+                'requested_sweeps_per_frame': sensor_profile['lidar']['attributes']['rotation_frequency']/args.fps,
+                'source': 'https://github.com/carla-simulator/carla/blob/0.9.16/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Sensor/RayCastSemanticLidar.cpp#L101-L136'}}
+        front = sensor_profile['cameras']['rgb']
+        manifest['camera_intrinsic'] = intrinsic(front['width'], front['height'], front['fov'])
     manifest['client_sources_sha256'] = {name:digest((Path(__file__).parent/name).read_bytes())
         for name in [Path(__file__).name,'native_controller.py','dynamic_traffic.py','physical_preroll.py','signal_policy.py']}
     if v3_mode:
@@ -376,25 +495,48 @@ def main():
             callbacks.append(wrapped)
             sensor.listen(wrapped)
             manifest.setdefault('sensors', {})[name] = {'blueprint': blueprint_id, 'attributes': attributes,
-                'relative_transform': serialize_transform(pose)}
+                'native_actor_attributes': dict(sensor.attributes), 'relative_transform': serialize_transform(pose),
+                'role': 'filming_only' if name == 'chase' else ('ground_truth_reference' if name in ('semantic', 'instance') else 'perception')}
+            if blueprint_id.startswith('sensor.camera.'):
+                K = intrinsic(attributes['image_size_x'], attributes['image_size_y'], attributes['fov'])
+                manifest['sensors'][name]['intrinsic'] = K
+                manifest.setdefault('camera_intrinsics', {})[name] = K
 
         camera_attributes = {'image_size_x': args.width, 'image_size_y': args.height, 'fov': args.fov,
             'sensor_tick': 0, 'lens_k': 0, 'lens_kcube': 0}
-        front_pose = carla.Transform(carla.Location(x=1.65, z=1.65))
-        attach('rgb', 'sensor.camera.rgb', front_pose, camera_attributes | {'motion_blur_intensity': 0})
-        attach('semantic', 'sensor.camera.semantic_segmentation', front_pose, camera_attributes)
+        if sensor_profile is None:
+            front_pose = carla.Transform(carla.Location(x=1.65, z=1.65))
+            front_attributes = camera_attributes
+            attach('rgb', 'sensor.camera.rgb', front_pose, front_attributes | {'motion_blur_intensity': 0})
+            lidar_pose = carla.Transform(carla.Location(z=2.3))
+            lidar_attributes = {'sensor_tick': 0, 'channels': 32, 'range': 70, 'points_per_second': 320000,
+                'rotation_frequency': args.fps, 'upper_fov': 10, 'lower_fov': -30,
+                'noise_stddev': .01, 'dropoff_general_rate': .1}
+        else:
+            def profile_pose(spec):
+                x, y, z = spec['location_m']
+                pitch, yaw, roll = spec['rotation_deg']
+                return carla.Transform(carla.Location(x=x, y=y, z=z),
+                                       carla.Rotation(pitch=pitch, yaw=yaw, roll=roll))
+            for name, spec in sensor_profile['cameras'].items():
+                attributes = camera_attributes | {'image_size_x': spec['width'],
+                    'image_size_y': spec['height'], 'fov': spec['fov']}
+                camera_pose = profile_pose(spec)
+                attach(name, 'sensor.camera.rgb', camera_pose, attributes | {'motion_blur_intensity': 0})
+                if name == 'rgb':
+                    front_pose, front_attributes = camera_pose, attributes
+            spec = sensor_profile['lidar']
+            lidar_pose, lidar_attributes = profile_pose(spec), spec['attributes']
+        attach('semantic', 'sensor.camera.semantic_segmentation', front_pose, front_attributes)
         if args.instance:
-            attach('instance', 'sensor.camera.instance_segmentation', front_pose, camera_attributes)
-        attach('lidar', 'sensor.lidar.ray_cast', carla.Transform(carla.Location(z=2.3)),
-            {'sensor_tick': 0, 'channels': 32, 'range': 70, 'points_per_second': 320000,
-             'rotation_frequency': args.fps, 'upper_fov': 10, 'lower_fov': -30,
-             'noise_stddev': .01, 'dropoff_general_rate': .1})
+            attach('instance', 'sensor.camera.instance_segmentation', front_pose, front_attributes)
+        attach('lidar', 'sensor.lidar.ray_cast', lidar_pose, lidar_attributes)
         if args.chase:
             attach('chase', 'sensor.camera.rgb',
                 carla.Transform(carla.Location(x=args.chase_x, y=args.chase_y, z=args.chase_z),
                     carla.Rotation(pitch=args.chase_pitch, yaw=args.chase_yaw)),
                 camera_attributes | {'motion_blur_intensity': 0})
-        if args.rear:
+        if sensor_profile is None and args.rear:
             attach('rear', 'sensor.camera.rgb',
                 carla.Transform(carla.Location(x=-2.15, z=1.65), carla.Rotation(pitch=-3, yaw=180)),
                 camera_attributes | {'motion_blur_intensity': 0})
@@ -468,7 +610,8 @@ def main():
                 sensor_info = {}
                 for name, item in data.items():
                     sensor_info[name] = {'frame': item.frame, 'timestamp': item.timestamp,
-                        'transform': serialize_transform(item.transform), 'raw_sha256': digest(item.raw_data)}
+                        'transform': serialize_transform(item.transform), 'raw_sha256': digest(item.raw_data),
+                        'role': manifest['sensors'][name]['role']}
                     if name == 'lidar':
                         points = np.frombuffer(item.raw_data, dtype='<f4').reshape(-1, 4)
                         if not len(points) or not np.isfinite(points).all():
@@ -490,7 +633,8 @@ def main():
                             if name != 'instance' and rgb.std() < 1:
                                 raise RuntimeError(f'Uniform/empty native {name} frame {frame}')
                             Image.fromarray(rgb).save(run / name / f'{frame:08d}.png', compress_level=args.png_compression)
-                        sensor_info[name].update({'width': item.width, 'height': item.height, 'fov': item.fov})
+                        sensor_info[name].update({'width': item.width, 'height': item.height, 'fov': item.fov,
+                            'intrinsic': intrinsic(item.width, item.height, item.fov)})
                 vehicle_states = []
                 for actor in actors:
                     if not actor.type_id.startswith('vehicle.'):

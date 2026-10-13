@@ -1,0 +1,611 @@
+{
+  "schema_version": 1,
+  "version": "v4",
+  "status": "accepted_local_media_publication_pending",
+  "accepted": true,
+  "accepted_scope": "Complete native media with explicit qualified boundary and sampled-action reviews",
+  "video": {
+    "file": "DriveWeave-four-camera-forward-lidar.mp4",
+    "sha256": "73e259659c74268f855fb289adf2ed48ccfb3460b5e22b7a3e6238954ffe16a0",
+    "bytes": 325586112,
+    "frames": 3901,
+    "fps": 20,
+    "duration_s": 195.05,
+    "size": [
+      1920,
+      1080
+    ],
+    "full_decoded_frames": 3901,
+    "download_url": "https://github.com/Ekko82/DriveWeave/releases/download/v4.0.0/DriveWeave-four-camera-forward-lidar.mp4"
+  },
+  "video_review": {
+    "accepted": true,
+    "numerical_comparison_sha256": "adbf768f0d572e91699c200f80bde1be1e910b62cc0a6ed96239c310b49b36c8",
+    "actual_visual_review_sha256": "6dd4217180d54ede10f8d7e0a48de609d9fde9ac9e5f81f763ed89b4cb409f7d",
+    "tested_scene_samples": 15,
+    "region_comparisons": 105,
+    "minimum_psnr_db": 30.082312283136503,
+    "maximum_mae": 3.82662034034729,
+    "sampled_output_frames": [
+      0,
+      413,
+      826,
+      827,
+      1188,
+      1549,
+      1550,
+      1902,
+      2254,
+      2255,
+      2591,
+      2928,
+      2929,
+      3414,
+      3900
+    ],
+    "entire_video_watched_by_human": false,
+    "review_scope": "Actual extracted frames and additional source key events; full decode is automated."
+  },
+  "capture_execution_receipt_sha256": "0765368409d7f216e25d49880dc04cf21ee6ffdfadc39a2823aeb7a512f702df",
+  "scenes": [
+    {
+      "id": "highway",
+      "frames": 827,
+      "duration_s": 41.35,
+      "native_process_exit_code": 0,
+      "native_cleanup_completed": true,
+      "capture_manifest_sha256": "270bcba72de1b00d938768e67a8d96bf5a152479513643c8225979c9fcd62001",
+      "native_frames_sha256": "2b43b2a04d51b38bd9b872b081d24a4edf1fde82ae96afca05ff76d963926ed5",
+      "native_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+      "sensor_audit_status": "provenance_and_geometry_passed_visual_review_required",
+      "sensor_audit_sha256": "fa24b07e9ad7a5fbe74e2b880aadb0b199746e922b853c99450b1c580239c4f3",
+      "strict_sensor_assertions": {
+        "assertions": 168932,
+        "passed_assertions": 168932,
+        "failed_assertions": 0
+      },
+      "strict_sensor_failures_retained": [],
+      "full_native_source_and_derived_geometry_reviewed": true,
+      "audit_statistics": {
+        "geometry_audited_frames": 827,
+        "audited_native_camera_pngs": 3308,
+        "audited_native_filming_pngs": 827,
+        "audited_native_raw_points": 43971675,
+        "audited_derived_pngs": 4135,
+        "frames": 827,
+        "distinct_display_ids": 28
+      },
+      "camera_detection_statistics_not_accuracy": {
+        "front": {
+          "frames_with_detection": 764,
+          "frames_with_association": 764,
+          "detected_boxes_all_records": 1345,
+          "associated_boxes_all_records": 1340,
+          "audited_detected_boxes": 1345,
+          "audited_associated_boxes": 1340,
+          "audited_associated_native_points": 208014,
+          "audited_camera_only_boxes": 1,
+          "audited_ambiguous_depth_boxes": 4
+        },
+        "rear": {
+          "frames_with_detection": 798,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 1589,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 1589,
+          "audited_camera_only_boxes": 1589
+        },
+        "side_left": {
+          "frames_with_detection": 41,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 41,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 41,
+          "audited_camera_only_boxes": 41
+        },
+        "side_right": {
+          "frames_with_detection": 47,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 49,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 49,
+          "audited_camera_only_boxes": 49
+        }
+      },
+      "motion_quality_validated": true,
+      "motion_report_sha256": "04bb0b9bfd4312b81159e1b98510deb4b4bd5f307a7ef72e47abce6ee551e00b",
+      "motion_action_source_binding": "Action report explicitly binds this motion-report SHA and the same native manifest and frames.",
+      "sensor_audit_actual_exit_code": 0,
+      "strict_action_passed": true,
+      "strict_action_failed_checks_retained": [],
+      "action_report_sha256": "8855735eb00c8ece324bbd71bc0bc037e9e79208cb07c0b89631af1f79b0efeb"
+    },
+    {
+      "id": "ramp-entry",
+      "frames": 723,
+      "duration_s": 36.15,
+      "native_process_exit_code": 0,
+      "native_cleanup_completed": true,
+      "capture_manifest_sha256": "06130308edaf35fe733a9773d19e29293901a3f73a22c031afd50272ce9882ea",
+      "native_frames_sha256": "3033d3cba1c14498449d4afa2eaac258174d6fc999bb710313d1f7735cf1c496",
+      "native_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+      "sensor_audit_status": "qualified_source_integrity_passed_with_native_fov_deviations",
+      "sensor_audit_sha256": "263f9c4fd5a2394efdf9ec5441acb0eedd33e2d5170542817b6f45ff086f037c",
+      "strict_sensor_assertions": {
+        "assertions": 142708,
+        "passed_assertions": 142704,
+        "failed_assertions": 4
+      },
+      "strict_sensor_failures_retained": [
+        "Processing entry-point SHA differs",
+        "LiDAR 62182: native horizontal FOV engineering budget exceeded",
+        "LiDAR 62184: native horizontal FOV engineering budget exceeded",
+        "LiDAR 62408: native horizontal FOV engineering budget exceeded"
+      ],
+      "full_native_source_and_derived_geometry_reviewed": true,
+      "audit_statistics": {
+        "geometry_audited_frames": 723,
+        "audited_native_camera_pngs": 2892,
+        "audited_native_filming_pngs": 723,
+        "audited_native_raw_points": 40021592,
+        "audited_derived_pngs": 3615,
+        "frames": 723,
+        "distinct_display_ids": 21
+      },
+      "camera_detection_statistics_not_accuracy": {
+        "front": {
+          "frames_with_detection": 644,
+          "frames_with_association": 644,
+          "detected_boxes_all_records": 1159,
+          "associated_boxes_all_records": 1150,
+          "audited_detected_boxes": 1159,
+          "audited_associated_boxes": 1150,
+          "audited_associated_native_points": 163550,
+          "audited_camera_only_boxes": 2,
+          "audited_ambiguous_depth_boxes": 7
+        },
+        "rear": {
+          "frames_with_detection": 684,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 932,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 932,
+          "audited_camera_only_boxes": 932
+        },
+        "side_left": {
+          "frames_with_detection": 215,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 215,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 215,
+          "audited_camera_only_boxes": 215
+        },
+        "side_right": {
+          "frames_with_detection": 87,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 88,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 88,
+          "audited_camera_only_boxes": 88
+        }
+      },
+      "motion_quality_validated": true,
+      "motion_report_sha256": "3d9a41f5781b96b48024184b3bee32c11ad4d0aa49fe77102d0e4f6215eacdc9",
+      "motion_action_source_binding": "Both independent reports bind the same native manifest and frames; no motion-report import is claimed.",
+      "sensor_audit_actual_exit_code": 0,
+      "strict_action_passed": true,
+      "strict_action_failed_checks_retained": [],
+      "action_report_sha256": "45e5941644b57b872a3be09b017654ca34d4f9d7389b2f4b25a2e0deff4eb0f6",
+      "native_boundary_review": {
+        "strict_fov_passed": false,
+        "ordinary_pass": false,
+        "qualified_source_integrity_passed": true,
+        "sidecar_sha256": "f73b030b09d2a7f830098d21c74cb7d9c695696787b3076f34b2eea750776064",
+        "reviewed_points": [
+          {
+            "frame": 62182,
+            "sample": 284,
+            "raw_index": 37147,
+            "horizontal_angle_excess_deg": 0.019009937923421205,
+            "vertical_angle_excess_deg": 0.0,
+            "horizontal_boundary_excess_m": 0.006221064633918376,
+            "vertical_boundary_excess_m": 0.0
+          },
+          {
+            "frame": 62184,
+            "sample": 286,
+            "raw_index": 37359,
+            "horizontal_angle_excess_deg": 0.019980331718294053,
+            "vertical_angle_excess_deg": 0.0,
+            "horizontal_boundary_excess_m": 0.006538916980199295,
+            "vertical_boundary_excess_m": 0.0
+          },
+          {
+            "frame": 62408,
+            "sample": 510,
+            "raw_index": 37249,
+            "horizontal_angle_excess_deg": 0.02480603349427213,
+            "vertical_angle_excess_deg": 0.0,
+            "horizontal_boundary_excess_m": 0.006564321440970987,
+            "vertical_boundary_excess_m": 0.0
+          }
+        ],
+        "point_fate_under_unchanged_preprocessing": [
+          {
+            "frame": 62182,
+            "raw_index": 37147,
+            "retained_in_native_raw": true,
+            "kept_by_unchanged_range_and_self_filter": true,
+            "selected_by_unchanged_voxel_filter": true,
+            "sampled_index": 25061,
+            "classified_ground_by_unchanged_plane": true,
+            "associated_display_ids": []
+          },
+          {
+            "frame": 62184,
+            "raw_index": 37359,
+            "retained_in_native_raw": true,
+            "kept_by_unchanged_range_and_self_filter": true,
+            "selected_by_unchanged_voxel_filter": true,
+            "sampled_index": 25285,
+            "classified_ground_by_unchanged_plane": true,
+            "associated_display_ids": []
+          },
+          {
+            "frame": 62408,
+            "raw_index": 37249,
+            "retained_in_native_raw": true,
+            "kept_by_unchanged_range_and_self_filter": true,
+            "selected_by_unchanged_voxel_filter": true,
+            "sampled_index": 25351,
+            "classified_ground_by_unchanged_plane": false,
+            "associated_display_ids": []
+          }
+        ],
+        "actual_qualified_entrypoint_sha256": "1f9cf47671d64a43273d7158ad8adabcb24a9630524f2da2afcb3b8b594db69c",
+        "explicit_entrypoint_provenance_verified": true,
+        "strict_auditor_actual_exit_code": 1,
+        "legacy_single_entrypoint_assertion_failure_retained": true,
+        "raw_points_modified_or_cropped_to_pass_fov": false,
+        "strict_budget_changed": false
+      }
+    },
+    {
+      "id": "ramp-exit",
+      "frames": 705,
+      "duration_s": 35.25,
+      "native_process_exit_code": 0,
+      "native_cleanup_completed": true,
+      "capture_manifest_sha256": "e906d3ee614e5a955bcd44a34945d5c1594c5bf5c7fd0a71171e859d6171f4fa",
+      "native_frames_sha256": "0b7c5871f884cd830fabf67deaa33497ce3fcf8d8361194f93c3b5132a472cb7",
+      "native_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+      "sensor_audit_status": "provenance_and_geometry_passed_visual_review_required",
+      "sensor_audit_sha256": "80a5af6fd43217c0e6b98f202bb7e122cb22d834446665c3242d6b4d9b5f68af",
+      "strict_sensor_assertions": {
+        "assertions": 132502,
+        "passed_assertions": 132502,
+        "failed_assertions": 0
+      },
+      "strict_sensor_failures_retained": [],
+      "full_native_source_and_derived_geometry_reviewed": true,
+      "audit_statistics": {
+        "geometry_audited_frames": 705,
+        "audited_native_camera_pngs": 2820,
+        "audited_native_filming_pngs": 705,
+        "audited_native_raw_points": 33019786,
+        "audited_derived_pngs": 3525,
+        "frames": 705,
+        "distinct_display_ids": 19
+      },
+      "camera_detection_statistics_not_accuracy": {
+        "front": {
+          "frames_with_detection": 551,
+          "frames_with_association": 551,
+          "detected_boxes_all_records": 674,
+          "associated_boxes_all_records": 674,
+          "audited_detected_boxes": 674,
+          "audited_associated_boxes": 674,
+          "audited_associated_native_points": 108974
+        },
+        "rear": {
+          "frames_with_detection": 704,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 1460,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 1460,
+          "audited_camera_only_boxes": 1460
+        },
+        "side_left": {
+          "frames_with_detection": 0,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 0,
+          "associated_boxes_all_records": 0
+        },
+        "side_right": {
+          "frames_with_detection": 96,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 96,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 96,
+          "audited_camera_only_boxes": 96
+        }
+      },
+      "motion_quality_validated": true,
+      "motion_report_sha256": "823628891d915148fab4155c50e02c94363c5ca26acc729de5a1db7376d389f9",
+      "motion_action_source_binding": "Both independent reports bind the same native manifest and frames; no motion-report import is claimed.",
+      "sensor_audit_actual_exit_code": 0,
+      "strict_action_passed": true,
+      "strict_action_failed_checks_retained": [],
+      "action_report_sha256": "2642b46b8a2f34668fa231cbbc69d58c6803870906f44dba533372a3e5dff288"
+    },
+    {
+      "id": "left-turn",
+      "frames": 674,
+      "duration_s": 33.7,
+      "native_process_exit_code": 0,
+      "native_cleanup_completed": true,
+      "capture_manifest_sha256": "61b1a36b283c0b2e1a23303eb236b1dbb0639d1aa27cf38ff59577c9e37ec9e6",
+      "native_frames_sha256": "9c374249c6001d7caf4ba26b1928fd97bf4eb56488592fe9905ab47c27a8967f",
+      "native_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+      "sensor_audit_status": "provenance_and_geometry_passed_visual_review_required",
+      "sensor_audit_sha256": "0806c70de4e79c9b3cf80e1ea37e3904e7595fbc2e638abecf295e1a45845c24",
+      "strict_sensor_assertions": {
+        "assertions": 137744,
+        "passed_assertions": 137744,
+        "failed_assertions": 0
+      },
+      "strict_sensor_failures_retained": [],
+      "full_native_source_and_derived_geometry_reviewed": true,
+      "audit_statistics": {
+        "geometry_audited_frames": 674,
+        "audited_native_camera_pngs": 2696,
+        "audited_native_filming_pngs": 674,
+        "audited_native_raw_points": 39255410,
+        "audited_derived_pngs": 3370,
+        "frames": 674,
+        "distinct_display_ids": 85
+      },
+      "camera_detection_statistics_not_accuracy": {
+        "front": {
+          "frames_with_detection": 452,
+          "frames_with_association": 450,
+          "detected_boxes_all_records": 806,
+          "associated_boxes_all_records": 788,
+          "audited_detected_boxes": 806,
+          "audited_associated_boxes": 788,
+          "audited_associated_native_points": 158764,
+          "audited_ambiguous_depth_boxes": 17,
+          "audited_camera_only_boxes": 1
+        },
+        "rear": {
+          "frames_with_detection": 618,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 1083,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 1083,
+          "audited_camera_only_boxes": 1083
+        },
+        "side_left": {
+          "frames_with_detection": 401,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 587,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 587,
+          "audited_camera_only_boxes": 587
+        },
+        "side_right": {
+          "frames_with_detection": 148,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 168,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 168,
+          "audited_camera_only_boxes": 168
+        }
+      },
+      "motion_quality_validated": true,
+      "motion_report_sha256": "71cc3f949759b9560d84676eec782e4c725f14a71292f0051c9b08f0022ad425",
+      "motion_action_source_binding": "Action report explicitly binds this motion-report SHA and the same native manifest and frames.",
+      "sensor_audit_actual_exit_code": 0,
+      "strict_action_passed": true,
+      "strict_action_failed_checks_retained": [],
+      "action_report_sha256": "1f5ba5a1cff3d1f8346df9c4d0c54b15548a8d745449f549d3fb2eb4a9295e6d"
+    },
+    {
+      "id": "roundabout",
+      "frames": 972,
+      "duration_s": 48.6,
+      "native_process_exit_code": 0,
+      "native_cleanup_completed": true,
+      "capture_manifest_sha256": "d679e884490ec478b038e06b08b1b9ee227d2427ee7ec8f65f9568917faafeed",
+      "native_frames_sha256": "0fc81f974a70017368b11c3a0a120820b92d5ce7c7624cc7bc7395615859cdff",
+      "native_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+      "sensor_audit_status": "qualified_source_integrity_passed_with_native_fov_deviations",
+      "sensor_audit_sha256": "9ca6a571883cc4d32f7c9edcc0b4d2b2fc6186cf2cc1a8475341290088c6f0a8",
+      "strict_sensor_assertions": {
+        "assertions": 192538,
+        "passed_assertions": 192536,
+        "failed_assertions": 2
+      },
+      "strict_sensor_failures_retained": [
+        "Processing entry-point SHA differs",
+        "LiDAR 65581: native horizontal FOV engineering budget exceeded"
+      ],
+      "full_native_source_and_derived_geometry_reviewed": true,
+      "audit_statistics": {
+        "geometry_audited_frames": 972,
+        "audited_native_camera_pngs": 3888,
+        "audited_native_filming_pngs": 972,
+        "audited_native_raw_points": 54558004,
+        "audited_derived_pngs": 4860,
+        "frames": 972,
+        "distinct_display_ids": 82
+      },
+      "camera_detection_statistics_not_accuracy": {
+        "front": {
+          "frames_with_detection": 688,
+          "frames_with_association": 676,
+          "detected_boxes_all_records": 1161,
+          "associated_boxes_all_records": 1130,
+          "audited_detected_boxes": 1161,
+          "audited_associated_boxes": 1130,
+          "audited_associated_native_points": 238473,
+          "audited_camera_only_boxes": 5,
+          "audited_ambiguous_depth_boxes": 26
+        },
+        "rear": {
+          "frames_with_detection": 737,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 1259,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 1259,
+          "audited_camera_only_boxes": 1259
+        },
+        "side_left": {
+          "frames_with_detection": 634,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 1074,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 1074,
+          "audited_camera_only_boxes": 1074
+        },
+        "side_right": {
+          "frames_with_detection": 4,
+          "frames_with_association": 0,
+          "detected_boxes_all_records": 4,
+          "associated_boxes_all_records": 0,
+          "audited_detected_boxes": 4,
+          "audited_camera_only_boxes": 4
+        }
+      },
+      "motion_quality_validated": true,
+      "motion_report_sha256": "c66c7c000ec6afd29aa994b5cd1ca7dcf0e7efa844511cda79380fba4e84f250",
+      "motion_action_source_binding": "Action report explicitly binds this motion-report SHA and the same native manifest and frames.",
+      "sensor_audit_actual_exit_code": 0,
+      "strict_action_passed": false,
+      "strict_action_failed_checks_retained": [
+        "actual_native_ring_and_exit_road_order",
+        "second_entry_north_actual_second_native_entry"
+      ],
+      "action_report_sha256": "1638d60a2b5448fb7f7a29ef1119ff7993a276ea3cf89d4ef43738bd38d98dc6",
+      "native_boundary_review": {
+        "strict_fov_passed": false,
+        "ordinary_pass": false,
+        "qualified_source_integrity_passed": true,
+        "sidecar_sha256": "34d9b0347accc0c74be8c3f219a4f5fe55a7000419326b48f6ab93adabde17ed",
+        "reviewed_points": [
+          {
+            "frame": 65581,
+            "sample": 728,
+            "raw_index": 28605,
+            "horizontal_angle_excess_deg": 0.010806569608504901,
+            "vertical_angle_excess_deg": 0.0,
+            "horizontal_boundary_excess_m": 0.007866869569583936,
+            "vertical_boundary_excess_m": 0.0
+          }
+        ],
+        "point_fate_under_unchanged_preprocessing": [
+          {
+            "frame": 65581,
+            "raw_index": 28605,
+            "retained_in_native_raw": true,
+            "kept_by_unchanged_range_and_self_filter": true,
+            "selected_by_unchanged_voxel_filter": true,
+            "sampled_index": 20855,
+            "classified_ground_by_unchanged_plane": true,
+            "associated_display_ids": []
+          }
+        ],
+        "actual_qualified_entrypoint_sha256": "1f9cf47671d64a43273d7158ad8adabcb24a9630524f2da2afcb3b8b594db69c",
+        "explicit_entrypoint_provenance_verified": true,
+        "strict_auditor_actual_exit_code": 1,
+        "legacy_single_entrypoint_assertion_failure_retained": true,
+        "raw_points_modified_or_cropped_to_pass_fov": false,
+        "strict_budget_changed": false
+      },
+      "qualified_action_review": {
+        "accepted": true,
+        "report_sha256": "998bfe1f777fe813823eee36a0ba930fdab5f7c286d336aacbbb94527b2d5b35",
+        "ordinary_strict_action_passed": false,
+        "actual_bracketing_native_frames": [
+          65333,
+          65334
+        ],
+        "full_native_road12_length_m": 0.22,
+        "interpolated_observations_used_for_acceptance": false,
+        "scope": "Consecutive measured poses bracket the short lane; both measured bodies cover its endpoints. Separate native swept corridors have no simultaneous sampled conflict occupancy. Original two strict failures retained."
+      }
+    }
+  ],
+  "sensor_execution_receipt_sha256": {
+    "production-v4-fusion-audit-execution": "91435dde8b31573a36167e1a7ad2dbd85e4fa4f3f74c993c96e788372b4bf191",
+    "production-v4-remaining-fusion-audit-execution": "23a1afe2e7bfedb21933c160d0bf669f3c55ed3f9bea9e44c5d4d26e0c17f69b",
+    "production-v4-qualified-fusion-audit-execution": "5dfeac2cccbf8ab71d2f5272b613334ad730af8208c6cc3e3a31e960353c6b4e"
+  },
+  "motion_execution_receipt_sha256": "dae7ec31896f8d94ba27a57faf178816977395401438d90727763cbc1f056735",
+  "roundabout_supplement_execution_sha256": "310f41c0fe6ca7df3530882e95c5ca6347c23e5440b9d97266e61b0ce4b2e063",
+  "summary_builder_sha256": "6855a4f8795218852391507a842801945dd40927ed70bd79b2cd0a8a840cc4de",
+  "layout": {
+    "camera": [
+      0,
+      0,
+      960,
+      540
+    ],
+    "rear": [
+      0,
+      540,
+      960,
+      540
+    ],
+    "lidar": [
+      960,
+      0,
+      640,
+      1080
+    ],
+    "side_left": [
+      1600,
+      90,
+      320,
+      180
+    ],
+    "side_right": [
+      1600,
+      450,
+      320,
+      180
+    ],
+    "chase": [
+      1600,
+      810,
+      320,
+      180
+    ]
+  },
+  "playback_speed": 1,
+  "extra_editorial_text": false,
+  "detector": "Official pretrained YOLOX-S, RGB only, each camera independently",
+  "lidar_fusion_cameras": [
+    "front"
+  ],
+  "camera_only_cameras": [
+    "rear",
+    "side_left",
+    "side_right"
+  ],
+  "offline_processing": true,
+  "trained_fusion_model": false,
+  "perception_driving_closed_loop": false,
+  "cross_camera_reidentification": false,
+  "bilibili_published": false,
+  "limits": [
+    "Generic production-style layout on the native Model 3 proxy body; not Tesla factory equipment or exact OEM calibration.",
+    "Detector misses, false positives and independent short-lived IDs remain visible; this is not an accuracy benchmark.",
+    "In roundabout native frame 65268, side_right ID 190004 labels a dark planter or post-like static object as person at confidence 0.60. This actual false positive is preserved, not counted as a confirmed person.",
+    "Four exact native edge returns exceed the fixed development FOV tolerance. Their raw bytes and strict failures remain intact; source and association geometry were reviewed separately.",
+    "The strict auditor assumes a single original entrypoint. Qualified processing proves the new wrapper and original dependencies explicitly while retaining that compatibility failure.",
+    "Roundabout original road-label and broad-gate failures remain; the supplemental decision covers measured 20Hz geometry, not continuous-time safety.",
+    "No current five-scene live SUMO co-simulation or custom road geometry is claimed.",
+    "Raw recordings and machine-specific execution reports remain local; source, compact summaries and reviewed video are published separately."
+  ]
+}

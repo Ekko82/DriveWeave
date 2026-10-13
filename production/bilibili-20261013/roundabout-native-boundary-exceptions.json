@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "purpose": "Explicit review of exactly one unchanged native boundary return; ordinary strict policy still fails.",
+  "source_run": "carla/captures-production-v4/20261013-144141-163851",
+  "source_manifest_sha256": "d679e884490ec478b038e06b08b1b9ee227d2427ee7ec8f65f9568917faafeed",
+  "source_frames_sha256": "0fc81f974a70017368b11c3a0a120820b92d5ce7c7624cc7bc7395615859cdff",
+  "source_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+  "source_diagnostic_report": "carla/verification/production-v4-roundabout-fov-diagnostic.json",
+  "source_diagnostic_report_sha256": "bbbc71bcae1ab60d44e05de027b56d30b8a9be3250b69d731da5ba7599cdbfc9",
+  "strict_policy": {
+    "boundary_m": 0.005,
+    "angle_deg": 0.02,
+    "minimum_x_m": 0.0
+  },
+  "reviewed_exception_count": 1,
+  "strict_fov_passed": false,
+  "normal_pass": false,
+  "raw_points_modified": false,
+  "strict_policy_changed": false,
+  "exceptions": [
+    {
+      "frame": 65581,
+      "sample": 728,
+      "raw_index": 28605,
+      "horizontal_angle_excess_deg": 0.010806569608504901,
+      "vertical_angle_excess_deg": 0.0,
+      "raw_callback_sha256": "823df1454c61779bfbbd3aca4eb50fe2da669cef31fd582064faef36b6b712c4",
+      "raw_point_float32_le_hex": "bfc8a641948010c2066dd6bfb1a4583f",
+      "horizontal_boundary_excess_m": 0.007866869569583936,
+      "vertical_boundary_excess_m": 0.0
+    }
+  ]
+}

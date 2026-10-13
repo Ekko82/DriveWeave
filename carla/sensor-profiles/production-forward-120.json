@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "name": "production-style-forward-lidar-four-cameras",
+  "scope": "Generic production-style mounting on the CARLA Model 3 proxy body; not a Tesla factory configuration or an exact OEM calibration.",
+  "lidar_reference": "AT128-style 120 x 25.4 degree field of view and 128 channels; CARLA ray-cast approximation, not validated hardware emulation.",
+  "reference_url": "https://www.hesaitech.com/product/at128/",
+  "cameras": {
+    "rgb": {"location_m": [0.55, 0, 1.40], "rotation_deg": [0, 0, 0], "fov": 90},
+    "rear": {"location_m": [-2.45, 0, 0.75], "rotation_deg": [-4, 180, 0], "fov": 100},
+    "side_left": {"location_m": [-0.30, -1.08, 1.25], "rotation_deg": [0, -90, 0], "fov": 110},
+    "side_right": {"location_m": [-0.30, 1.08, 1.25], "rotation_deg": [0, 90, 0], "fov": 110}
+  },
+  "lidar": {
+    "location_m": [0.45, 0, 1.67],
+    "rotation_deg": [0, 0, 0],
+    "attributes": {
+      "channels": 128, "range": 120, "horizontal_fov": 120,
+      "upper_fov": 12.9, "lower_fov": -12.5,
+      "rotation_frequency": 20, "points_per_second": 1536000,
+      "noise_stddev": 0.01, "dropoff_general_rate": 0.1, "noise_seed": 20261013
+    }
+  }
+}

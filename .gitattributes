@@ -1,0 +1,12 @@
+# Recorded source hashes use LF bytes on every checkout platform.
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+# These approved inventories are byte-bound evidence, including their line endings.
+production/bilibili-20261013/ramp-entry-native-boundary-exceptions.json -text whitespace=cr-at-eol
+production/bilibili-20261013/roundabout-native-boundary-exceptions.json -text whitespace=cr-at-eol
+# Preserve the exact executed recorder source for this release's provenance.
+carla/capture_native.py -text whitespace=cr-at-eol

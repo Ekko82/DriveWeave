@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "purpose": "Explicit review of exactly three unchanged native boundary returns; ordinary strict policy still fails.",
+  "source_run": "carla/captures-production-v4/20261013-141640-489392",
+  "source_manifest_sha256": "06130308edaf35fe733a9773d19e29293901a3f73a22c031afd50272ce9882ea",
+  "source_frames_sha256": "3033d3cba1c14498449d4afa2eaac258174d6fc999bb710313d1f7735cf1c496",
+  "source_sensor_profile_sha256": "dc1ff138abe80927a2a5d91420db85058611bc6db0ecdd6a00d8236b8fda8c66",
+  "source_diagnostic_report": "carla/verification/production-v4-ramp-entry-fov-diagnostic.json",
+  "source_diagnostic_report_sha256": "b3a2ea35b0f60c322893b280ecdb01419a0014d7710847babd1dbafc464ae0c3",
+  "strict_policy": {
+    "boundary_m": 0.005,
+    "angle_deg": 0.02,
+    "minimum_x_m": 0.0
+  },
+  "reviewed_exception_count": 3,
+  "strict_fov_passed": false,
+  "normal_pass": false,
+  "raw_points_modified": false,
+  "strict_policy_changed": false,
+  "exceptions": [
+    {
+      "frame": 62182,
+      "sample": 284,
+      "raw_index": 37147,
+      "horizontal_angle_excess_deg": 0.019009937923421205,
+      "vertical_angle_excess_deg": 0.0,
+      "raw_callback_sha256": "6a828c29cacfe109a086b8010b2f8de124cb99869acde11c3339b5d133372b28",
+      "raw_point_float32_le_hex": "68ea154128ee81c1c93cd6bf586d6d3f",
+      "horizontal_boundary_excess_m": 0.006221064633918376,
+      "vertical_boundary_excess_m": 0.0
+    },
+    {
+      "frame": 62184,
+      "sample": 286,
+      "raw_index": 37359,
+      "horizontal_angle_excess_deg": 0.019980331718294053,
+      "vertical_angle_excess_deg": 0.0,
+      "raw_callback_sha256": "c9cd220450284a457cacc7e10fbdee8807f3b49d72375515cc562570a76ccb62",
+      "raw_point_float32_le_hex": "f8ea1541f2ef81c1b23fd6bf46706d3f",
+      "horizontal_boundary_excess_m": 0.006538916980199295,
+      "vertical_boundary_excess_m": 0.0
+    },
+    {
+      "frame": 62408,
+      "sample": 510,
+      "raw_index": 37249,
+      "horizontal_angle_excess_deg": 0.02480603349427213,
+      "vertical_angle_excess_deg": 0.0,
+      "raw_callback_sha256": "5c75bd0fab69fabe9bb93102547f31d297b484411ca585f47b76f3d7457b3802",
+      "raw_point_float32_le_hex": "c968f240872452c169c2c1bf99dc703f",
+      "horizontal_boundary_excess_m": 0.006564321440970987,
+      "vertical_boundary_excess_m": 0.0
+    }
+  ]
+}

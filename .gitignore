@@ -57,6 +57,13 @@ credentials/
 /carla/fusion-probes/
 /carla/fusion-display-v3/
 /carla/fusion-confidence-v3/
+/carla/surround-v3/
+/carla/surround-probes-v3/
+/carla/captures-production-v4/
+/carla/production-probes-v4/
+/carla/production-fusion-v4/
+/carla/production-fusion-probes-v4/
+/carla/v4-runtime/
 *.onnx
 /assets/sources/**/*.png
 /assets/sources/**/*.jpg

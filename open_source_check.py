@@ -27,7 +27,9 @@ FORBIDDEN_PARTS = {".git", ".venv", "venv", "private", "credentials", "captures"
                    "live-captures", "processed", "sumo-replay", "executions", "research",
                    "captures-v2", "live-captures-v2", "processed-v2", "sumo-replay-v2", "v2-probes",
                    "captures-v3", "processed-v3", "output-v3", "v3-runtime",
-                   "fusion-v3", "fusion-display-v3", "fusion-confidence-v3", "fusion-probes"}
+                   "fusion-v3", "fusion-display-v3", "fusion-confidence-v3", "fusion-probes",
+                   "surround-v3", "surround-probes-v3", "captures-production-v4",
+                   "production-probes-v4", "production-fusion-v4", "production-fusion-probes-v4", "v4-runtime"}
 
 
 def accepted_preview(root: Path, relative: str, payload: bytes, files: list) -> bool:
@@ -115,7 +117,7 @@ def verify_allowlist(root: Path = ROOT, manifest_path: Path | None = None) -> di
             if path.suffix.lower() == '.gif' and accepted_preview(root, relative, payload, files):
                 hashes[relative] = hashlib.sha256(payload).hexdigest()
                 continue
-            if path.suffix.lower() not in TEXT_SUFFIXES and path.name not in {"LICENSE", ".gitignore"}:
+            if path.suffix.lower() not in TEXT_SUFFIXES and path.name not in {"LICENSE", ".gitignore", ".gitattributes"}:
                 findings.append({"file": relative, "line": None, "rule": "non_source_file"})
                 continue
             hashes[relative] = hashlib.sha256(payload).hexdigest()
