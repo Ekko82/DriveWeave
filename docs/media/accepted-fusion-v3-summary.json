@@ -1,0 +1,733 @@
+{
+  "schema_version": 1,
+  "version": "v3.1-fusion",
+  "status": "accepted_local_media_publication_pending",
+  "accepted": true,
+  "created_at_utc": "2026-10-13T01:48:52.026211+00:00",
+  "published": false,
+  "release_version": "v3.1.0",
+  "repository": "https://github.com/Ekko82/DriveWeave",
+  "acceptance_scope": "Recorded source provenance, geometric association consistency, unchanged retained values after uniform confidence filtering, full video decoding and sampled visual review. No perception-accuracy acceptance.",
+  "trained_image_detector": true,
+  "trained_fusion": false,
+  "offline": true,
+  "trained_image_detector_inference": true,
+  "trained_fusion_model": false,
+  "offline_processing": true,
+  "simulator_labels_used_for_detection_or_association": false,
+  "processing_controls_vehicle": false,
+  "sensor_types": [
+    "RGB camera",
+    "LiDAR"
+  ],
+  "millimeter_wave_radar_used": false,
+  "confidence_policy": {
+    "original_inference_threshold": 0.3,
+    "final_display_threshold": 0.75,
+    "uniform_for_every_frame_and_class": true,
+    "input_predictions_preserved": true,
+    "retained_predictions_numerically_unchanged": true,
+    "all_original_predictions_displayed": false,
+    "selected_after_review_of_this_development_set": true,
+    "independent_holdout": false,
+    "limitation": "Suppresses both low-confidence errors and some correct distant or occluded detections; no 100 percent accuracy claim."
+  },
+  "model": {
+    "model": "YOLOX-S",
+    "model_sha256": "c5c2d13e59ae883e6af3b45daea64af4833a4951c92d116ec270d9ddbe998063",
+    "official_model_url": "https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_s.onnx",
+    "upstream_license": "Apache-2.0",
+    "runtime": "onnxruntime",
+    "runtime_version": "1.23.2",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "confidence_threshold": 0.3,
+    "nms_iou_threshold": 0.45,
+    "preprocessing": "RGB to BGR; top-left resize INTER_LINEAR; pad114; float32 CHW; no normalization"
+  },
+  "source_modules_sha256": {
+    "carla/detect_rgb_onnx.py": "44030538fad855573d25d24b09f482b9a145403f1141967e33b24518a5121dba",
+    "carla/fuse_camera_lidar.py": "923420089f3f0319ee283c7c1294ba21266684e572d5f9e4311ebaf028b96fd3",
+    "carla/render_fusion_labels.py": "2fc3858ba163bc65a37e98e0cf396ac17f7a889801f4c768144afa011052b175",
+    "production/assemble_fusion_video.py": "93d6dff418d7d687cf0bc84c3748ab272fe2425828c4be983ef5a11f15249d05",
+    "verification/audit_camera_lidar_fusion.py": "5a9672e1fdd6e49e5306f1fe8e989371196f18ab3a57f6aecc99d82cb4cae39e"
+  },
+  "scenes": [
+    {
+      "id": "highway",
+      "frames": 827,
+      "fps": 20,
+      "duration_s": 41.35,
+      "native_frame_range": [
+        1260111,
+        1260937
+      ],
+      "map": "Carla/Maps/Town04",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "04111dae64cc25d03d6fe2069e1df7a09c50fd658036c899cf36c25c533e46ea",
+        "native_frames": "c7b44c9eb74e123a8b6f4fc2816fe5232f75b349a00dc43bd54096e56f9c8ec6",
+        "processing_manifest": "3017860e1f6c914e482a9f75660e5a9ee5aa5bf749ce98dc9c69e73241d7c6ce"
+      },
+      "inference_sha256": {
+        "fusion_manifest": "6b0269195ae87344b20db2aab31f59570dcfe2ad025ac364817ce95a6622caf3",
+        "associations": "eb08d4591569b7352d3b437909b64b63a5644b4cb779c99da4eecd683f54610a"
+      },
+      "display_sha256": {
+        "fusion_manifest": "a7d43b77f417c99b7fe3c925d0abf2084534b1518ebf1d807d230899535ab38c",
+        "associations": "32bbaeb645181ad0971d97ef668220c1d65c42e1aefe1d034014e92eea1efe1c",
+        "expected_uniformly_filtered_values": "abd44a8f0e9e216cc325073f6c6701db695117eaa786f4fce06db130563b8a53",
+        "actual_filtered_values": "abd44a8f0e9e216cc325073f6c6701db695117eaa786f4fce06db130563b8a53"
+      },
+      "evidence": {
+        "full_frame_geometry_audit": {
+          "file": "fusion-v3-highway-audit.json",
+          "sha256": "7ebb7e0710f3500fc2e27925baab595adad4c20a714b73fe45736e9121214896"
+        },
+        "confidence_filter_equivalence": {
+          "file": "confidence-filter-equivalence.json",
+          "sha256": "8c12693f20e25b92d4da4e9af84fb8936f1442bb36ab7719da5622a60929633a"
+        }
+      },
+      "gates": {
+        "all_native_frames_geometry_and_provenance_passed": true,
+        "retained_display_values_unchanged": true,
+        "display_png_sha_verified": true,
+        "independent_sampled_visual_review_accepted": true
+      },
+      "geometry_assertions": {
+        "assertions": 39862,
+        "passed_assertions": 39862
+      },
+      "original_inference_threshold_0_30_counts": {
+        "camera_boxes": 2206,
+        "camera_only": 1149,
+        "frames_with_camera_detection": 826,
+        "frames_with_association": 819,
+        "associated_native_points": 19680,
+        "associated": 1057,
+        "frames": 827,
+        "camera_detection_frame_fraction": 0.9987908101571947,
+        "association_frame_fraction": 0.9903264812575574,
+        "association_box_fraction": 0.4791477787851315,
+        "frames_without_camera_detection": 1,
+        "frames_without_association": 8,
+        "median_rgb_inference_ms": 114.30960000143386
+      },
+      "final_uniform_display_threshold_0_75_counts": {
+        "retained_detection_count": 1640,
+        "retained_associated_boxes": 1000,
+        "removed_detection_count": 566,
+        "frames_without_camera_detection": 43,
+        "frames_without_association": 54,
+        "frames": 827,
+        "camera_only_or_ambiguous_boxes": 640,
+        "frames_with_camera_detection": 784,
+        "frames_with_association": 773
+      },
+      "development_set_gt_diagnostics_at_original_0_30": {
+        "original_status": "diagnostics_completed",
+        "anomaly_review_evidence": {
+          "file": "fusion-v3-original-anomaly-review.json",
+          "sha256": "207107f2e59fa052b58db0d3a76c0c3460da94e700f64324316d17aaa179b495"
+        },
+        "evaluation_only": true,
+        "direct_inference_feedback": false,
+        "confidence_policy_selected_after_review_of_this_set": true,
+        "independent_holdout": false,
+        "identity_accuracy": false,
+        "detector_iou_threshold": 0.5,
+        "instance_minimum_visible_pixels": 20,
+        "point_box_tolerance_m": 0.15,
+        "counts": {
+          "sampled_frames": 827,
+          "camera_detections": 2206,
+          "visible_native_instances": 2561,
+          "matched_detections_iou_0_5": 2129,
+          "associated_points": 19680,
+          "associated_points_inside_any_native_vehicle_box": 19680,
+          "associated_boxes": 1057,
+          "associated_boxes_below_half_native_vehicle_box_support": 0
+        },
+        "interpretation": "Vehicle-box containment and same-class image overlap are coarse diagnostics; they do not prove object identity, fusion accuracy or benchmark precision/recall."
+      },
+      "limitations": [
+        "Zero camera detections or absent LiDAR associations remain visible; no missing detections or ranges are invented.",
+        "Pretrained RGB inference plus geometric frustum association, not a jointly trained fusion network.",
+        "Observed surface range and bounds are not complete 3D object dimensions or object-center distance.",
+        "Sparse returns, occlusion and domain shift can cause missed or incorrect associations.",
+        "Display IDs use short-term geometric matching; they are not simulator actor IDs or a tracking benchmark.",
+        "Native 20 fps playback is not a claim of 20 fps online inference.",
+        "Display confidence policy was selected after review of these recordings; this set is not an independent benchmark.",
+        "The higher threshold suppresses some correct distant or occluded detections as well as false detections."
+      ]
+    },
+    {
+      "id": "ramp-entry",
+      "frames": 722,
+      "fps": 20,
+      "duration_s": 36.1,
+      "native_frame_range": [
+        1252530,
+        1253251
+      ],
+      "map": "Carla/Maps/Town06",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "8b259a0c43e2846763f36d2857a78d3f3575eef9bf119b1dd05738e79a8eef12",
+        "native_frames": "4c5563f05ec3c37eebc95df64715237fc01e59ef96187aba69ea4eed208249de",
+        "processing_manifest": "32b3e73bb32ff7d089ea4414e3cb93813c8a33241f4ba7e525c735de127a9823"
+      },
+      "inference_sha256": {
+        "fusion_manifest": "6467e2d0e62b2f016bcdd7d3016e131c84913f34cb80a7235405c1ffacbd51f9",
+        "associations": "f836e241c1999e007cd75ff7b8d65e4021208693276711b6965198ce92eddff0"
+      },
+      "display_sha256": {
+        "fusion_manifest": "ef786325d4b963bb510540e4f030957f80dbac65ee9746a6cb1f9f6aaf3f935b",
+        "associations": "0f29d69846ea47d411087115b8c61abfea73aa224a1a1720cdb6bef1e361d103",
+        "expected_uniformly_filtered_values": "6f25639215f79b132863db8c0f22c8ccf0be7bcafffa436e2a972bccd8004784",
+        "actual_filtered_values": "6f25639215f79b132863db8c0f22c8ccf0be7bcafffa436e2a972bccd8004784"
+      },
+      "evidence": {
+        "full_frame_geometry_audit": {
+          "file": "fusion-v3-ramp-entry-audit.json",
+          "sha256": "ba3ffc01e2ab21e5cc7aec4b51abc44692a8844a6ea6591466babb7a090a95a2"
+        },
+        "confidence_filter_equivalence": {
+          "file": "confidence-filter-equivalence.json",
+          "sha256": "5e08d8a54d18734086f91a7d50d59da2b5e6536a280e99b207c5408ab69449c0"
+        }
+      },
+      "gates": {
+        "all_native_frames_geometry_and_provenance_passed": true,
+        "retained_display_values_unchanged": true,
+        "display_png_sha_verified": true,
+        "independent_sampled_visual_review_accepted": true
+      },
+      "geometry_assertions": {
+        "assertions": 32407,
+        "passed_assertions": 32407
+      },
+      "original_inference_threshold_0_30_counts": {
+        "frames_with_camera_detection": 701,
+        "frames_with_association": 619,
+        "camera_boxes": 1537,
+        "camera_only": 578,
+        "associated_native_points": 23793,
+        "associated": 959,
+        "frames": 722,
+        "camera_detection_frame_fraction": 0.9709141274238227,
+        "association_frame_fraction": 0.8573407202216067,
+        "association_box_fraction": 0.623942745608328,
+        "frames_without_camera_detection": 21,
+        "frames_without_association": 103,
+        "median_rgb_inference_ms": 116.95404999773018
+      },
+      "final_uniform_display_threshold_0_75_counts": {
+        "retained_detection_count": 1186,
+        "retained_associated_boxes": 953,
+        "removed_detection_count": 351,
+        "frames_without_camera_detection": 70,
+        "frames_without_association": 104,
+        "frames": 722,
+        "camera_only_or_ambiguous_boxes": 233,
+        "frames_with_camera_detection": 652,
+        "frames_with_association": 618
+      },
+      "development_set_gt_diagnostics_at_original_0_30": {
+        "original_status": "diagnostics_completed",
+        "anomaly_review_evidence": {
+          "file": "fusion-v3-original-anomaly-review.json",
+          "sha256": "207107f2e59fa052b58db0d3a76c0c3460da94e700f64324316d17aaa179b495"
+        },
+        "evaluation_only": true,
+        "direct_inference_feedback": false,
+        "confidence_policy_selected_after_review_of_this_set": true,
+        "independent_holdout": false,
+        "identity_accuracy": false,
+        "detector_iou_threshold": 0.5,
+        "instance_minimum_visible_pixels": 20,
+        "point_box_tolerance_m": 0.15,
+        "counts": {
+          "sampled_frames": 722,
+          "camera_detections": 1537,
+          "visible_native_instances": 2166,
+          "matched_detections_iou_0_5": 1517,
+          "associated_points": 23793,
+          "associated_points_inside_any_native_vehicle_box": 23793,
+          "associated_boxes": 959,
+          "associated_boxes_below_half_native_vehicle_box_support": 0
+        },
+        "interpretation": "Vehicle-box containment and same-class image overlap are coarse diagnostics; they do not prove object identity, fusion accuracy or benchmark precision/recall."
+      },
+      "limitations": [
+        "Zero camera detections or absent LiDAR associations remain visible; no missing detections or ranges are invented.",
+        "Pretrained RGB inference plus geometric frustum association, not a jointly trained fusion network.",
+        "Observed surface range and bounds are not complete 3D object dimensions or object-center distance.",
+        "Sparse returns, occlusion and domain shift can cause missed or incorrect associations.",
+        "Display IDs use short-term geometric matching; they are not simulator actor IDs or a tracking benchmark.",
+        "Native 20 fps playback is not a claim of 20 fps online inference.",
+        "Display confidence policy was selected after review of these recordings; this set is not an independent benchmark.",
+        "The higher threshold suppresses some correct distant or occluded detections as well as false detections."
+      ]
+    },
+    {
+      "id": "ramp-exit",
+      "frames": 705,
+      "fps": 20,
+      "duration_s": 35.25,
+      "native_frame_range": [
+        1104866,
+        1105570
+      ],
+      "map": "Carla/Maps/Town06",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "7c420976254a6d18a81ff2b67a724e03185d02b8bd60c22d3ab53349e4b21d8e",
+        "native_frames": "4565b9b17527b5a276f72d8bc0cf27da80698279a9e21b2449ab791be2e2998e",
+        "processing_manifest": "38066f53eec81e0576300bc7860316dddd30eea9294dc81b362f0841b1860c6c"
+      },
+      "inference_sha256": {
+        "fusion_manifest": "676761c1811cf548d3f15b873c77060080a3fb35936093e4e44dd11f2c21cefd",
+        "associations": "00bca653eca544b2c7291f0c79b331f3fb6bf612485f447c4371ed6778176b2d"
+      },
+      "display_sha256": {
+        "fusion_manifest": "b6c33c68a9c57a3de0fbc8ccaea59a87f2187b92c25b3b3c158e267205209516",
+        "associations": "e76fa3268513654745723170d83e447a957287f92809e10b58742cc11a493fec",
+        "expected_uniformly_filtered_values": "a5c521007754c0c668957c0bf1d5aec7760c0e3855c53d5a604f8c1bb9df0ddf",
+        "actual_filtered_values": "a5c521007754c0c668957c0bf1d5aec7760c0e3855c53d5a604f8c1bb9df0ddf"
+      },
+      "evidence": {
+        "full_frame_geometry_audit": {
+          "file": "fusion-v3-ramp-exit-audit.json",
+          "sha256": "74ff6a43992faaa24ed39d73697b5a1e7f113e0a280168e57b737810c0f1b644"
+        },
+        "confidence_filter_equivalence": {
+          "file": "confidence-filter-equivalence.json",
+          "sha256": "9104836e89619c35d47c53da7e1c3b321130c36142f1726193670a0041269e1a"
+        }
+      },
+      "gates": {
+        "all_native_frames_geometry_and_provenance_passed": true,
+        "retained_display_values_unchanged": true,
+        "display_png_sha_verified": true,
+        "independent_sampled_visual_review_accepted": true
+      },
+      "geometry_assertions": {
+        "assertions": 23782,
+        "passed_assertions": 23782
+      },
+      "original_inference_threshold_0_30_counts": {
+        "associated_native_points": 9619,
+        "camera_boxes": 1003,
+        "associated": 450,
+        "camera_only": 553,
+        "frames_with_camera_detection": 702,
+        "frames_with_association": 450,
+        "frames": 705,
+        "camera_detection_frame_fraction": 0.9957446808510638,
+        "association_frame_fraction": 0.6382978723404256,
+        "association_box_fraction": 0.44865403788634095,
+        "frames_without_camera_detection": 3,
+        "frames_without_association": 255,
+        "median_rgb_inference_ms": 68.18160000000262
+      },
+      "final_uniform_display_threshold_0_75_counts": {
+        "retained_detection_count": 714,
+        "retained_associated_boxes": 449,
+        "removed_detection_count": 289,
+        "frames_without_camera_detection": 149,
+        "frames_without_association": 256,
+        "frames": 705,
+        "camera_only_or_ambiguous_boxes": 265,
+        "frames_with_camera_detection": 556,
+        "frames_with_association": 449
+      },
+      "development_set_gt_diagnostics_at_original_0_30": {
+        "original_status": "diagnostics_completed",
+        "anomaly_review_evidence": {
+          "file": "fusion-v3-original-anomaly-review.json",
+          "sha256": "207107f2e59fa052b58db0d3a76c0c3460da94e700f64324316d17aaa179b495"
+        },
+        "evaluation_only": true,
+        "direct_inference_feedback": false,
+        "confidence_policy_selected_after_review_of_this_set": true,
+        "independent_holdout": false,
+        "identity_accuracy": false,
+        "detector_iou_threshold": 0.5,
+        "instance_minimum_visible_pixels": 20,
+        "point_box_tolerance_m": 0.15,
+        "counts": {
+          "associated_points": 9619,
+          "associated_points_inside_any_native_vehicle_box": 9619,
+          "associated_boxes": 450,
+          "associated_boxes_below_half_native_vehicle_box_support": 0,
+          "sampled_frames": 705,
+          "camera_detections": 1003,
+          "visible_native_instances": 1293,
+          "matched_detections_iou_0_5": 998
+        },
+        "interpretation": "Vehicle-box containment and same-class image overlap are coarse diagnostics; they do not prove object identity, fusion accuracy or benchmark precision/recall."
+      },
+      "limitations": [
+        "Zero camera detections or absent LiDAR associations remain visible; no missing detections or ranges are invented.",
+        "Pretrained RGB inference plus geometric frustum association, not a jointly trained fusion network.",
+        "Observed surface range and bounds are not complete 3D object dimensions or object-center distance.",
+        "Sparse returns, occlusion and domain shift can cause missed or incorrect associations.",
+        "Display IDs use short-term geometric matching; they are not simulator actor IDs or a tracking benchmark.",
+        "Native 20 fps playback is not a claim of 20 fps online inference.",
+        "Display confidence policy was selected after review of these recordings; this set is not an independent benchmark.",
+        "The higher threshold suppresses some correct distant or occluded detections as well as false detections."
+      ]
+    },
+    {
+      "id": "left-turn",
+      "frames": 675,
+      "fps": 20,
+      "duration_s": 33.75,
+      "native_frame_range": [
+        420989,
+        421663
+      ],
+      "map": "Carla/Maps/Town05",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "a8c82cb3b4518cdde6ece1755611bf62de9379df43e58975e76b689ce69ae280",
+        "native_frames": "61c6fabeb5be29f3b29570d6186d8bc2cab9f9686b08e6ae3ddfbe7b78b122ef",
+        "processing_manifest": "9d457a33b799a0faa9e10fba89f0fcfe96bb23a2e2ae7e8b63d4e6897e56d704"
+      },
+      "inference_sha256": {
+        "fusion_manifest": "97b99654de7617b477cad1b6828d93d8fe4d993bda15738e54722aa19cc95940",
+        "associations": "04c2351d11b111aacdcc0a9fbade01fca4cb1882d06285ca6ef99cc2147f6569"
+      },
+      "display_sha256": {
+        "fusion_manifest": "6462841a5937057a6804f8adbaa88b0d8fb4f0cd389fb915f3b5bc91ba5c8ceb",
+        "associations": "9b454f0105575dea3297cdd887b5b24d6d4798e50fdf8ca0a2dc70530b180b17",
+        "expected_uniformly_filtered_values": "1b8744cba0f0713e4ab821e8ba3c8865e2e76e419693ed9f79c4147ffba8cef7",
+        "actual_filtered_values": "1b8744cba0f0713e4ab821e8ba3c8865e2e76e419693ed9f79c4147ffba8cef7"
+      },
+      "evidence": {
+        "full_frame_geometry_audit": {
+          "file": "fusion-v3-left-turn-audit.json",
+          "sha256": "786022596e5eeab67f743de31f7132fbc399dcc6b97e88cef58aa3ec3ef6ecd7"
+        },
+        "confidence_filter_equivalence": {
+          "file": "confidence-filter-equivalence.json",
+          "sha256": "df26a84c837986a772af39e37d24605035db201aa50be313f36a0cadc1741081"
+        }
+      },
+      "gates": {
+        "all_native_frames_geometry_and_provenance_passed": true,
+        "retained_display_values_unchanged": true,
+        "display_png_sha_verified": true,
+        "independent_sampled_visual_review_accepted": true
+      },
+      "geometry_assertions": {
+        "assertions": 29186,
+        "passed_assertions": 29186
+      },
+      "original_inference_threshold_0_30_counts": {
+        "camera_boxes": 1613,
+        "camera_only": 977,
+        "frames_with_camera_detection": 600,
+        "frames_with_association": 439,
+        "associated_native_points": 18986,
+        "associated": 636,
+        "frames": 675,
+        "camera_detection_frame_fraction": 0.8888888888888888,
+        "association_frame_fraction": 0.6503703703703704,
+        "association_box_fraction": 0.39429634221946686,
+        "frames_without_camera_detection": 75,
+        "frames_without_association": 236,
+        "median_rgb_inference_ms": 67.57019999997738
+      },
+      "final_uniform_display_threshold_0_75_counts": {
+        "retained_detection_count": 844,
+        "retained_associated_boxes": 601,
+        "removed_detection_count": 769,
+        "frames_without_camera_detection": 206,
+        "frames_without_association": 259,
+        "frames": 675,
+        "camera_only_or_ambiguous_boxes": 243,
+        "frames_with_camera_detection": 469,
+        "frames_with_association": 416
+      },
+      "development_set_gt_diagnostics_at_original_0_30": {
+        "original_status": "diagnostic_review_required",
+        "anomaly_review_evidence": {
+          "file": "fusion-v3-original-anomaly-review.json",
+          "sha256": "207107f2e59fa052b58db0d3a76c0c3460da94e700f64324316d17aaa179b495"
+        },
+        "evaluation_only": true,
+        "direct_inference_feedback": false,
+        "confidence_policy_selected_after_review_of_this_set": true,
+        "independent_holdout": false,
+        "identity_accuracy": false,
+        "detector_iou_threshold": 0.5,
+        "instance_minimum_visible_pixels": 20,
+        "point_box_tolerance_m": 0.15,
+        "counts": {
+          "sampled_frames": 675,
+          "camera_detections": 1613,
+          "visible_native_instances": 3633,
+          "matched_detections_iou_0_5": 1497,
+          "associated_points": 18986,
+          "associated_points_inside_any_native_vehicle_box": 18781,
+          "associated_boxes": 636,
+          "associated_boxes_below_half_native_vehicle_box_support": 22
+        },
+        "interpretation": "Vehicle-box containment and same-class image overlap are coarse diagnostics; they do not prove object identity, fusion accuracy or benchmark precision/recall."
+      },
+      "limitations": [
+        "Zero camera detections or absent LiDAR associations remain visible; no missing detections or ranges are invented.",
+        "Pretrained RGB inference plus geometric frustum association, not a jointly trained fusion network.",
+        "Observed surface range and bounds are not complete 3D object dimensions or object-center distance.",
+        "Sparse returns, occlusion and domain shift can cause missed or incorrect associations.",
+        "Display IDs use short-term geometric matching; they are not simulator actor IDs or a tracking benchmark.",
+        "Native 20 fps playback is not a claim of 20 fps online inference.",
+        "Display confidence policy was selected after review of these recordings; this set is not an independent benchmark.",
+        "The higher threshold suppresses some correct distant or occluded detections as well as false detections."
+      ]
+    },
+    {
+      "id": "roundabout",
+      "frames": 972,
+      "fps": 20,
+      "duration_s": 48.6,
+      "native_frame_range": [
+        1025972,
+        1026943
+      ],
+      "map": "Carla/Maps/Town03",
+      "ego_blueprint": "vehicle.tesla.model3",
+      "source_sha256": {
+        "capture_manifest": "fc68ab7e91da6efc19330c71a0b052c17623f5260ccec26e607ac6f034adce4b",
+        "native_frames": "41ff7629bc6bbfb34048146eec415b2336f157aa96342e9ffd42d9016f58a8b3",
+        "processing_manifest": "8c74d5a67f41255af06b3521fb0f82b041f3fb0b247ddcf5bebf872345fabb51"
+      },
+      "inference_sha256": {
+        "fusion_manifest": "29fbe53e5089dac1db6d857884f0cfcfbd93edc8c93a0c6a06046f17bb78128e",
+        "associations": "e0672a8932cd555794d4b857040305591386dc7a2e56fe178bdc95e74154a234"
+      },
+      "display_sha256": {
+        "fusion_manifest": "c5e74239b5fe283e9ba03c3981a26dfb82ef6b1d6d82ffac8c855ef2e28494da",
+        "associations": "fd2b76a875132141a7bea4c960d296872e28e3a6288548c40c7c223c7788f40c",
+        "expected_uniformly_filtered_values": "a7c1b2e7081fc77043975c253be7e5c4f6f3c31a5b9f667d13e91b895bf28701",
+        "actual_filtered_values": "a7c1b2e7081fc77043975c253be7e5c4f6f3c31a5b9f667d13e91b895bf28701"
+      },
+      "evidence": {
+        "full_frame_geometry_audit": {
+          "file": "fusion-v3-roundabout-audit.json",
+          "sha256": "8f49404256aa3843ff7d64f682bd554d1ceddaebe4df229204186aad51811766"
+        },
+        "confidence_filter_equivalence": {
+          "file": "confidence-filter-equivalence.json",
+          "sha256": "d51483a55a2bdfa639ba0afcddd7cca354671e6369cf46a9332a052c8565d4b2"
+        }
+      },
+      "gates": {
+        "all_native_frames_geometry_and_provenance_passed": true,
+        "retained_display_values_unchanged": true,
+        "display_png_sha_verified": true,
+        "independent_sampled_visual_review_accepted": true
+      },
+      "geometry_assertions": {
+        "assertions": 40757,
+        "passed_assertions": 40757
+      },
+      "original_inference_threshold_0_30_counts": {
+        "camera_boxes": 1853,
+        "camera_only": 711,
+        "frames_with_camera_detection": 768,
+        "frames_with_association": 733,
+        "associated_native_points": 62662,
+        "associated": 1141,
+        "ambiguous_depth": 1,
+        "frames": 972,
+        "camera_detection_frame_fraction": 0.7901234567901234,
+        "association_frame_fraction": 0.7541152263374485,
+        "association_box_fraction": 0.6157582298974635,
+        "frames_without_camera_detection": 204,
+        "frames_without_association": 239,
+        "median_rgb_inference_ms": 75.42419999998629
+      },
+      "final_uniform_display_threshold_0_75_counts": {
+        "retained_detection_count": 1290,
+        "retained_associated_boxes": 1041,
+        "removed_detection_count": 563,
+        "frames_without_camera_detection": 236,
+        "frames_without_association": 254,
+        "frames": 972,
+        "camera_only_or_ambiguous_boxes": 249,
+        "frames_with_camera_detection": 736,
+        "frames_with_association": 718
+      },
+      "development_set_gt_diagnostics_at_original_0_30": {
+        "original_status": "diagnostic_review_required",
+        "anomaly_review_evidence": {
+          "file": "fusion-v3-original-anomaly-review.json",
+          "sha256": "207107f2e59fa052b58db0d3a76c0c3460da94e700f64324316d17aaa179b495"
+        },
+        "evaluation_only": true,
+        "direct_inference_feedback": false,
+        "confidence_policy_selected_after_review_of_this_set": true,
+        "independent_holdout": false,
+        "identity_accuracy": false,
+        "detector_iou_threshold": 0.5,
+        "instance_minimum_visible_pixels": 20,
+        "point_box_tolerance_m": 0.15,
+        "counts": {
+          "sampled_frames": 972,
+          "camera_detections": 1853,
+          "visible_native_instances": 2701,
+          "matched_detections_iou_0_5": 1619,
+          "associated_points": 62662,
+          "associated_points_inside_any_native_vehicle_box": 62516,
+          "associated_boxes": 1141,
+          "associated_boxes_below_half_native_vehicle_box_support": 15
+        },
+        "interpretation": "Vehicle-box containment and same-class image overlap are coarse diagnostics; they do not prove object identity, fusion accuracy or benchmark precision/recall."
+      },
+      "limitations": [
+        "Zero camera detections or absent LiDAR associations remain visible; no missing detections or ranges are invented.",
+        "Pretrained RGB inference plus geometric frustum association, not a jointly trained fusion network.",
+        "Observed surface range and bounds are not complete 3D object dimensions or object-center distance.",
+        "Sparse returns, occlusion and domain shift can cause missed or incorrect associations.",
+        "Display IDs use short-term geometric matching; they are not simulator actor IDs or a tracking benchmark.",
+        "Native 20 fps playback is not a claim of 20 fps online inference.",
+        "Display confidence policy was selected after review of these recordings; this set is not an independent benchmark.",
+        "The higher threshold suppresses some correct distant or occluded detections as well as false detections."
+      ]
+    }
+  ],
+  "original_inference_0_30_totals": {
+    "camera_boxes": 8212,
+    "camera_only": 3968,
+    "frames_with_camera_detection": 3597,
+    "frames_with_association": 3060,
+    "associated_native_points": 134740,
+    "associated": 4243,
+    "frames": 3901,
+    "frames_without_camera_detection": 304,
+    "frames_without_association": 841,
+    "ambiguous_depth": 1
+  },
+  "final_uniform_display_0_75_totals": {
+    "retained_detection_count": 5674,
+    "retained_associated_boxes": 4044,
+    "removed_detection_count": 2538,
+    "frames_without_camera_detection": 704,
+    "frames_without_association": 927,
+    "frames": 3901,
+    "camera_only_or_ambiguous_boxes": 1630,
+    "frames_with_camera_detection": 3197,
+    "frames_with_association": 2974
+  },
+  "original_development_set_gt_diagnostic_totals": {
+    "sampled_frames": 3901,
+    "camera_detections": 8212,
+    "visible_native_instances": 12354,
+    "matched_detections_iou_0_5": 7760,
+    "associated_points": 134740,
+    "associated_points_inside_any_native_vehicle_box": 134389,
+    "associated_boxes": 4243,
+    "associated_boxes_below_half_native_vehicle_box_support": 37
+  },
+  "coarse_gt_diagnostic_interpretation": {
+    "original_low_vehicle_box_support_counts": {
+      "left-turn": 22,
+      "roundabout": 15
+    },
+    "not_all_coarse_exceptions_are_errors": true,
+    "reviewed_left_example": {
+      "native_frame": 421563,
+      "display_id": 25,
+      "finding": "A static parked SUV has image-instance IoU about 0.889 and visible car-body returns, but is absent from the dynamic vehicles list used by the coarse OBB check. Low support alone is not a mismatch."
+    },
+    "reviewed_roundabout_example": {
+      "native_frame": 1026209,
+      "display_id": 28,
+      "finding": "Associated returns land on an occluding sculpture; this is an actual coarse association error in the original lower-threshold output."
+    },
+    "threshold_selection_scope": "The uniform 0.75 policy was chosen after this development-set review. Removing low-score outputs does not establish perfect fusion accuracy."
+  },
+  "video": {
+    "file": "DriveWeave-camera-lidar-fusion.mp4",
+    "sha256": "fe7f70d02fc1b1dfb0e46a20c809f1c4c8761367e261836b89fcaedb1709b704",
+    "bytes": 313964994,
+    "frames": 3901,
+    "fps": 20,
+    "duration_s": 195.05,
+    "size": [
+      1920,
+      1080
+    ],
+    "camera_and_lidar_visible_every_frame": true,
+    "playback_speed": 1,
+    "interpolated_frames": false,
+    "synthetic_filler_frames": false,
+    "audio_added": false,
+    "added_editorial_text": false,
+    "sensor_object_annotations_preserved": true,
+    "full_decoded_frames": 3901,
+    "frame_mapping_sha256": "0bf77318362105407e49c121ed3215fd3e051c6754361d1e523e6c7a93ceb3e7"
+  },
+  "video_review": {
+    "accepted": true,
+    "evidence": {
+      "file": "review.json",
+      "sha256": "5776dca3972197ac715f58b0c459348e685bc2006b9ecbeb43de006bfce341c5"
+    },
+    "tested_frames": 15,
+    "tile_comparisons": 75,
+    "minimum_psnr_db": 36.55673173263737,
+    "all_75_tiles_above_30db": true,
+    "contact_sheet_frames": 15,
+    "individual_full_resolution_frames": 5,
+    "full_video_human_playback": false
+  },
+  "independent_display_review": {
+    "accepted": true,
+    "evidence": {
+      "file": "fusion-v3-final-review.json",
+      "sha256": "84f5b594b1ebee9c3b9984b2c6a5bf6e630c221ccb4f155c6b0bd3a8ab2e5364"
+    }
+  },
+  "tests": {
+    "accepted": true,
+    "algorithm_tests": 22,
+    "source_checker_tests": 7,
+    "evidence": {
+      "file": "fusion-v3-final-targeted-tests.json",
+      "sha256": "14ea79385e3cd8fe836f72fc839d0e6542cd5296da443af301c36c61344f0349"
+    }
+  },
+  "execution_evidence": {
+    "inference_batch": {
+      "file": "batch-completion-execution.json",
+      "sha256": "8794e8555d9223e3f54dab6bdcc3eb1310564b6cd636968efe16e340daa4af9f"
+    },
+    "display_batch": {
+      "file": "batch-execution.json",
+      "sha256": "3fe8bbf7ec1c8553d79cc1e6c09191d6bca6e8180adeeafb79b830ed41bb305e"
+    },
+    "video_manifest": {
+      "file": "video-manifest.json",
+      "sha256": "c1e218942661655d3dab23b18efb2b59b2fa2c7ac19d55c6ed4c9764d412cde9"
+    }
+  },
+  "limitations": [
+    "The RGB model is pretrained YOLOX-S; fusion is a geometric late-association baseline and has not been jointly trained.",
+    "Measured distances describe observed LiDAR surface returns, not full object dimensions or object-center distance.",
+    "Camera-only, ambiguous and empty frames are retained; colored overlays do not imply perfect recall or identity matching.",
+    "Native simulator annotations are evaluation-only and are not fed back into model inference or fusion associations.",
+    "The final uniform display score policy was chosen after inspection of these recordings and their diagnostics, so this is a development set and not an independent holdout.",
+    "The higher score policy removes some correct distant or occluded detections as well as false detections.",
+    "Low containment in dynamic-actor boxes may reflect static parked vehicles missing from that list; it cannot be interpreted as an identity error without further inspection.",
+    "GT overlap and containment counts are not object-identity accuracy, mAP, tracking accuracy or generalization evidence.",
+    "The 20 fps output is original-speed offline replay, not a claim of 20 fps end-to-end online inference.",
+    "Only sampled stills were manually inspected; full decode is automated and is not full human playback.",
+    "This is an immutable local acceptance snapshot created before release publication; publication verification is recorded separately."
+  ]
+}

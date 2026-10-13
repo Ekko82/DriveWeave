@@ -26,7 +26,8 @@ TEXT_SUFFIXES = {".py", ".md", ".txt", ".json", ".toml", ".yaml", ".yml"}
 FORBIDDEN_PARTS = {".git", ".venv", "venv", "private", "credentials", "captures",
                    "live-captures", "processed", "sumo-replay", "executions", "research",
                    "captures-v2", "live-captures-v2", "processed-v2", "sumo-replay-v2", "v2-probes",
-                   "captures-v3", "processed-v3", "output-v3", "v3-runtime"}
+                   "captures-v3", "processed-v3", "output-v3", "v3-runtime",
+                   "fusion-v3", "fusion-display-v3", "fusion-confidence-v3", "fusion-probes"}
 
 
 def accepted_preview(root: Path, relative: str, payload: bytes, files: list) -> bool:

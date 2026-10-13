@@ -53,6 +53,11 @@ credentials/
 /carla/processed-v3/
 /carla/output-v3/
 /carla/v3-runtime/
+/carla/fusion-v3/
+/carla/fusion-probes/
+/carla/fusion-display-v3/
+/carla/fusion-confidence-v3/
+*.onnx
 /assets/sources/**/*.png
 /assets/sources/**/*.jpg
 /assets/sources/**/*.jpeg

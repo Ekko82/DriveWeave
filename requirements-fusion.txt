@@ -1,0 +1,6 @@
+# CPU RGB detector and calibrated geometry fusion; weights downloaded separately.
+# YOLOX-S official weight URL and SHA are recorded in carla/detect_rgb_onnx.py.
+numpy>=1.26,<3
+opencv-python-headless>=4.8,<5
+onnxruntime==1.23.2
+Pillow>=10,<13

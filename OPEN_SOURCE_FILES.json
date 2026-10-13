@@ -147,7 +147,18 @@
     "docs/release-v3.md",
     "docs/media/highway-v3.gif",
     "docs/media/preview-v3.json",
-    "docs/media/accepted-v3-summary.json"
+    "docs/media/accepted-v3-summary.json",
+    "requirements-fusion.txt",
+    "carla/detect_rgb_onnx.py",
+    "carla/fuse_camera_lidar.py",
+    "carla/render_fusion_labels.py",
+    "carla/tests/test_rgb_detector.py",
+    "carla/tests/test_camera_lidar_fusion.py",
+    "production/assemble_fusion_video.py",
+    "verification/audit_camera_lidar_fusion.py",
+    "docs/camera-lidar-fusion.md",
+    "docs/licenses/YOLOX-APACHE-2.0.txt",
+    "docs/media/accepted-fusion-v3-summary.json"
   ],
   "excluded_categories": [
     "CARLA/SUMO distributions and original runtime maps/meshes",
